@@ -3,6 +3,7 @@
 
 int bookConfig::bookId;
 
+int bookConfig::bookNo;//bookMap±íÀïµÄIDºÅ
 bookConfig::bookConfig()
 {
 }

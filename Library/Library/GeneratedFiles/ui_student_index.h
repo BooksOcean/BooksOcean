@@ -51,20 +51,22 @@ public:
     QLineEdit *lineEdit;
     QLineEdit *etBorrownumber;
     QPushButton *btnBorrowmore;
+    QFrame *frame_10;
+    QVBoxLayout *verticalLayout_7;
     QTableWidget *tableBorrow;
     QFrame *frame_6;
     QVBoxLayout *verticalLayout_5;
     QFrame *frame_9;
     QLineEdit *lineEdit_2;
-    QLineEdit *lineEdit_3;
+    QLineEdit *etOrderNumber;
     QPushButton *btnOrdermore;
-    QTableWidget *tableWidget;
+    QTableWidget *tableOrder;
 
     void setupUi(QWidget *student_index)
     {
         if (student_index->objectName().isEmpty())
             student_index->setObjectName(QStringLiteral("student_index"));
-        student_index->resize(1055, 850);
+        student_index->resize(1055, 806);
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -166,11 +168,12 @@ public:
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
         frame_4 = new QFrame(frame_3);
         frame_4->setObjectName(QStringLiteral("frame_4"));
-        QSizePolicy sizePolicy3(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        QSizePolicy sizePolicy3(QSizePolicy::Expanding, QSizePolicy::Minimum);
         sizePolicy3.setHorizontalStretch(0);
         sizePolicy3.setVerticalStretch(0);
         sizePolicy3.setHeightForWidth(frame_4->sizePolicy().hasHeightForWidth());
         frame_4->setSizePolicy(sizePolicy3);
+        frame_4->setMinimumSize(QSize(0, 150));
         frame_4->setMaximumSize(QSize(16777215, 200));
         frame_4->setFrameShape(QFrame::StyledPanel);
         frame_4->setFrameShadow(QFrame::Raised);
@@ -182,7 +185,7 @@ public:
         frameHead->setFrameShadow(QFrame::Raised);
         etSname = new QLineEdit(frame_4);
         etSname->setObjectName(QStringLiteral("etSname"));
-        etSname->setGeometry(QRect(130, 20, 91, 51));
+        etSname->setGeometry(QRect(130, 20, 191, 51));
         sizePolicy.setHeightForWidth(etSname->sizePolicy().hasHeightForWidth());
         etSname->setSizePolicy(sizePolicy);
         etSname->setStyleSheet(QString::fromUtf8("font: 14pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
@@ -190,7 +193,7 @@ public:
 "border-style:outset;"));
         etSnumber = new QLineEdit(frame_4);
         etSnumber->setObjectName(QStringLiteral("etSnumber"));
-        etSnumber->setGeometry(QRect(210, 40, 201, 21));
+        etSnumber->setGeometry(QRect(130, 70, 171, 21));
         etSnumber->setStyleSheet(QString::fromUtf8("border-width:0;\n"
 "font: 10pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "border-style:outset;"));
@@ -211,8 +214,11 @@ public:
 
         frame_5 = new QFrame(frame_3);
         frame_5->setObjectName(QStringLiteral("frame_5"));
-        sizePolicy3.setHeightForWidth(frame_5->sizePolicy().hasHeightForWidth());
-        frame_5->setSizePolicy(sizePolicy3);
+        QSizePolicy sizePolicy4(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        sizePolicy4.setHorizontalStretch(0);
+        sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(frame_5->sizePolicy().hasHeightForWidth());
+        frame_5->setSizePolicy(sizePolicy4);
         frame_5->setFrameShape(QFrame::StyledPanel);
         frame_5->setFrameShadow(QFrame::Raised);
         verticalLayout_4 = new QVBoxLayout(frame_5);
@@ -221,6 +227,12 @@ public:
         verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
         frame_7 = new QFrame(frame_5);
         frame_7->setObjectName(QStringLiteral("frame_7"));
+        QSizePolicy sizePolicy5(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy5.setHorizontalStretch(0);
+        sizePolicy5.setVerticalStretch(62);
+        sizePolicy5.setHeightForWidth(frame_7->sizePolicy().hasHeightForWidth());
+        frame_7->setSizePolicy(sizePolicy5);
+        frame_7->setMinimumSize(QSize(0, 62));
         frame_7->setMaximumSize(QSize(16777215, 70));
         frame_7->setFrameShape(QFrame::StyledPanel);
         frame_7->setFrameShadow(QFrame::Raised);
@@ -250,7 +262,15 @@ public:
 
         verticalLayout_4->addWidget(frame_7);
 
-        tableBorrow = new QTableWidget(frame_5);
+        frame_10 = new QFrame(frame_5);
+        frame_10->setObjectName(QStringLiteral("frame_10"));
+        frame_10->setFrameShape(QFrame::StyledPanel);
+        frame_10->setFrameShadow(QFrame::Raised);
+        verticalLayout_7 = new QVBoxLayout(frame_10);
+        verticalLayout_7->setSpacing(6);
+        verticalLayout_7->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_7->setObjectName(QStringLiteral("verticalLayout_7"));
+        tableBorrow = new QTableWidget(frame_10);
         if (tableBorrow->columnCount() < 5)
             tableBorrow->setColumnCount(5);
         QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
@@ -264,21 +284,25 @@ public:
         QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
         tableBorrow->setHorizontalHeaderItem(4, __qtablewidgetitem4);
         tableBorrow->setObjectName(QStringLiteral("tableBorrow"));
-        QSizePolicy sizePolicy4(QSizePolicy::Preferred, QSizePolicy::Preferred);
-        sizePolicy4.setHorizontalStretch(0);
-        sizePolicy4.setVerticalStretch(0);
-        sizePolicy4.setHeightForWidth(tableBorrow->sizePolicy().hasHeightForWidth());
-        tableBorrow->setSizePolicy(sizePolicy4);
+        QSizePolicy sizePolicy6(QSizePolicy::Expanding, QSizePolicy::Maximum);
+        sizePolicy6.setHorizontalStretch(0);
+        sizePolicy6.setVerticalStretch(0);
+        sizePolicy6.setHeightForWidth(tableBorrow->sizePolicy().hasHeightForWidth());
+        tableBorrow->setSizePolicy(sizePolicy6);
+        tableBorrow->setMaximumSize(QSize(16777215, 200));
 
-        verticalLayout_4->addWidget(tableBorrow);
+        verticalLayout_7->addWidget(tableBorrow);
+
+
+        verticalLayout_4->addWidget(frame_10);
 
 
         verticalLayout_3->addWidget(frame_5);
 
         frame_6 = new QFrame(frame_3);
         frame_6->setObjectName(QStringLiteral("frame_6"));
-        sizePolicy3.setHeightForWidth(frame_6->sizePolicy().hasHeightForWidth());
-        frame_6->setSizePolicy(sizePolicy3);
+        sizePolicy4.setHeightForWidth(frame_6->sizePolicy().hasHeightForWidth());
+        frame_6->setSizePolicy(sizePolicy4);
         frame_6->setFrameShape(QFrame::StyledPanel);
         frame_6->setFrameShadow(QFrame::Raised);
         verticalLayout_5 = new QVBoxLayout(frame_6);
@@ -287,6 +311,9 @@ public:
         verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
         frame_9 = new QFrame(frame_6);
         frame_9->setObjectName(QStringLiteral("frame_9"));
+        sizePolicy5.setHeightForWidth(frame_9->sizePolicy().hasHeightForWidth());
+        frame_9->setSizePolicy(sizePolicy5);
+        frame_9->setMinimumSize(QSize(0, 62));
         frame_9->setMaximumSize(QSize(16777215, 70));
         frame_9->setFrameShape(QFrame::StyledPanel);
         frame_9->setFrameShadow(QFrame::Raised);
@@ -298,10 +325,10 @@ public:
 "border-top:0;\n"
 "border-left:0;\n"
 "border-right:0;"));
-        lineEdit_3 = new QLineEdit(frame_9);
-        lineEdit_3->setObjectName(QStringLiteral("lineEdit_3"));
-        lineEdit_3->setGeometry(QRect(100, 20, 61, 21));
-        lineEdit_3->setStyleSheet(QString::fromUtf8("border-width:0;\n"
+        etOrderNumber = new QLineEdit(frame_9);
+        etOrderNumber->setObjectName(QStringLiteral("etOrderNumber"));
+        etOrderNumber->setGeometry(QRect(100, 20, 61, 21));
+        etOrderNumber->setStyleSheet(QString::fromUtf8("border-width:0;\n"
 "font: 10pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "border-style:outset;\n"
 "color:#409FEC;"));
@@ -316,24 +343,25 @@ public:
 
         verticalLayout_5->addWidget(frame_9);
 
-        tableWidget = new QTableWidget(frame_6);
-        if (tableWidget->columnCount() < 5)
-            tableWidget->setColumnCount(5);
+        tableOrder = new QTableWidget(frame_6);
+        if (tableOrder->columnCount() < 4)
+            tableOrder->setColumnCount(4);
         QTableWidgetItem *__qtablewidgetitem5 = new QTableWidgetItem();
-        tableWidget->setHorizontalHeaderItem(0, __qtablewidgetitem5);
+        tableOrder->setHorizontalHeaderItem(0, __qtablewidgetitem5);
         QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
-        tableWidget->setHorizontalHeaderItem(1, __qtablewidgetitem6);
+        tableOrder->setHorizontalHeaderItem(1, __qtablewidgetitem6);
         QTableWidgetItem *__qtablewidgetitem7 = new QTableWidgetItem();
-        tableWidget->setHorizontalHeaderItem(2, __qtablewidgetitem7);
+        tableOrder->setHorizontalHeaderItem(2, __qtablewidgetitem7);
         QTableWidgetItem *__qtablewidgetitem8 = new QTableWidgetItem();
-        tableWidget->setHorizontalHeaderItem(3, __qtablewidgetitem8);
-        QTableWidgetItem *__qtablewidgetitem9 = new QTableWidgetItem();
-        tableWidget->setHorizontalHeaderItem(4, __qtablewidgetitem9);
-        tableWidget->setObjectName(QStringLiteral("tableWidget"));
-        sizePolicy4.setHeightForWidth(tableWidget->sizePolicy().hasHeightForWidth());
-        tableWidget->setSizePolicy(sizePolicy4);
+        tableOrder->setHorizontalHeaderItem(3, __qtablewidgetitem8);
+        tableOrder->setObjectName(QStringLiteral("tableOrder"));
+        QSizePolicy sizePolicy7(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy7.setHorizontalStretch(0);
+        sizePolicy7.setVerticalStretch(0);
+        sizePolicy7.setHeightForWidth(tableOrder->sizePolicy().hasHeightForWidth());
+        tableOrder->setSizePolicy(sizePolicy7);
 
-        verticalLayout_5->addWidget(tableWidget);
+        verticalLayout_5->addWidget(tableOrder);
 
 
         verticalLayout_3->addWidget(frame_6);
@@ -374,18 +402,16 @@ public:
         QTableWidgetItem *___qtablewidgetitem4 = tableBorrow->horizontalHeaderItem(4);
         ___qtablewidgetitem4->setText(QApplication::translate("student_index", "\346\237\245\347\234\213\350\257\246\346\203\205", Q_NULLPTR));
         lineEdit_2->setText(QApplication::translate("student_index", "\345\275\223\345\211\215\351\242\204\347\272\246", Q_NULLPTR));
-        lineEdit_3->setText(QApplication::translate("student_index", "\357\274\21020\357\274\211", Q_NULLPTR));
+        etOrderNumber->setText(QApplication::translate("student_index", "\357\274\21020\357\274\211", Q_NULLPTR));
         btnOrdermore->setText(QApplication::translate("student_index", "\346\237\245\347\234\213\345\205\250\351\203\250>>", Q_NULLPTR));
-        QTableWidgetItem *___qtablewidgetitem5 = tableWidget->horizontalHeaderItem(0);
-        ___qtablewidgetitem5->setText(QApplication::translate("student_index", "\346\226\260\345\273\272\345\210\227", Q_NULLPTR));
-        QTableWidgetItem *___qtablewidgetitem6 = tableWidget->horizontalHeaderItem(1);
+        QTableWidgetItem *___qtablewidgetitem5 = tableOrder->horizontalHeaderItem(0);
+        ___qtablewidgetitem5->setText(QApplication::translate("student_index", "\345\260\201\351\235\242", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem6 = tableOrder->horizontalHeaderItem(1);
         ___qtablewidgetitem6->setText(QApplication::translate("student_index", "\344\271\246\345\220\215", Q_NULLPTR));
-        QTableWidgetItem *___qtablewidgetitem7 = tableWidget->horizontalHeaderItem(2);
-        ___qtablewidgetitem7->setText(QApplication::translate("student_index", "\345\260\201\351\235\242", Q_NULLPTR));
-        QTableWidgetItem *___qtablewidgetitem8 = tableWidget->horizontalHeaderItem(3);
+        QTableWidgetItem *___qtablewidgetitem7 = tableOrder->horizontalHeaderItem(2);
+        ___qtablewidgetitem7->setText(QApplication::translate("student_index", "\344\275\234\350\200\205", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem8 = tableOrder->horizontalHeaderItem(3);
         ___qtablewidgetitem8->setText(QApplication::translate("student_index", "\345\207\272\347\211\210\347\244\276", Q_NULLPTR));
-        QTableWidgetItem *___qtablewidgetitem9 = tableWidget->horizontalHeaderItem(4);
-        ___qtablewidgetitem9->setText(QApplication::translate("student_index", "\346\237\245\347\234\213\350\257\246\346\203\205", Q_NULLPTR));
     } // retranslateUi
 
 };

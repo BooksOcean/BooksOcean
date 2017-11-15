@@ -15,6 +15,7 @@
 #include"qlabel.h"
 #include"student_update.h"
 #include"student_borrowdetail.h"
+#include"bookMap.h"
 #include<QSignalMapper>
 using namespace std;
 
@@ -238,12 +239,18 @@ void student_borrow::DataBind() {
 	Book book;
 	vector<string>VALUES;
 	vector<Book>resBook;
+	BookMap bookmap;
+	vector<BookMap>resBookMap;
 	for (int i = currentPageBegin; i < currentPageEnd; i++) {
 		VALUES.clear();
 		resBook.clear();
 		VALUES.push_back("one");
 		VALUES.push_back("id");
-		book.setId(resRecord[i].bookId);
+		resBook.clear();
+		resBookMap.clear();
+		bookmap.setId(resRecord[i].bookId);
+		FileDB::select("bookMap", bookmap, VALUES, resBookMap);
+		book.setId(resBookMap[0].bookId);
 		FileDB::select("book", book, VALUES, resBook);
 		ui.tableBorrow->insertRow(i - currentPageBegin);
 		//¼ÓÔØÍ¼Æ¬
@@ -283,7 +290,7 @@ void student_borrow::ClickButton() {
 
 void student_borrow::OnBtnClicked(int id)
 {
-	bookConfig::bookId = id;
+	bookConfig::bookNo = id;
 	student_borrowdetail *rec = new student_borrowdetail;
 	rec->show();
 	this->close();

@@ -170,9 +170,6 @@ cursor:pointer;</string>
          </item>
         </layout>
        </widget>
-       <zorder>frame_2</zorder>
-       <zorder>frame_8</zorder>
-       <zorder>tableBorrow</zorder>
       </widget>
      </item>
      <item>
@@ -537,7 +534,7 @@ border-right:0;</string>
                <string>当前预约</string>
               </property>
              </widget>
-             <widget class="QLineEdit" name="lineEdit_3">
+             <widget class="QLineEdit" name="etOrderNumber">
               <property name="geometry">
                <rect>
                 <x>100</x>
@@ -579,7 +576,7 @@ cursor:pointer;</string>
             </widget>
            </item>
            <item>
-            <widget class="QTableWidget" name="tableWidget">
+            <widget class="QTableWidget" name="tableOrder">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                <horstretch>0</horstretch>
@@ -588,7 +585,7 @@ cursor:pointer;</string>
              </property>
              <column>
               <property name="text">
-               <string>新建列</string>
+               <string>封面</string>
               </property>
              </column>
              <column>
@@ -598,17 +595,12 @@ cursor:pointer;</string>
              </column>
              <column>
               <property name="text">
-               <string>封面</string>
+               <string>作者</string>
               </property>
              </column>
              <column>
               <property name="text">
                <string>出版社</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>查看详情</string>
               </property>
              </column>
             </widget>

@@ -3,6 +3,7 @@
 #include"bookConfig.h"
 #include"book.h"
 #include"filedb.h"
+#include"classify.h"
 #include<vector>
 #include<string>
 #include<QMessageBox>
@@ -14,6 +15,7 @@
 #include"bookConfig.h"
 #include"student_update.h"
 #include"student_searchbook.h"
+#include"bookMap.h"
 using namespace std;
 
 student_borrowdetail::student_borrowdetail(QWidget *parent)
@@ -48,17 +50,42 @@ student_borrowdetail::~student_borrowdetail()
 
 void student_borrowdetail::InitThisPage() {
 	Book book;
+	BookMap bookmap;
+	Record record;
 	vector<string>VALUES;
 	vector<Book>resBook;
+	vector<BookMap>resBookMap;
+	vector<Record>resRecord;
 	VALUES.push_back("one");
 	VALUES.push_back("id");
-	book.setId(bookConfig::bookId);
+
+	bookmap.setId(bookConfig::bookNo);
+	FileDB::select("bookMap", bookmap, VALUES, resBookMap);
+	book.setId(resBookMap[0].bookId);
+
 	FileDB::select("book", book, VALUES, resBook);
+
+	vector<string>VALUES_2;
+	VALUES_2.push_back("one");
+	VALUES_2.push_back("bookId");
+	record.setBookId(bookConfig::bookNo);
+	FileDB::select("record", record, VALUES_2, resRecord);
+	ui.etDate->setText(chartoqs(resRecord[0].time));
 	ui.etBookNameHead->setText(chartoqs(resBook[0].name));
 	ui.etBookName->setText(chartoqs(resBook[0].name));
 	ui.etAuthor->setText(chartoqs(resBook[0].author));
 	ui.etPublish->setText(chartoqs(resBook[0].publish));
 	ui.etISBN->setText(chartoqs(resBook[0].ISBN));
+
+	Classify classify;
+	vector<Classify>resClassify;
+	classify.setId(resBook[0].classifyId);
+	FileDB::select("classify", classify, VALUES, resClassify);
+	ui.etClassify->setText(chartoqs(resClassify[0].name));
+
+	ui.etScore->setText(QString("%1").arg(resBook[0].score));
+	ui.etCount->setText(QString::number(resBook[0].count));
+	ui.etNowCount->setText(QString::number(resBook[0].nowCount));
 }
 
 bool student_borrowdetail::eventFilter(QObject *obj, QEvent *event) {
@@ -69,36 +96,104 @@ bool student_borrowdetail::eventFilter(QObject *obj, QEvent *event) {
 		vector<Record>res; 
 		VALUES.push_back("one"); 
 		VALUES.push_back("bookId"); 
-		VALUES.push_back("studentId");
-		record.setBookId(bookConfig::bookId);
-		record.setStudentId(userConfig::id); 
+		record.setBookId(bookConfig::bookNo);
 		FileDB::select("record", record, VALUES, res);
 		if (res.size()!=1) {
 			QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("错误，存在两条一模一样的数据,或未找到记录"), QMessageBox::Ok);
 			return true;
 		}
 		else {
-			Record record_delete; 
-			vector<string>VALUES_2; 
-			VALUES_2.push_back("one"); 
-			VALUES_2.push_back("id"); 
-			record_delete.setId(res[0].id); 
-			int res_2 = FileDB::Delete("record", record_delete, VALUES_2);
-			if (res_2 > 0) {
-				QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("还书成功"), QMessageBox::Ok);
-				student_index *rec = new student_index;
-				rec->show();
-				this->close();
-				return true;
+			VALUES.pop_back();
+			VALUES.push_back("id");
+			vector<BookMap>allBooks;
+			BookMap bookmap;
+			bookmap.setId(bookConfig::bookNo);
+			FileDB::select("bookMap", bookmap, VALUES, allBooks);
+
+			//首先查询是否有人预约这类书
+			Record iforder;
+			vector<string>VALUES_2;
+			vector<Record>resiforder;
+			VALUES_2.push_back("one");
+			VALUES_2.push_back("bookId");
+			VALUES_2.push_back("type");
+			iforder.setBookId(allBooks[0].bookId);
+			iforder.setType(2);
+			FileDB::select("record", iforder, VALUES_2, resiforder);
+
+			if (resiforder.size() == 0) {
+				//更新可借本数
+				Book book;
+				vector<Book>resBook;
+				book.setId(allBooks[0].bookId);
+				FileDB::select("book", book, VALUES, resBook);
+
+				Book lbook;
+				lbook.setId(allBooks[0].bookId);
+				resBook[0].setNowCount(resBook[0].nowCount + 1);
+				FileDB::update("book", lbook, resBook[0], VALUES);
+
+
+				//更新bookMap
+				BookMap lbookMap, nbookMap;
+				lbookMap.setId(allBooks[0].id);
+				nbookMap.setBookId(allBooks[0].bookId);
+				nbookMap.setBookNum(allBooks[0].bookNum);
+				nbookMap.setIsOut(0);
+				FileDB::update("bookMap", lbookMap, nbookMap, VALUES);
+
+
+				//删除record表记录
+				Record record_delete;
+				vector<string>VALUES_2;
+				VALUES_2.push_back("one");
+				VALUES_2.push_back("id");
+				record_delete.setId(res[0].id);
+				int res_2 = FileDB::Delete("record", record_delete, VALUES_2);
+				
+				if (res_2 > 0) {
+					QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("还书成功"), QMessageBox::Ok);
+					student_index *rec = new student_index;
+					rec->show();
+					this->close();
+					return true;
+				}
+				else {
+					QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("未知错误"), QMessageBox::Ok);
+					return true;
+				}
 			}
-			else {
-				QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("未知错误"), QMessageBox::Ok);
-				return true;
+			else {//有人预约：
+				//预约后如果有人还书，自动按照时间顺序借书。并抹除预约函数（修改还书函数）
+				//预约期限为5天，到期后自动抹除预约记录（修改还书函数和统计欠款的函数）
+				ReturnOrder();//如果还书时检测到有预约则调用此函数
 			}
 		}
 	}
 	if (obj == ui.btnBorrowagain && event->type() == QEvent::MouseButtonPress) {
-		QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("暂不支持"), QMessageBox::Ok);
+		
+		Record record;
+		vector<Record>resRecord;
+		vector<string>VALUES_2;
+		VALUES_2.push_back("one");
+		VALUES_2.push_back("bookId");
+		record.setBookId(bookConfig::bookNo);
+		FileDB::select("record", record, VALUES_2, resRecord);
+		//检查是否超期
+		if (resRecord[0].type ==1 ) {
+			QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("超期，不得续借"), QMessageBox::Ok);
+			return true;
+		}
+		QDateTime dt = QDateTime::fromString(resRecord[0].time, "yyyy-MM-dd");
+		QDateTime afterOneMonthDateTime = dt.addMonths(1);
+		QString currentDate = afterOneMonthDateTime.toString("yyyy-MM-dd");
+		char* ch1;
+		QByteArray ba = currentDate.toLatin1();
+		ch1 = ba.data();
+		resRecord[0].setTime(ch1);
+		ui.etDate->setText(chartoqs(resRecord[0].time));
+		FileDB::update("record", record, resRecord[0], VALUES_2);
+		QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("续借成功"), QMessageBox::Ok);
 	}
 	if (obj == ui.btnReturn && event->type() == QEvent::MouseButtonPress) {
 		student_index *rec = new student_index;
@@ -121,6 +216,106 @@ bool student_borrowdetail::eventFilter(QObject *obj, QEvent *event) {
 		this->close();
 	}
 	return false;
+}
+
+void student_borrowdetail::ReturnOrder() {
+	int theFirstOrderId= 0;//记录下合法预约记录的最先预约记录的id
+	int min_time=0;
+	//先取消超过5天的预约记录
+	//从映射表bookMap中查询书的总id(暂时使用最原始的查找方式)
+	BookMap bookmap;
+	vector<string>VALUES;
+	vector<BookMap>resBookMap;
+	VALUES.push_back("one");
+	VALUES.push_back("id");
+	bookmap.setId(bookConfig::bookNo);
+	FileDB::select("bookMap", bookmap, VALUES, resBookMap);
+
+	//有人还书时，用数的总id和type == 2做查询，预约超期则删除记录，然后分配借书
+	Record record;
+	VALUES.clear();
+	vector<Record>resRecord;
+	VALUES.push_back("one");
+	VALUES.push_back("bookId");
+	VALUES.push_back("type");
+	record.setBookId(resBookMap[0].bookId);
+	record.setType(2);
+	FileDB::select("record", record, VALUES, resRecord);
+	//计算时间,并删除超期的预约记录
+	QDateTime now = QDateTime::currentDateTime();
+	for (int i = 0; i < resRecord.size(); i++) {
+		QDateTime then = QDateTime::fromString(resRecord[i].time, "yyyy-MM-dd");
+		int span = then.secsTo(now);
+		if (span > 0) {
+			if (resRecord[i].type == 2) {
+				Record rec;
+				VALUES.clear();
+				VALUES.push_back("one");
+				VALUES.push_back("id");
+				rec.setId(resRecord[i].id);
+				FileDB::Delete("record", rec, VALUES);
+			}
+		}
+		else {//记录下合法预约记录的最先预约记录
+			if (span < min_time) {
+				min_time = span;
+				theFirstOrderId = i;
+			}
+		}
+	}
+
+	//系统自动给最先预约的同学借书
+	//插入借书记录
+	vector<Record>entity;
+	Record record_2;
+	record_2.setStudentId(resRecord[theFirstOrderId].id);
+	record_2.setBookId(resBookMap[0].bookId);
+
+	QDateTime dt = QDateTime::currentDateTime();
+	QDateTime afterOneMonthDateTime = dt.addMonths(1);
+	QString currentDate = afterOneMonthDateTime.toString("yyyy-MM-dd");
+
+	char* ch1;
+	QByteArray ba = currentDate.toLatin1();
+	ch1 = ba.data();
+	record_2.setTime(ch1);
+
+	record_2.setType(0);
+	record_2.setMoney(0);
+	entity.push_back(record);
+	FileDB::insert("record", entity);
+	//删除预约记录
+	Record deletethis;
+	VALUES.clear();
+	VALUES.push_back("one");
+	VALUES.push_back("id");
+	deletethis.setId(resRecord[theFirstOrderId].id);
+	FileDB::Delete("record", deletethis, VALUES);
+
+	//删除借书记录
+	Record record_3;
+	VALUES.clear();
+	vector<Record>res;
+	VALUES.push_back("one");
+	VALUES.push_back("bookId");
+	record_3.setBookId(bookConfig::bookNo);
+	FileDB::select("record", record, VALUES, res);
+	Record record_delete;
+	vector<string>VALUES_2;
+	VALUES_2.push_back("one");
+	VALUES_2.push_back("id");
+	record_delete.setId(res[0].id);
+	int res_2 = FileDB::Delete("record", record_delete, VALUES_2);
+	QTextCodec * BianMa = QTextCodec::codecForName("GBK");
+	if (res_2 > 0) {
+		QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("还书成功"), QMessageBox::Ok);
+		student_index *rec = new student_index;
+		rec->show();
+		this->close();
+	}
+	else {
+		QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("未知错误"), QMessageBox::Ok);
+	}
 }
 
 QString student_borrowdetail::chartoqs(char *p) {

@@ -18,6 +18,8 @@ public:
 	int classifyId;
 	float score;
 	int count;
+	int nowCount;
+	int dirty;
 	int getId() {
 		return id;
 	}
@@ -82,6 +84,18 @@ public:
 	void setCount(int count) {
 		this->count = count;
 	}
+	int getNowCount() {
+		return nowCount;
+	}
+	void setNowCount(int nowCount) {
+		this->nowCount = nowCount;
+	}
+	int getDirty() {
+		return dirty;
+	}
+	void setDirty(int dirty) {
+		this->dirty = dirty;
+	}
 	string getElemType(string Elem) {
 		if (Elem == "id") return typeid(id).name();
 		else if (Elem == "ISBN") return typeid(ISBN).name();
@@ -92,6 +106,7 @@ public:
 		else if (Elem == "classifyId") return typeid(classifyId).name();
 		else if (Elem == "score") return typeid(score).name();
 		else if (Elem == "count") return typeid(count).name();
+		else if (Elem == "dirty") return typeid(dirty).name();
 		else {
 			throw "Field  Not Found!";
 		}
@@ -100,6 +115,7 @@ public:
 		if (Elem == "id") return id;
 		else if (Elem == "classifyId") return classifyId;
 		else if (Elem == "count") return count;
+		else if (Elem == "dirty") return dirty;
 		else {
 			throw "Field  Not Found!";
 		}

@@ -11,6 +11,7 @@ public:
 	char time[TIME_SIZE];
 	int type;
 	float money;
+	int dirty;
 	int getId() {
 		return id;
 	}
@@ -49,6 +50,12 @@ public:
 	void setMoney(int monry) {
 		this->money = monry;
 	}
+	int getDirty() {
+		return dirty;
+	}
+	void setDirty(int dirty) {
+		this->dirty = dirty;
+	}
 	string getElemType(string Elem) {
 		if (Elem == "id") return typeid(id).name();
 		else if (Elem == "bookId") return typeid(bookId).name();
@@ -56,6 +63,7 @@ public:
 		else if (Elem == "time") return typeid(time).name();
 		else if (Elem == "type") return typeid(type).name();
 		else if (Elem == "money") return typeid(money).name();
+		else if (Elem == "dirty") return typeid(dirty).name();
 		else {
 			throw "Field  Not Found!";
 		}
@@ -65,6 +73,7 @@ public:
 		else if (Elem == "bookId") return bookId;
 		else if (Elem == "studentId") return studentId;
 		else if (Elem == "type") return type;
+		else if (Elem == "dirty") return dirty;
 		else {
 			throw "Field  Not Found!";
 		}

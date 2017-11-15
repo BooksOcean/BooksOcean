@@ -64,4 +64,5 @@ public:
 	char* getCharElemByName(string Elem) {
 		return "";
 	}
+
 };

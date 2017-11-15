@@ -8,7 +8,7 @@
 #include"bookConfig.h"
 #include"student_bookdetail.h"
 #include<QSignalMapper>
-
+#include <qtnetwork/qnetworkaccessmanager>
 student_searchBook::student_searchBook(QWidget *parent)
 	: QWidget(parent)
 {
@@ -20,17 +20,18 @@ student_searchBook::student_searchBook(QWidget *parent)
 	ui.btnNextPage->installEventFilter(this);
 	ui.btnSearch->installEventFilter(this);
 	ui.btnTheLast->installEventFilter(this);
-	ui.tableWidget->setColumnCount(5);
+	ui.tableWidget->setColumnCount(7);
 	ui.btnLastPage->setEnabled(false);
 	ui.btnFirstPage->setEnabled(false);
 	ui.btnTheLast->setEnabled(false);
 	ui.btnNextPage->setEnabled(false);
 	QStringList Header;
-	Header << QString(u8"封面") << QString(u8"书名") << QString(u8"作者") << QString(u8"出版社") << QString(u8"查看详情");
+	Header << QString(u8"封面") << QString(u8"书名") << QString(u8"作者") << QString(u8"出版社") << QString(u8"馆藏数量") << QString(u8"可借本数") << QString(u8"查看详情");
 	ui.tableWidget->setHorizontalHeaderLabels(Header);
 	ui.tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);//设置不可编辑	
 	ui.tableWidget->verticalHeader()->setVisible(false); //设置行号不可见
 	ui.tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);//表宽度自适应
+//	ui.tableWidget->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);//表宽度自适应
 	//ui.tableWidget->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents);//第0列宽度自适应
 	//ui.tableWidget->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);//第1列宽度自适应
 	//ui.tableWidget->horizontalHeader()->setSectionResizeMode(2, QHeaderView::ResizeToContents);//第2列宽度自适应
@@ -167,10 +168,11 @@ void student_searchBook::DataBind() {
 	int currentPageEnd = (currentPageBegin + PageLength) < DataTable.size() ? (currentPageBegin + PageLength) : DataTable.size();
 	for (int i = currentPageBegin; i < currentPageEnd; i++) {
 		ui.tableWidget->insertRow(i - currentPageBegin);
+		ui.tableWidget->setRowHeight(i - currentPageBegin, 200);//第一行
 		//加载图片
 		string s = DataTable[i].cover;
 		QPixmap p;
-		p.load("images/logo.png");
+		p.load("images/example.png");
 		QLabel *label = new QLabel;
 		label->setPixmap(p);
 		ui.tableWidget ->setCellWidget(i - currentPageBegin, 0, label);
@@ -178,9 +180,11 @@ void student_searchBook::DataBind() {
 		ui.tableWidget->setItem(i - currentPageBegin, 1, new QTableWidgetItem(QString::fromLocal8Bit(DataTable[i].name)));
 		ui.tableWidget->setItem(i - currentPageBegin, 2, new QTableWidgetItem(QString::fromLocal8Bit(DataTable[i].author)));
 		ui.tableWidget->setItem(i - currentPageBegin, 3, new QTableWidgetItem(QString::fromLocal8Bit(DataTable[i].publish)));
+		ui.tableWidget->setItem(i - currentPageBegin, 4, new QTableWidgetItem(QString::number(DataTable[i].count,10)));
+		ui.tableWidget->setItem(i - currentPageBegin, 5, new QTableWidgetItem(QString::number(DataTable[i].nowCount,10)));
 		//添加“详情”按钮，并绑定事件
 		QPushButton *btn = new QPushButton;
-		ui.tableWidget->setCellWidget(i - currentPageBegin, 4, btn);
+		ui.tableWidget->setCellWidget(i - currentPageBegin, 6, btn);
 		btn->setText(strtoqs("详情"));
 		btn->setStyleSheet(
 			"color:#4695d2;"

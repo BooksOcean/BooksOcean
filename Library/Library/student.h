@@ -20,6 +20,7 @@ public:
 	char icon[ICON_SIZE];
 	char mail[MAIL_SIZE];
 	float money;
+	int dirty;
 	int getId() {
 		return id;
 	}
@@ -85,8 +86,14 @@ public:
 	float getMoney() {
 		return money;
 	}
-	void setMoney(int money) {
+	void setMoney(float money) {
 		this->money = money;
+	}
+	int getDirty() {
+		return dirty;
+	}
+	void setDirty(int dirty) {
+		this->dirty = dirty;
 	}
 	string getElemType(string Elem) {
 		if (Elem == "id") return typeid(id).name();
@@ -98,12 +105,14 @@ public:
 		else if (Elem == "icon") return typeid(icon).name();
 		else if (Elem == "mail") return typeid(mail).name();
 		else if (Elem == "money") return typeid(money).name();
+		else if (Elem == "dirty") return typeid(dirty).name();
 		else {
 			throw "Field  Not Found!";
 		}
 	}
 	int getIntElemByName(string Elem) {
 		if (Elem == "id") return id;
+		else if (Elem == "dirty") return dirty;
 		else {
 			throw "Field  Not Found!";
 		}

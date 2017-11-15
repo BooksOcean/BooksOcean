@@ -17,6 +17,7 @@ public:
 	QString strtoqs(const string &s);
 	string qstostr(const QString &s);
 	QString chartoqs(char *p);
+	void ReturnOrder();
 protected:
 	bool eventFilter(QObject *obj, QEvent *event);
 private:

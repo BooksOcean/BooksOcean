@@ -11,6 +11,7 @@ public:
 	char account[ACCOUNT_SIZE];
 	char password[PASSWORD_SIZE];
 	char mail[MAIL_SIZE];
+	int dirty;
 	int getId() {
 		return id;
 	}
@@ -41,17 +42,25 @@ public:
 			this->mail[i] = mail[i];
 		this->mail[strlen(mail)] = '\0';
 	}
+	int getDirty() {
+		return dirty;
+	}
+	void setDirty(int dirty) {
+		this->dirty = dirty;
+	}
 	string getElemType(string Elem) {
 		if (Elem == "id") return typeid(id).name();
 		else if (Elem == "account") return typeid(account).name();
 		else if (Elem == "password") return typeid(password).name();
 		else if (Elem == "mail") return typeid(mail).name();
+		else if (Elem == "dirty") return typeid(dirty).name();
 		else {
 			throw "Field  Not Found!";
 		}
 	}
 	int getIntElemByName(string Elem) {
 		if (Elem == "id") return id;
+		else if (Elem == "dirty") return dirty;
 		else {
 			throw "Field  Not Found!";
 		}

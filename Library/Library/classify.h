@@ -7,6 +7,7 @@ private:
 public:
 	int id;
 	char name[NAME_SIZE];
+	int dirty;
 	int getId() {
 		return id;
 	}
@@ -21,15 +22,23 @@ public:
 			this->name[i] = name[i];
 		this->name[strlen(name)] = '\0';
 	}
+	int getDirty() {
+		return dirty;
+	}
+	void setDirty(int dirty) {
+		this->dirty = dirty;
+	}
 	string getElemType(string Elem) {
 		if (Elem == "id") return typeid(id).name();
 		else if (Elem == "name") return typeid(name).name();
+		else if (Elem == "dirty") return typeid(dirty).name();
 		else {
 			throw "Field  Not Found!";
 		}
 	}
 	int getIntElemByName(string Elem) {
 		if (Elem == "id") return id;
+		else if (Elem == "dirty") return dirty;
 		else {
 			throw "Field  Not Found!";
 		}

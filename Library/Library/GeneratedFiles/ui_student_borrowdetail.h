@@ -54,6 +54,14 @@ public:
     QLineEdit *etPublish;
     QLineEdit *etISBN;
     QLineEdit *etClassify;
+    QLineEdit *etClassifyHead_2;
+    QLineEdit *etPublishHead_2;
+    QLineEdit *etScore;
+    QLineEdit *etISBNHead_2;
+    QLineEdit *etCount;
+    QLineEdit *etNowCount;
+    QLineEdit *etDate;
+    QLineEdit *etClassifyHead_3;
     QFrame *frame_5;
     QHBoxLayout *horizontalLayout_2;
     QPushButton *btnReturnbook;
@@ -284,6 +292,70 @@ public:
 "font-size:18px;\n"
 "font-family:\"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "text-align:left;"));
+        etClassifyHead_2 = new QLineEdit(frame_9);
+        etClassifyHead_2->setObjectName(QStringLiteral("etClassifyHead_2"));
+        etClassifyHead_2->setGeometry(QRect(30, 390, 101, 21));
+        etClassifyHead_2->setStyleSheet(QString::fromUtf8("color:#808080;\n"
+"border:none;\n"
+"font-size:18px;\n"
+"font-family:\"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"text-align:left;"));
+        etPublishHead_2 = new QLineEdit(frame_9);
+        etPublishHead_2->setObjectName(QStringLiteral("etPublishHead_2"));
+        etPublishHead_2->setGeometry(QRect(30, 310, 80, 21));
+        etPublishHead_2->setStyleSheet(QString::fromUtf8("color:#808080;\n"
+"border:none;\n"
+"font-size:18px;\n"
+"font-family:\"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"text-align:left;"));
+        etScore = new QLineEdit(frame_9);
+        etScore->setObjectName(QStringLiteral("etScore"));
+        etScore->setGeometry(QRect(110, 310, 191, 21));
+        etScore->setStyleSheet(QString::fromUtf8("color:#808080;\n"
+"border:none;\n"
+"font-size:18px;\n"
+"font-family:\"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"text-align:left;"));
+        etISBNHead_2 = new QLineEdit(frame_9);
+        etISBNHead_2->setObjectName(QStringLiteral("etISBNHead_2"));
+        etISBNHead_2->setGeometry(QRect(30, 350, 101, 21));
+        etISBNHead_2->setStyleSheet(QString::fromUtf8("color:#808080;\n"
+"border:none;\n"
+"font-size:18px;\n"
+"font-family:\"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"text-align:left;"));
+        etCount = new QLineEdit(frame_9);
+        etCount->setObjectName(QStringLiteral("etCount"));
+        etCount->setGeometry(QRect(130, 350, 171, 21));
+        etCount->setStyleSheet(QString::fromUtf8("color:#808080;\n"
+"border:none;\n"
+"font-size:18px;\n"
+"font-family:\"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"text-align:left;"));
+        etNowCount = new QLineEdit(frame_9);
+        etNowCount->setObjectName(QStringLiteral("etNowCount"));
+        etNowCount->setGeometry(QRect(130, 390, 171, 21));
+        etNowCount->setStyleSheet(QString::fromUtf8("color:#808080;\n"
+"border:none;\n"
+"font-size:18px;\n"
+"font-family:\"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"text-align:left;"));
+        etDate = new QLineEdit(frame_9);
+        etDate->setObjectName(QStringLiteral("etDate"));
+        etDate->setGeometry(QRect(130, 430, 171, 21));
+        etDate->setStyleSheet(QString::fromUtf8("color:#808080;\n"
+"border:none;\n"
+"font-size:18px;\n"
+"font-family:\"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"text-align:left;"));
+        etClassifyHead_3 = new QLineEdit(frame_9);
+        etClassifyHead_3->setObjectName(QStringLiteral("etClassifyHead_3"));
+        etClassifyHead_3->setGeometry(QRect(30, 430, 101, 21));
+        etClassifyHead_3->setStyleSheet(QString::fromUtf8("color:#808080;\n"
+"border:none;\n"
+"font-size:18px;\n"
+"font-family:\"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"text-align:left;"));
 
         horizontalLayout_4->addWidget(frame_9);
 
@@ -356,6 +428,10 @@ public:
         etPublishHead->setText(QApplication::translate("student_borrowdetail", "\345\207\272\347\211\210\347\244\276\357\274\232", Q_NULLPTR));
         etISBNHead->setText(QApplication::translate("student_borrowdetail", "ISBN\357\274\232", Q_NULLPTR));
         etClassifyHead->setText(QApplication::translate("student_borrowdetail", "\345\210\206\347\261\273\357\274\232", Q_NULLPTR));
+        etClassifyHead_2->setText(QApplication::translate("student_borrowdetail", "\345\217\257\345\200\237\346\234\254\346\225\260\357\274\232", Q_NULLPTR));
+        etPublishHead_2->setText(QApplication::translate("student_borrowdetail", "\350\257\204\345\210\206\357\274\232", Q_NULLPTR));
+        etISBNHead_2->setText(QApplication::translate("student_borrowdetail", "\351\246\206\350\227\217\346\225\260\351\207\217\357\274\232", Q_NULLPTR));
+        etClassifyHead_3->setText(QApplication::translate("student_borrowdetail", "\345\272\224\350\277\230\346\227\245\346\234\237\357\274\232", Q_NULLPTR));
         btnReturnbook->setText(QApplication::translate("student_borrowdetail", "\345\275\222\350\277\230\344\271\246\346\234\254", Q_NULLPTR));
         btnBorrowagain->setText(QApplication::translate("student_borrowdetail", "\345\233\276\344\271\246\347\273\255\345\200\237", Q_NULLPTR));
     } // retranslateUi

@@ -8,6 +8,7 @@
 #include"student_index.h"
 #include"student_searchbook.h"
 #include<QMessageBox>
+#include"student_repay.h"
 
 student_update::student_update(QWidget *parent)
 	: QWidget(parent)
@@ -57,7 +58,9 @@ bool student_update::eventFilter(QObject *obj, QEvent *event) {
 		return true;
 	}
 	if (obj == ui.pushButton_3 && event->type() == QEvent::MouseButtonPress) {
-		QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("暂不支持"), QMessageBox::Ok);
+		student_repay *rec = new student_repay;
+		this->close();
+		rec->show();
 		return true;
 	}
 	if (obj == ui.pushButton_4 && event->type() == QEvent::MouseButtonPress) {
@@ -90,16 +93,17 @@ bool student_update::eventFilter(QObject *obj, QEvent *event) {
 				VALUES_2.push_back("id");
 				primarystudent.setId(userConfig::id);
 				//修改用户
-				Student newstudent;
-				newstudent.setUsercode(res[0].usercode);
-				newstudent.setUsername(res[0].username);
-				newstudent.setPassword(res[0].password);//修改密码
-				newstudent.setSex(res[0].sex);
-				newstudent.setDept(res[0].dept);
-				newstudent.setIcon(res[0].icon);
-				newstudent.setMail(thenewmail);
-				newstudent.setMoney(res[0].money);
-				int judge = FileDB::update("student", primarystudent, newstudent, VALUES_2);
+				//Student newstudent;
+				//newstudent.setUsercode(res[0].usercode);
+				//newstudent.setUsername(res[0].username);
+				//newstudent.setPassword(res[0].password);//修改密码
+				//newstudent.setSex(res[0].sex);
+				//newstudent.setDept(res[0].dept);
+				//newstudent.setIcon(res[0].icon);
+				//newstudent.setMail(thenewmail);
+				//newstudent.setMoney(res[0].money);
+				res[0].setMail(thenewmail);
+				int judge = FileDB::update("student", primarystudent, res[0], VALUES_2);
 
 				if (judge>0) {
 

@@ -32,7 +32,7 @@ private:
 	vector<Book>DataTable;
 	int PageIndex = 0;
 	int PageCount = 0;
-	int PageLength = 2;
+	int PageLength = 3;
 	void SearchData();
 	void DataBind();
 	void NextPage();
