@@ -21,13 +21,23 @@
 #include"bookMap.h"
 #include"student_borrowdetail.h"
 #include"record.h"
+#include"classifyMap.h"
+#include"classify.h"
+#include"recommendBuffer.h"
+#include<map>
 #include<QSignalMapper>
+#include <QUrl>
+#include <qtnetwork/qnetworkaccessmanager>
+#include <qtnetwork/QNetworkRequest>
+#include <qtnetwork/QNetworkRequest>
+#include <qtnetwork/QNetworkReply>
 using namespace std;	
 
 student_index::student_index(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+	ui.tableOrder->setColumnCount(5);
 	ui.lineEdit->setEnabled(false);
 	ui.lineEdit_2->setEnabled(false);
 	ui.etSnumber->setText(userConfig::username);
@@ -36,18 +46,35 @@ student_index::student_index(QWidget *parent)
 	ui.etSdept->setEnabled(false);
 	ui.etSnumber->setEnabled(false);
 	ui.etBorrownumber->setEnabled(false);
-	ui.etOrderNumber->setEnabled(false);
 	ui.btnPersonal->installEventFilter(this);
 	ui.btnInformationchange->installEventFilter(this);
 	ui.btnSearchbook->installEventFilter(this);
 	ui.btnBorrowmore->installEventFilter(this);
-	ui.btnOrdermore->installEventFilter(this);
 	ui.tableBorrow->setEditTriggers(QAbstractItemView::NoEditTriggers);//设置不可编辑	
 	ui.tableBorrow->verticalHeader()->setVisible(false); //设置行号不可见
 	ui.tableBorrow->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);//表宽度自适应
 	ui.tableBorrow->setFrameShape(QFrame::NoFrame);//设置无边框
 	ui.tableBorrow->setShowGrid(false); //设置不显示格子线
+
+	ui.tableOrder->setEditTriggers(QAbstractItemView::NoEditTriggers);//设置不可编辑	
+	ui.tableOrder->verticalHeader()->setVisible(false); //设置行号不可见
+	ui.tableOrder->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);//表宽度自适应
+	ui.tableOrder->setFrameShape(QFrame::NoFrame);//设置无边框
+	ui.tableOrder->setShowGrid(false); //设置不显示格子线
+	ui.tableOrder->horizontalHeader()->setVisible(false);// 水平不可见 
+	ui.tableOrder->insertRow(0);
+	ui.tableOrder->setRowHeight(0, 150);
 	InitThisPage();
+	
+	if (!recommendBuffer::isPostBack) {
+		myThread = new Thread;
+		connect(myThread, SIGNAL(UpdateSignal()),
+			this, SLOT(UpdateSlot()));
+		myThread->start();
+	}
+	else {
+		InitRecommendPic();
+	}
 }
 
 student_index::~student_index()
@@ -97,94 +124,83 @@ void student_index::addItemContent(int row, int column, QString content)
 	ui.tableBorrow->setItem(row, column, item);
 }
 
+void student_index::addItemContentOrder(int row, int column, QString content)
+{
+	QTableWidgetItem *item = new QTableWidgetItem(content);
+	ui.tableOrder->setItem(row, column, item);
+}
+
 void student_index::InitThisPage() {
 	QTextCodec * BianMa = QTextCodec::codecForName("GBK");
-
-	//获取登录进来学生的学号
-	char* ch1;
-	QByteArray ba = ui.etSnumber->text().toLatin1();
-	ch1 = ba.data();
 
 	//查询这个学生的基本信息，并更新页面
 	Student student;
 	vector<string>VALUES;
 	vector<Student>resStudent;
 	VALUES.push_back("one");
-	VALUES.push_back("usercode");
-	student.setUsercode(ch1);
+	VALUES.push_back("id");
+	student.setId(userConfig::id);
 	FileDB::select("student", student, VALUES, resStudent);
 	ui.etSname->setText(BianMa->toUnicode(resStudent[0].username));
 	ui.etSdept->setText(BianMa->toUnicode(resStudent[0].dept));
-	
+	//加载头像
+	QUrl url(resStudent[0].icon);
+	recommendBuffer::headUrl = url;
 	/*
 	 *以下更新借阅表
 	*/
 	//查询这个学生的借书记录
-	//未超期的书
 	Record record;
-	vector<string>VALUES_2;
 	vector<Record>resRecord;
-	VALUES_2.push_back("one");
-	VALUES_2.push_back("studentId");
-	VALUES_2.push_back("type");
+	vector<Record>resRecordNormal;
+	vector<Record>resRecordExceed;
+	vector<Record>resRecordOrder;
+	VALUES.pop_back();
+	VALUES.push_back("studentId");
 	record.setStudentId(resStudent[0].id);
-	record.setType(0);
-	FileDB::select("record", record, VALUES_2, resRecord);
+	FileDB::select("record", record, VALUES, resRecord);
 
-	//早已超期的书
-	Record record_2;
-	VALUES_2.clear();
-	vector<Record>resRecord_2;
-	VALUES_2.push_back("one");
-	VALUES_2.push_back("studentId");
-	VALUES_2.push_back("type");
-	record_2.setStudentId(resStudent[0].id);
-	record_2.setType(1);
-	FileDB::select("record", record_2, VALUES_2, resRecord_2);
-
-	//预约的书
-	//查询全部预约记录
-	Record record_3;
-	VALUES_2.clear();
-	vector<Record>resRecord_3;
-	VALUES_2.push_back("one");
-	VALUES_2.push_back("studentId");
-	VALUES_2.push_back("type");
-	record_3.setStudentId(resStudent[0].id);
-	record_3.setType(2);
-	FileDB::select("record", record_3, VALUES_2, resRecord_3);
-	//删去超期的预约记录
-	//计算时间,并删除超期的预约记录
 	QDateTime now = QDateTime::currentDateTime();
-	for (int i = 0; i < resRecord_3.size(); i++) {
-		QDateTime then = QDateTime::fromString(resRecord_3[i].time, "yyyy-MM-dd");
-		int span = then.secsTo(now);
-		if (span > 0) {
-			if (resRecord_3[i].type == 2) {
+	for (int i = 0; i < resRecord.size(); i++) {
+		//正常
+		if (resRecord[i].type == 0) resRecordNormal.push_back(resRecord[i]);
+		//超期
+		if (resRecord[i].type == 1) resRecordExceed.push_back(resRecord[i]);
+		//预约
+		if (resRecord[i].type == 2) {
+			//删除超期的预约记录
+			QDateTime then = QDateTime::fromString(resRecord[i].time, "yyyy-MM-dd");
+			int span = then.secsTo(now);
+			if (span > 0) {
 				Record rec;
-				VALUES_2.clear();
-				VALUES_2.push_back("one");
-				VALUES_2.push_back("id");
-				rec.setId(resRecord_3[i].id);
-				FileDB::Delete("record", rec, VALUES_2);
+				VALUES.pop_back();
+				VALUES.push_back("id");
+				rec.setId(resRecord[i].id);
+				FileDB::Delete("record", rec, VALUES);
+			}
+			//没有超期，加载进来
+			else {
+				resRecordOrder.push_back(resRecord[i]);
 			}
 		}
 	}
-	//重新查询预约记录，得到此用户全部合法的预约记录
-	Record record_4;
-	VALUES_2.clear();
-	vector<Record>resRecord_4;
-	VALUES_2.push_back("one");
-	VALUES_2.push_back("studentId");
-	VALUES_2.push_back("type");
-	record_4.setStudentId(resStudent[0].id);
-	record_4.setType(2);
-	FileDB::select("record", record_4, VALUES_2, resRecord_4);
+	//更新信息
+	resRecord.clear();
+	for (int i = 0; i < resRecordNormal.size(); i++) {
+		resRecord.push_back(resRecordNormal[i]);
+	}
+	for (int i = 0; i < resRecordExceed.size(); i++) {
+		resRecord.push_back(resRecordExceed[i]);
+	}
+	for (int i = 0; i < resRecordOrder.size(); i++) {
+		resRecord.push_back(resRecordOrder[i]);
+	}
+	
 
 	//每借阅的每一本书加载到表格里
 	string borrowNumber = "(";
 	char c[20];
-	itoa(resRecord.size()+resRecord_2.size(), c, 10);
+	itoa(resRecordNormal.size()+ resRecordExceed.size()+ resRecordOrder.size(), c, 10);
 	borrowNumber += c;
 	borrowNumber += ")";
 	ui.etBorrownumber->setText(strtoqs(borrowNumber));
@@ -196,183 +212,198 @@ void student_index::InitThisPage() {
 	int sum_row = ui.tableBorrow->rowCount();
 	ui.tableBorrow->removeRow(sum_row);
 
+
 	Book book;
 	BookMap bookmap;
-	vector<string>VALUES_3;
 	vector<Book>resBook;
 	vector<BookMap>resBookMap;
-	VALUES_3.push_back("one");
-	VALUES_3.push_back("id");
 	//逐行加载到借阅表里
 
+	//第一次加载时做的动作
 	float money = 0;
 	//加载借阅但未超期的数目（注意此时可能有一部分变为超期）
 	for (int i = 0; i < resRecord.size(); i++) {
-		QDateTime then = QDateTime::fromString(resRecord[i].time, "yyyy-MM-dd");
-		int span = then.secsTo(now);
-		if (span > 0) {
-			if (resRecord[i].type == 0) {
+		//检查是否超期
+		if (resRecord[i].type == 0) {
+			QDateTime then = QDateTime::fromString(resRecord[i].time, "yyyy-MM-dd");
+			int span = then.secsTo(now);
+			if (span > 0) {
 				Record rec;
 				rec.setId(resRecord[i].id);
 				int day = span / (60 * 60 * 24);
 				money += day;
 				resRecord[i].type = 1;
-				FileDB::update("record", rec, resRecord[i], VALUES_3);
+				FileDB::update("record", rec, resRecord[i], VALUES);
 			}
 		}
-
-		resBook.clear();
+		VALUES.clear();
+		VALUES.push_back("one");
+		VALUES.push_back("id");
 		resBookMap.clear();
+		resBook.clear();
 		bookmap.setId(resRecord[i].bookId);
-		FileDB::select("bookMap", bookmap, VALUES_3, resBookMap);
+		FileDB::select("bookMap", bookmap, VALUES, resBookMap);
 		book.setId(resBookMap[0].bookId);
-		FileDB::select("book", book, VALUES_3, resBook);
+		FileDB::select("book", book, VALUES, resBook);
 		int row = ui.tableBorrow->rowCount();
 		ui.tableBorrow->insertRow(i);
-		////加载图片
-		//string s = resBook[0].cover;
-		//QPixmap p;
-		//p.load("images/logo.png");
-		//QLabel *label = new QLabel;
-		//label->setPixmap(p);
-		//ui.tableBorrow->setCellWidget(i, 0, label);
-		//加载书名作者出版社
+		
 		addItemContent(i, 0, chartoqs(resBook[0].name));
 		addItemContent(i, 1, chartoqs(resBook[0].author));
 		addItemContent(i, 2, chartoqs(resBook[0].publish));
 		if(resRecord[i].type==0)
 			addItemContent(i, 3, chartoqs("正常"));
-		else
+		else if(resRecord[i].type == 1)
 			addItemContent(i, 3, chartoqs("超期"));
+		else
+			addItemContent(i, 3, chartoqs("预约"));
 		//添加“详情”按钮，并绑定事件
 		QPushButton *btn = new QPushButton;
 		ui.tableBorrow->setCellWidget(i, 4, btn);
-		btn->setText(strtoqs("详情"));
 		btn->setStyleSheet(
 			"color:#4695d2;"
 			"border:none;"
 			"background:white;"
 			"text-size:20px;"
 		);
-		QSignalMapper* signalMapper = new QSignalMapper(this);
-		connect(btn, SIGNAL(clicked()), signalMapper, SLOT(map()));
-		signalMapper->setMapping(btn, resRecord[i].bookId);
-		connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(OnBtnClicked(int)));
-		
-	}
-	//加载早已超期的数目
-	for (int i = 0; i < resRecord_2.size(); i++) {
-		QDateTime then = QDateTime::fromString(resRecord_2[i].time, "yyyy-MM-dd");
-		int span = then.secsTo(now);
-		if (span > 0) {
-				Record rec;
-				rec.setId(resRecord_2[i].id);
-				int day = span / (60 * 60 * 24);
-				money += day;
-				resRecord_2[i].type = 1;
-				FileDB::update("record", rec, resRecord_2[i], VALUES_3);
+
+		if (resRecord[i].type != 2) {
+			btn->setText(strtoqs("详情"));
+			QSignalMapper* signalMapper = new QSignalMapper(this);
+			connect(btn, SIGNAL(clicked()), signalMapper, SLOT(map()));
+			signalMapper->setMapping(btn, resRecord[i].bookId);
+			connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(OnBtnClicked(int)));
 		}
-
-		resBook.clear();
-		resBookMap.clear();
-		bookmap.setId(resRecord_2[i].bookId);
-		FileDB::select("bookMap", bookmap, VALUES_3, resBookMap);
-		book.setId(resBookMap[0].bookId);
-		FileDB::select("book", book, VALUES_3, resBook);
-		int row = ui.tableBorrow->rowCount();
-		ui.tableBorrow->insertRow(i+resRecord.size());
-		////加载图片
-		//string s = resBook[0].cover;
-		//QPixmap p;
-		//p.load("images/logo.png");
-		//QLabel *label = new QLabel;
-		//label->setPixmap(p);
-		//ui.tableBorrow->setCellWidget(i, 0, label);
-		//加载书名作者出版社
-		addItemContent(i + resRecord.size(), 0, chartoqs(resBook[0].name));
-		addItemContent(i + resRecord.size(), 1, chartoqs(resBook[0].author));
-		addItemContent(i + resRecord.size(), 2, chartoqs(resBook[0].publish));
-		if (resRecord_2[i].type == 0)
-			addItemContent(i + resRecord.size(), 3, chartoqs("正常"));
-		else if(resRecord_2[i].type==1)
-			addItemContent(i + resRecord.size(), 3, chartoqs("超期"));
-		//添加“详情”按钮，并绑定事件
-		QPushButton *btn = new QPushButton;
-		ui.tableBorrow->setCellWidget(i + resRecord.size(), 4, btn);
-		btn->setText(strtoqs("详情"));
-		btn->setStyleSheet(
-			"color:#4695d2;"
-			"border:none;"
-			"background:white;"
-			"text-size:20px;"
-		);
-		QSignalMapper* signalMapper = new QSignalMapper(this);
-		connect(btn, SIGNAL(clicked()), signalMapper, SLOT(map()));
-		signalMapper->setMapping(btn, resRecord_2[i].bookId);
-		connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(OnBtnClicked(int)));
-
+		else {
+			btn->setText(strtoqs("取消预约"));
+			QSignalMapper* signalMapper = new QSignalMapper(this);
+			connect(btn, SIGNAL(clicked()), signalMapper, SLOT(map()));
+			signalMapper->setMapping(btn, resRecord[i].id);
+			connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(OnBtnClickedCancel(int)));
+		}
 	}
 	
-	//保存欠费金额
-	if (money > resStudent[0].money) {
-		resStudent[0].setMoney(money);
-		student.setId(resStudent[0].id);
-		FileDB::update("student", student, resStudent[0], VALUES_3);
+	if (!recommendBuffer::isPostBack) {
+		//保存欠费金额
+		if (money > resStudent[0].money) {
+			resStudent[0].setMoney(money);
+			student.setId(resStudent[0].id);
+			FileDB::update("student", student, resStudent[0], VALUES);
+		}
 	}
 	QString total = QString("%1").arg(resStudent[0].money);
 	ui.etDebt->setText(chartoqs("欠款金额：") + total + chartoqs("元"));
 
-	//加载预约书目
-	string orderNumber = "(";
-	char c2[20];
-	itoa(resRecord_4.size(), c2, 10);
-	orderNumber += c2;
-	orderNumber += ")";
-	ui.etOrderNumber->setText(strtoqs(orderNumber));
-	QStringList header2;
-	header2 << strtoqs("书名") << strtoqs("作者") << strtoqs("出版社") << strtoqs("状态");
-	ui.tableOrder->setHorizontalHeaderLabels(header2);
-	ui.tableOrder->horizontalHeader()->setStretchLastSection(true);
-	ui.tableOrder->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	int sum_row2 = ui.tableOrder->rowCount();
-	ui.tableOrder->removeRow(sum_row2);
 
-	Book book_2;
-	BookMap bookmap_2;
-	vector<string>VALUES_4;
-	vector<Book>resBook_2;
-	vector<BookMap>resBookMap_2;
-	VALUES_4.push_back("one");
-	VALUES_4.push_back("id");
-	for (int i = 0; i < resRecord_4.size(); i++) {
-		resBook_2.clear();
-		resBookMap_2.clear();
-		bookmap_2.setId(resRecord_4[i].bookId);
-		FileDB::select("bookMap", bookmap_2, VALUES_4, resBookMap_2);
-		book_2.setId(resBookMap_2[0].bookId);
-		FileDB::select("book", book_2, VALUES_4, resBook_2);
-		int row = ui.tableOrder->rowCount();
-		ui.tableOrder->insertRow(i);
-		////加载图片
-		//string s = resBook[0].cover;
-		//QPixmap p;
-		//p.load("images/logo.png");
-		//QLabel *label = new QLabel;
-		//label->setPixmap(p);
-		//ui.tableBorrow->setCellWidget(i, 0, label);
-		//加载书名作者出版社
-		addItemContent(i, 0, chartoqs(resBook_2[0].name));
-		addItemContent(i, 1, chartoqs(resBook_2[0].author));
-		addItemContent(i, 2, chartoqs(resBook_2[0].publish));
-		if (resRecord[i].type == 2)
-			addItemContent(i, 3, chartoqs("正常"));
 
+	vector<string>VALUES_2;
+	//加载推荐书目
+	int maxClassifyId = 0;
+	if (!recommendBuffer::isPostBack) {
+		map<int, int>classifyMap;
+		Classify classify;
+		ClassifyMap classifymap;
+		vector<ClassifyMap>resClMap;
+		resBook.clear();
+		resBookMap.clear();
+		VALUES.clear();
+		VALUES.push_back("one");
+		VALUES.push_back("id");
+		VALUES_2.push_back("one");
+		VALUES_2.push_back("bookId");
+		for (int i = 0; i < resRecord.size(); i++) {
+			resBook.clear();
+			resBookMap.clear();
+			bookmap.setId(resRecord[i].bookId);
+			FileDB::select("bookMap", bookmap, VALUES, resBookMap);
+			classifymap.setBookId(resBookMap[0].bookId);
+			FileDB::select("classifyMap", classifymap, VALUES_2, resClMap);
+			int id = resClMap[0].classifyId;
+			classifyMap[id]++;
+			if (classifyMap[id] > classifyMap[maxClassifyId]) maxClassifyId = id;
+		}
+
+		//如果借阅记录为0，则随机推荐
+		if (resRecord.size() == 0) {
+			srand((unsigned)time(NULL));
+			vector<string>VALUES_3;
+			VALUES_3.push_back("all");
+			Classify classify;
+			vector<Classify>resClssify;
+			FileDB::select("classify", classify, VALUES_3, resClssify);
+			int a = 0;
+			int b = resClssify.size() - 1;
+			int No = (rand() % (b - a + 1)) + a;
+			maxClassifyId = resClssify[No].id;
+		}
+
+		VALUES.pop_back();
+		VALUES.push_back("classifyId");
+		book.setClassifyId(maxClassifyId);
+		resBook.clear();
+		FileDB::select("book", book, VALUES, resBook);
+
+		for (int i = 0; i < 6; i++) {
+			recommendBuffer::urlBuffer.push_back(QString::fromUtf8(resBook[i].cover));
+			recommendBuffer::idBuffer.push_back(resBook[i].id);
+		}
+	}
+
+}
+void student_index::UpdateSlot() {
+	InitRecommendPic();
+}
+
+void student_index::InitRecommendPic() {
+	ui.lbHead->setPixmap(recommendBuffer::headBuffer[0]);
+	for (int i = 0; i < 6; i++) {
+		QPixmap pixmap = recommendBuffer::picBuffer[i];
+		QPushButton *pBtn = new QPushButton;
+		pBtn->setStyleSheet(
+			"color:#4695d2;"
+			"border:none;"
+			"background:white;"
+			"text-size:20px;"
+		);
+		pBtn->setIcon(pixmap);
+		pBtn->setIconSize(QSize(pixmap.width(), pixmap.height()));
+		ui.tableOrder->setCellWidget(0, i, pBtn);
+		QSignalMapper* signalMapper = new QSignalMapper(this);
+		connect(pBtn, SIGNAL(clicked()), signalMapper, SLOT(map()));
+		signalMapper->setMapping(pBtn, recommendBuffer::idBuffer[i]);
+		connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(OnBtnRecommendClicked(int)));
+	}
+	if (!recommendBuffer::isPostBack) {
+		recommendBuffer::isPostBack = true;
 	}
 }
+
 
 void student_index::ClickButton() {
 }
 
+void student_index::OnBtnClickedCancel(int id){
+	QTextCodec * BianMa = QTextCodec::codecForName("GBK");
+	Record record;
+	vector<string>VALUES;
+	VALUES.push_back("one");
+	VALUES.push_back("id");
+	record.setId(id);
+	int res = FileDB::Delete("record", record, VALUES);
+	if (res > 0) {
+		QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("取消成功"), QMessageBox::Ok);
+		student_index *rec = new student_index;
+		this->close();
+		rec->show();
+	}
+	
+}
+void student_index::OnBtnRecommendClicked(int id){
+	bookConfig::bookId = id;
+	student_bookDetail *rec = new student_bookDetail;
+	rec->show();
+	this->close();
+}
 void student_index::OnBtnClicked(int id)
 {
 	bookConfig::bookNo = id;

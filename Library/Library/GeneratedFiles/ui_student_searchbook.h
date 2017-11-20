@@ -19,6 +19,7 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QRadioButton>
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QTextEdit>
 #include <QtWidgets/QVBoxLayout>
@@ -44,6 +45,12 @@ public:
     QGridLayout *gridLayout;
     QPushButton *btnSearch;
     QTextEdit *txtSearch;
+    QFrame *frame_6;
+    QHBoxLayout *horizontalLayout_4;
+    QRadioButton *radioName;
+    QRadioButton *radioAuthor;
+    QRadioButton *radioISBN;
+    QRadioButton *radioClassify;
     QTableWidget *tableWidget;
     QFrame *frame_5;
     QHBoxLayout *horizontalLayout_2;
@@ -190,6 +197,38 @@ public:
 
         verticalLayout_2->addWidget(frame_4);
 
+        frame_6 = new QFrame(frame_3);
+        frame_6->setObjectName(QStringLiteral("frame_6"));
+        frame_6->setMaximumSize(QSize(16777215, 50));
+        frame_6->setFrameShape(QFrame::StyledPanel);
+        frame_6->setFrameShadow(QFrame::Raised);
+        horizontalLayout_4 = new QHBoxLayout(frame_6);
+        horizontalLayout_4->setSpacing(6);
+        horizontalLayout_4->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
+        radioName = new QRadioButton(frame_6);
+        radioName->setObjectName(QStringLiteral("radioName"));
+
+        horizontalLayout_4->addWidget(radioName);
+
+        radioAuthor = new QRadioButton(frame_6);
+        radioAuthor->setObjectName(QStringLiteral("radioAuthor"));
+
+        horizontalLayout_4->addWidget(radioAuthor);
+
+        radioISBN = new QRadioButton(frame_6);
+        radioISBN->setObjectName(QStringLiteral("radioISBN"));
+
+        horizontalLayout_4->addWidget(radioISBN);
+
+        radioClassify = new QRadioButton(frame_6);
+        radioClassify->setObjectName(QStringLiteral("radioClassify"));
+
+        horizontalLayout_4->addWidget(radioClassify);
+
+
+        verticalLayout_2->addWidget(frame_6);
+
         tableWidget = new QTableWidget(frame_3);
         if (tableWidget->columnCount() < 5)
             tableWidget->setColumnCount(5);
@@ -285,7 +324,7 @@ public:
         etCountPage->setObjectName(QStringLiteral("etCountPage"));
         sizePolicy5.setHeightForWidth(etCountPage->sizePolicy().hasHeightForWidth());
         etCountPage->setSizePolicy(sizePolicy5);
-        etCountPage->setMaximumSize(QSize(20, 16777215));
+        etCountPage->setMaximumSize(QSize(34, 16777215));
         etCountPage->setStyleSheet(QLatin1String("border:none;\n"
 "font-size:18px;\n"
 ""));
@@ -344,6 +383,10 @@ public:
         btnInformationchange->setText(QApplication::translate("student_searchBook", "\344\277\241\346\201\257\344\277\256\346\224\271", Q_NULLPTR));
         btnSearchbook->setText(QApplication::translate("student_searchBook", "\345\233\276\344\271\246\346\237\245\350\257\242", Q_NULLPTR));
         btnSearch->setText(QString());
+        radioName->setText(QApplication::translate("student_searchBook", "\344\271\246\345\220\215", Q_NULLPTR));
+        radioAuthor->setText(QApplication::translate("student_searchBook", "\344\275\234\350\200\205", Q_NULLPTR));
+        radioISBN->setText(QApplication::translate("student_searchBook", "ISBN", Q_NULLPTR));
+        radioClassify->setText(QApplication::translate("student_searchBook", "\345\210\206\347\261\273", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem = tableWidget->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QApplication::translate("student_searchBook", "\345\260\201\351\235\242", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem1 = tableWidget->horizontalHeaderItem(1);
@@ -359,7 +402,7 @@ public:
         lineEdit_4->setText(QApplication::translate("student_searchBook", "\345\275\223\345\211\215\347\254\254", Q_NULLPTR));
         etIndexPage->setText(QApplication::translate("student_searchBook", "0", Q_NULLPTR));
         lineEdit_2->setText(QApplication::translate("student_searchBook", "\351\241\265\357\274\214\345\205\261", Q_NULLPTR));
-        etCountPage->setText(QApplication::translate("student_searchBook", "0", Q_NULLPTR));
+        etCountPage->setText(QApplication::translate("student_searchBook", "667", Q_NULLPTR));
         lineEdit->setText(QApplication::translate("student_searchBook", "\351\241\265", Q_NULLPTR));
         btnNextPage->setText(QApplication::translate("student_searchBook", "\344\270\213\344\270\200\351\241\265", Q_NULLPTR));
         btnTheLast->setText(QApplication::translate("student_searchBook", "\345\260\276\351\241\265", Q_NULLPTR));

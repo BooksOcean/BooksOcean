@@ -33,7 +33,7 @@ private:
 	vector<Record>resRecord;
 	int PageIndex = 0;
 	int PageCount = 0;
-	int PageLength = 1;
+	int PageLength = 3;
 	void SearchData();
 	void DataBind();
 	void NextPage();

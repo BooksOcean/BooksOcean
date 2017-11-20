@@ -16,6 +16,7 @@
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QVBoxLayout>
@@ -44,6 +45,7 @@ public:
     QFrame *frame_6;
     QHBoxLayout *horizontalLayout_4;
     QFrame *frameBookCover;
+    QLabel *lbCover;
     QFrame *frame_9;
     QLineEdit *etBookName;
     QLineEdit *etAuthorHead;
@@ -209,9 +211,12 @@ public:
         horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
         frameBookCover = new QFrame(frame_6);
         frameBookCover->setObjectName(QStringLiteral("frameBookCover"));
-        frameBookCover->setStyleSheet(QStringLiteral("image: url(:/Library/images/example.png);"));
+        frameBookCover->setStyleSheet(QStringLiteral(""));
         frameBookCover->setFrameShape(QFrame::StyledPanel);
         frameBookCover->setFrameShadow(QFrame::Raised);
+        lbCover = new QLabel(frameBookCover);
+        lbCover->setObjectName(QStringLiteral("lbCover"));
+        lbCover->setGeometry(QRect(10, 90, 301, 381));
 
         horizontalLayout_4->addWidget(frameBookCover);
 
@@ -423,6 +428,7 @@ public:
         btnSearchbook->setText(QApplication::translate("student_borrowdetail", "\345\233\276\344\271\246\346\237\245\350\257\242", Q_NULLPTR));
         btnReturn->setText(QApplication::translate("student_borrowdetail", "<", Q_NULLPTR));
         etBookNameHead->setText(QApplication::translate("student_borrowdetail", "\350\277\275\351\243\216\347\255\235\347\232\204\344\272\272", Q_NULLPTR));
+        lbCover->setText(QApplication::translate("student_borrowdetail", "TextLabel", Q_NULLPTR));
         etBookName->setText(QApplication::translate("student_borrowdetail", "\343\200\212\350\277\275\351\243\216\347\255\235\347\232\204\344\272\272\343\200\213", Q_NULLPTR));
         etAuthorHead->setText(QApplication::translate("student_borrowdetail", "\344\275\234\350\200\205\357\274\232", Q_NULLPTR));
         etPublishHead->setText(QApplication::translate("student_borrowdetail", "\345\207\272\347\211\210\347\244\276\357\274\232", Q_NULLPTR));

@@ -244,7 +244,8 @@ text-align:left;</string>
          <item>
           <widget class="QFrame" name="frameBookCover">
            <property name="styleSheet">
-            <string notr="true">image: url(:/Library/images/example.png);</string>
+            <string notr="true">
+</string>
            </property>
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
@@ -252,6 +253,19 @@ text-align:left;</string>
            <property name="frameShadow">
             <enum>QFrame::Raised</enum>
            </property>
+           <widget class="QLabel" name="lbCover">
+            <property name="geometry">
+             <rect>
+              <x>10</x>
+              <y>90</y>
+              <width>301</width>
+              <height>381</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>TextLabel</string>
+            </property>
+           </widget>
           </widget>
          </item>
          <item>

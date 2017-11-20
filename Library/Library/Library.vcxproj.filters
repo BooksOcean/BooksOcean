@@ -263,6 +263,30 @@
     <ClCompile Include="student_order.cpp">
       <Filter>Source Files\Student</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_student_classify.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_student_classify.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="student_classify.cpp">
+      <Filter>Source Files\Student</Filter>
+    </ClCompile>
+    <ClCompile Include="classifyConfig.cpp">
+      <Filter>Source Files\Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="recommendBuffer.cpp">
+      <Filter>Source Files\Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_Thread.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_Thread.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Thread.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="library.qrc">
@@ -364,9 +388,6 @@
     <CustomBuild Include="student_update.ui">
       <Filter>Form Files\Student</Filter>
     </CustomBuild>
-    <CustomBuild Include="student_updatepassword.ui">
-      <Filter>Form Files\Student</Filter>
-    </CustomBuild>
     <CustomBuild Include="test.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
@@ -387,6 +408,21 @@
     </CustomBuild>
     <CustomBuild Include="student_order.h">
       <Filter>Header Files\Student</Filter>
+    </CustomBuild>
+    <CustomBuild Include="student_updatepassword.ui">
+      <Filter>Form Files\Student</Filter>
+    </CustomBuild>
+    <CustomBuild Include="student_classify.ui">
+      <Filter>Form Files\Student</Filter>
+    </CustomBuild>
+    <CustomBuild Include="student_classify.h">
+      <Filter>Header Files\Student</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Thread.h">
+      <Filter>Header Files\Common</Filter>
+    </CustomBuild>
+    <CustomBuild Include="recommendBuffer.h">
+      <Filter>Header Files\Tool</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -476,6 +512,15 @@
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_student_order.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_student_classify.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="classifyConfig.h">
+      <Filter>Header Files\Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="classifyMap.h">
+      <Filter>Header Files\Entity</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

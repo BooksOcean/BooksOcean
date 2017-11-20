@@ -5,6 +5,7 @@
 //Time : 15 : 13
 //To change this template use File | Settings | File Templates.
 using namespace std;
+#include<iostream>
 #include<string>
 #include<vector>
 #include<fstream>

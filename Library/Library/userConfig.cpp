@@ -4,7 +4,6 @@
 QString userConfig::username;
 QString userConfig::password;
 int userConfig::id;
-
 userConfig::userConfig()
 {
 }

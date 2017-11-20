@@ -236,6 +236,52 @@ font-size:18px;</string>
        </widget>
       </item>
       <item>
+       <widget class="QFrame" name="frame_6">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QRadioButton" name="radioName">
+           <property name="text">
+            <string>书名</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radioAuthor">
+           <property name="text">
+            <string>作者</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radioISBN">
+           <property name="text">
+            <string>ISBN</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radioClassify">
+           <property name="text">
+            <string>分类</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
        <widget class="QTableWidget" name="tableWidget">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -323,6 +369,9 @@ font-size:18px;</string>
          </item>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <property name="spacing">
+            <number>6</number>
+           </property>
            <item>
             <widget class="QLineEdit" name="lineEdit_4">
              <property name="sizePolicy">
@@ -402,7 +451,7 @@ font-size:18px;</string>
              </property>
              <property name="maximumSize">
               <size>
-               <width>20</width>
+               <width>34</width>
                <height>16777215</height>
               </size>
              </property>
@@ -412,7 +461,7 @@ font-size:18px;
 </string>
              </property>
              <property name="text">
-              <string>0</string>
+              <string>667</string>
              </property>
             </widget>
            </item>

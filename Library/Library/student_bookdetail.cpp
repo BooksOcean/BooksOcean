@@ -16,6 +16,10 @@
 #include"bookMap.h"
 #include"student_update.h"
 #include"student_searchbook.h"
+#include <qtnetwork/qnetworkaccessmanager>
+#include <qtnetwork/QNetworkRequest>
+#include <qtnetwork/QNetworkRequest>
+#include <qtnetwork/QNetworkReply>
 using namespace std;
 
 student_bookDetail::student_bookDetail(QWidget *parent)
@@ -72,62 +76,28 @@ void student_bookDetail::InitThisPage() {
 		ui.etScore->setText(QString("%1").arg(resBook[0].score));
 		ui.etCount->setText(QString::number(resBook[0].count));
 		ui.etNowCount->setText(QString::number(resBook[0].nowCount));
+
+		//加载图片
+		QUrl url(resBook[0].cover);
+		QNetworkAccessManager manager;
+		QEventLoop loop;
+		// qDebug() << "Reading picture form " << url;
+		QNetworkReply *reply = manager.get(QNetworkRequest(url));
+		//请求结束并下载完成后，退出子事件循环
+		QObject::connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+		//开启子事件循环
+		loop.exec();
+		QByteArray jpegData = reply->readAll();
+		QPixmap pixmap;
+		pixmap.loadFromData(jpegData);
+		//改变图片大小
+		pixmap = pixmap.scaled(280, 380, Qt::KeepAspectRatio);
+		ui.lbCover->setPixmap(pixmap);
 	}
 	else {
 		QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("未找到书本"), QMessageBox::Ok);
 	}
 }
-//二分查找isOUT=0
-void searchBookMap(int bookId, vector<BookMap>& res) {
-	ifstream readFile;
-	int lastId;
-	readFile.open("bookMapInfo.dat", ios::in | ios::out | ios::binary);
-	readFile.read((char*)&lastId, sizeof(lastId));
-	readFile.close();
-
-	readFile.open("bookMap.dat", ios::in | ios::out | ios::binary);
-	int left = 0;
-	int right = lastId - 1;
-	int size = sizeof(BookMap);
-	BookMap temp;
-	int tempID = 0;
-
-
-	while (left <= right) {
-		int middle = (left + right) / 2;
-		readFile.seekg(middle * size, ios::beg);
-		readFile.read(reinterpret_cast<char*>(&temp), sizeof(temp));
-		if (temp.bookId == bookId) {
-			if(!temp.dirty&&!temp.isOut)
-				res.push_back(temp);
-			int tempMiddle = middle;
-			while (1) {
-				tempMiddle--;
-				readFile.seekg(tempMiddle * size, ios::beg);
-				readFile.read(reinterpret_cast<char*>(&temp), sizeof(temp));
-				if (temp.bookId != bookId) break;
-				if (!temp.dirty && !temp.isOut)
-					res.push_back(temp);
-			}
-			tempMiddle = middle;
-			while (1) {
-				tempMiddle++;
-				readFile.seekg(tempMiddle * size, ios::beg);
-				readFile.read(reinterpret_cast<char*>(&temp), sizeof(temp));
-				if (temp.bookId != bookId) break;
-				if (!temp.dirty && !temp.isOut)
-					res.push_back(temp);
-			}
-			break;
-		}
-		if (temp.bookId > bookId)
-			right = middle - 1;
-		else
-			left = middle + 1;
-	}
-	readFile.close();
-}
-
 
 bool student_bookDetail::eventFilter(QObject *obj, QEvent *event) {
 	QTextCodec * BianMa = QTextCodec::codecForName("GBK");
@@ -157,7 +127,13 @@ bool student_bookDetail::eventFilter(QObject *obj, QEvent *event) {
 			
 			
 			vector<BookMap>allBooks;
-			searchBookMap(bookConfig::bookId, allBooks);
+			BookMap bookmap;
+			bookmap.setBookId(bookConfig::bookId);
+			bookmap.setIsOut(0);
+			VALUES.clear();
+			VALUES.push_back("one");
+			VALUES.push_back("bookId");
+			FileDB::select("bookMap", bookmap, VALUES, allBooks);
 			if (allBooks.size() > 0) {
 
 				//更新可借本数
@@ -188,11 +164,6 @@ bool student_bookDetail::eventFilter(QObject *obj, QEvent *event) {
 				record.setStudentId(userConfig::id);
 				record.setBookId(allBooks[0].id);
 
-				/*QDateTime dt;
-				QTime time;
-				QDate date;
-				dt.setTime(time.currentTime());
-				dt.setDate(date.currentDate());*/
 				QDateTime dt = QDateTime::currentDateTime();
 				QDateTime afterOneMonthDateTime = dt.addMonths(1);
 				QString currentDate = afterOneMonthDateTime.toString("yyyy-MM-dd");

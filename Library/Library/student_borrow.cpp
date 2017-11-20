@@ -17,6 +17,10 @@
 #include"student_borrowdetail.h"
 #include"bookMap.h"
 #include<QSignalMapper>
+#include <qtnetwork/qnetworkaccessmanager>
+#include <qtnetwork/QNetworkRequest>
+#include <qtnetwork/QNetworkRequest>
+#include <qtnetwork/QNetworkReply>
 using namespace std;
 
 student_borrow::student_borrow(QWidget *parent)
@@ -164,22 +168,7 @@ void student_borrow::InitThisPage() {
 	ui.etPageIndex->setText(QString::number(PageIndex, 10));
 	ui.etPageCount->setText(QString::number(PageCount, 10));
 	DataBind();
-	/*Book book;
-	vector<Book>resBook;*/
-	//逐行加载到借阅表里
-	/*for (int i = 0; i < resRecord.size(); i++) {
-		VALUES.clear();
-		resBook.clear();
-		VALUES.push_back("one");
-		VALUES.push_back("id");
-		book.setId(resRecord[i].bookId);
-		FileDB::select("book", book, VALUES, resBook);
-		int row = ui.tableBorrow->rowCount();
-		ui.tableBorrow->insertRow(i);
-		addItemContent(i, 0, strtoqs(resBook[0].name));
-		addItemContent(i, 1, strtoqs(resBook[0].author));
-		addItemContent(i, 2, strtoqs(resBook[0].publish));
-	}*/
+
 }
 
 QString student_borrow::strtoqs(const string &s)
@@ -253,14 +242,28 @@ void student_borrow::DataBind() {
 		book.setId(resBookMap[0].bookId);
 		FileDB::select("book", book, VALUES, resBook);
 		ui.tableBorrow->insertRow(i - currentPageBegin);
+		ui.tableBorrow->setRowHeight(i - currentPageBegin, 200);//第一行
 		//加载图片
-		string s = resBook[0].cover;
-		QPixmap p;
-		p.load("images/logo.png");
+		QUrl url(resBook[0].cover);
+		QNetworkAccessManager manager;
+		QEventLoop loop;
+		// qDebug() << "Reading picture form " << url;
+		QNetworkReply *reply = manager.get(QNetworkRequest(url));
+		//请求结束并下载完成后，退出子事件循环
+		QObject::connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+		//开启子事件循环
+		loop.exec();
+
+		QByteArray jpegData = reply->readAll();
+		QPixmap pixmap;
+		pixmap.loadFromData(jpegData);
+		//改变图片大小
+		pixmap = pixmap.scaled(110, 130, Qt::KeepAspectRatio);
 		QLabel *label = new QLabel;
-		label->setPixmap(p);
+		label->setPixmap(pixmap);
 		ui.tableBorrow->setCellWidget(i - currentPageBegin, 0, label);
 		//加载书名作者出版社
+
 		addItemContent(i - currentPageBegin, 1, strtoqs(resBook[0].name));
 		addItemContent(i - currentPageBegin, 2, strtoqs(resBook[0].author));
 		addItemContent(i - currentPageBegin, 3, strtoqs(resBook[0].publish));

@@ -16,6 +16,7 @@
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QTableWidget>
@@ -41,6 +42,7 @@ public:
     QVBoxLayout *verticalLayout_3;
     QFrame *frame_4;
     QFrame *frameHead;
+    QLabel *lbHead;
     QLineEdit *etSname;
     QLineEdit *etSnumber;
     QLineEdit *etSdept;
@@ -58,8 +60,6 @@ public:
     QVBoxLayout *verticalLayout_5;
     QFrame *frame_9;
     QLineEdit *lineEdit_2;
-    QLineEdit *etOrderNumber;
-    QPushButton *btnOrdermore;
     QTableWidget *tableOrder;
 
     void setupUi(QWidget *student_index)
@@ -180,9 +180,13 @@ public:
         frameHead = new QFrame(frame_4);
         frameHead->setObjectName(QStringLiteral("frameHead"));
         frameHead->setGeometry(QRect(10, 0, 111, 131));
-        frameHead->setStyleSheet(QString::fromUtf8("image: url(:/Library/images/\346\244\255\345\234\206 1.png);"));
+        frameHead->setStyleSheet(QStringLiteral(""));
         frameHead->setFrameShape(QFrame::StyledPanel);
         frameHead->setFrameShadow(QFrame::Raised);
+        lbHead = new QLabel(frameHead);
+        lbHead->setObjectName(QStringLiteral("lbHead"));
+        lbHead->setGeometry(QRect(0, 10, 101, 121));
+        lbHead->setStyleSheet(QStringLiteral("border-radius:999999;"));
         etSname = new QLineEdit(frame_4);
         etSname->setObjectName(QStringLiteral("etSname"));
         etSname->setGeometry(QRect(130, 20, 191, 51));
@@ -325,35 +329,10 @@ public:
 "border-top:0;\n"
 "border-left:0;\n"
 "border-right:0;"));
-        etOrderNumber = new QLineEdit(frame_9);
-        etOrderNumber->setObjectName(QStringLiteral("etOrderNumber"));
-        etOrderNumber->setGeometry(QRect(100, 20, 61, 21));
-        etOrderNumber->setStyleSheet(QString::fromUtf8("border-width:0;\n"
-"font: 10pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
-"border-style:outset;\n"
-"color:#409FEC;"));
-        btnOrdermore = new QPushButton(frame_9);
-        btnOrdermore->setObjectName(QStringLiteral("btnOrdermore"));
-        btnOrdermore->setGeometry(QRect(570, 20, 121, 28));
-        btnOrdermore->setStyleSheet(QString::fromUtf8("color:#808080;\n"
-"font: 11pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
-"border:none;\n"
-"text-size:20px;\n"
-"cursor:pointer;"));
 
         verticalLayout_5->addWidget(frame_9);
 
         tableOrder = new QTableWidget(frame_6);
-        if (tableOrder->columnCount() < 4)
-            tableOrder->setColumnCount(4);
-        QTableWidgetItem *__qtablewidgetitem5 = new QTableWidgetItem();
-        tableOrder->setHorizontalHeaderItem(0, __qtablewidgetitem5);
-        QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
-        tableOrder->setHorizontalHeaderItem(1, __qtablewidgetitem6);
-        QTableWidgetItem *__qtablewidgetitem7 = new QTableWidgetItem();
-        tableOrder->setHorizontalHeaderItem(2, __qtablewidgetitem7);
-        QTableWidgetItem *__qtablewidgetitem8 = new QTableWidgetItem();
-        tableOrder->setHorizontalHeaderItem(3, __qtablewidgetitem8);
         tableOrder->setObjectName(QStringLiteral("tableOrder"));
         QSizePolicy sizePolicy7(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy7.setHorizontalStretch(0);
@@ -384,6 +363,7 @@ public:
         btnPersonal->setText(QApplication::translate("student_index", "\344\270\252\344\272\272\344\270\255\345\277\203", Q_NULLPTR));
         btnInformationchange->setText(QApplication::translate("student_index", "\344\277\241\346\201\257\344\277\256\346\224\271", Q_NULLPTR));
         btnSearchbook->setText(QApplication::translate("student_index", "\345\233\276\344\271\246\346\237\245\350\257\242", Q_NULLPTR));
+        lbHead->setText(QString());
         etSname->setText(QApplication::translate("student_index", "\345\274\240\351\222\246\350\264\244", Q_NULLPTR));
         etSnumber->setText(QApplication::translate("student_index", "(15020031025)", Q_NULLPTR));
         etSdept->setText(QApplication::translate("student_index", "\350\256\241\347\256\227\346\234\272\347\247\221\345\255\246\344\270\216\346\212\200\346\234\257", Q_NULLPTR));
@@ -401,17 +381,7 @@ public:
         ___qtablewidgetitem3->setText(QApplication::translate("student_index", "\345\207\272\347\211\210\347\244\276", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem4 = tableBorrow->horizontalHeaderItem(4);
         ___qtablewidgetitem4->setText(QApplication::translate("student_index", "\346\237\245\347\234\213\350\257\246\346\203\205", Q_NULLPTR));
-        lineEdit_2->setText(QApplication::translate("student_index", "\345\275\223\345\211\215\351\242\204\347\272\246", Q_NULLPTR));
-        etOrderNumber->setText(QApplication::translate("student_index", "\357\274\21020\357\274\211", Q_NULLPTR));
-        btnOrdermore->setText(QApplication::translate("student_index", "\346\237\245\347\234\213\345\205\250\351\203\250>>", Q_NULLPTR));
-        QTableWidgetItem *___qtablewidgetitem5 = tableOrder->horizontalHeaderItem(0);
-        ___qtablewidgetitem5->setText(QApplication::translate("student_index", "\345\260\201\351\235\242", Q_NULLPTR));
-        QTableWidgetItem *___qtablewidgetitem6 = tableOrder->horizontalHeaderItem(1);
-        ___qtablewidgetitem6->setText(QApplication::translate("student_index", "\344\271\246\345\220\215", Q_NULLPTR));
-        QTableWidgetItem *___qtablewidgetitem7 = tableOrder->horizontalHeaderItem(2);
-        ___qtablewidgetitem7->setText(QApplication::translate("student_index", "\344\275\234\350\200\205", Q_NULLPTR));
-        QTableWidgetItem *___qtablewidgetitem8 = tableOrder->horizontalHeaderItem(3);
-        ___qtablewidgetitem8->setText(QApplication::translate("student_index", "\345\207\272\347\211\210\347\244\276", Q_NULLPTR));
+        lineEdit_2->setText(QApplication::translate("student_index", "\347\214\234\344\275\240\345\226\234\346\254\242", Q_NULLPTR));
     } // retranslateUi
 
 };

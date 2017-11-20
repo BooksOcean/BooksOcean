@@ -26,6 +26,8 @@ signals:
 
 public slots:
 	void OnBtnClicked(int id);
+	void radioBtnSlot();
+	void radioBtnSlotOther();
 
 private:
 	Ui::student_searchBook ui;
@@ -37,7 +39,6 @@ private:
 	void DataBind();
 	void NextPage();
 	void LastPage();
-	void JumpPage();
 	void FirstPage();
 	void TheLastPage();
 };
