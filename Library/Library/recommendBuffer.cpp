@@ -9,6 +9,7 @@ QVector<QUrl>recommendBuffer::urlBuffer;
 QVector<int>recommendBuffer::idBuffer;
 QVector<QPixmap>recommendBuffer::headBuffer;
 QUrl recommendBuffer::headUrl;
+QString recommendBuffer::headUrlLocal = "";
 recommendBuffer::recommendBuffer()
 {
 }

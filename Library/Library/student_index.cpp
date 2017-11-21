@@ -27,6 +27,7 @@
 #include<map>
 #include<QSignalMapper>
 #include <QUrl>
+#include <QCloseEvent>
 #include <qtnetwork/qnetworkaccessmanager>
 #include <qtnetwork/QNetworkRequest>
 #include <qtnetwork/QNetworkRequest>
@@ -50,6 +51,7 @@ student_index::student_index(QWidget *parent)
 	ui.btnInformationchange->installEventFilter(this);
 	ui.btnSearchbook->installEventFilter(this);
 	ui.btnBorrowmore->installEventFilter(this);
+	ui.btnLogout->installEventFilter(this);
 	ui.tableBorrow->setEditTriggers(QAbstractItemView::NoEditTriggers);//设置不可编辑	
 	ui.tableBorrow->verticalHeader()->setVisible(false); //设置行号不可见
 	ui.tableBorrow->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);//表宽度自适应
@@ -93,6 +95,22 @@ bool student_index::eventFilter(QObject *obj, QEvent *event) {
 		student_searchBook *rec = new student_searchBook;
 		this->close();
 		rec->show();
+	}
+	if (obj == ui.btnLogout && event->type() == QEvent::MouseButtonPress) {
+		QMessageBox::StandardButton button;
+		button = QMessageBox::question(this, chartoqs("退出程序"),
+			QString(chartoqs("确认退出程序?")),
+			QMessageBox::Yes | QMessageBox::No);
+		if (button == QMessageBox::No) {
+			event->ignore();  //忽略退出信号，程序继续运行
+		}
+		else if (button == QMessageBox::Yes) {
+			Library *rec = new Library;
+			this->close();
+			rec->show();
+			event->accept();  //接受退出信号，程序退出
+		}
+		
 	}
 	if (obj == ui.btnInformationchange && event->type() == QEvent::MouseButtonPress) {
 		student_update *rec = new student_update;
@@ -144,8 +162,14 @@ void student_index::InitThisPage() {
 	ui.etSname->setText(BianMa->toUnicode(resStudent[0].username));
 	ui.etSdept->setText(BianMa->toUnicode(resStudent[0].dept));
 	//加载头像
-	QUrl url(resStudent[0].icon);
-	recommendBuffer::headUrl = url;
+	//从本地加载
+	if (strstr(resStudent[0].icon, "images")) {
+		recommendBuffer::headUrlLocal = resStudent[0].icon;
+	}
+	else {
+		QUrl url(resStudent[0].icon);
+		recommendBuffer::headUrl = url;
+	}
 	/*
 	 *以下更新借阅表
 	*/
@@ -241,10 +265,21 @@ void student_index::InitThisPage() {
 		VALUES.push_back("id");
 		resBookMap.clear();
 		resBook.clear();
-		bookmap.setId(resRecord[i].bookId);
-		FileDB::select("bookMap", bookmap, VALUES, resBookMap);
-		book.setId(resBookMap[0].bookId);
-		FileDB::select("book", book, VALUES, resBook);
+		//非预约本
+		if (resRecord[i].type != 2) {
+			//查询bookMap，得bookId
+			bookmap.setId(resRecord[i].bookId);
+			FileDB::select("bookMap", bookmap, VALUES, resBookMap);
+			//查询book，得书名
+			book.setId(resBookMap[0].bookId);
+			FileDB::select("book", book, VALUES, resBook);
+		}
+		//预约本
+		else {
+			//查询book，得书名
+			book.setId(resRecord[i].bookId);
+			FileDB::select("book", book, VALUES, resBook);
+		}
 		int row = ui.tableBorrow->rowCount();
 		ui.tableBorrow->insertRow(i);
 		

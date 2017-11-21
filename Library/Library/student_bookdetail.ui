@@ -153,6 +153,24 @@ background-color:rgba(255,255,255,0.4);
            </property>
           </widget>
          </item>
+         <item>
+          <widget class="QPushButton" name="btnLogout">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>100</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">font: 12pt &quot;微软雅黑&quot;;
+color:white;
+background:transparent;</string>
+           </property>
+           <property name="text">
+            <string>退出登录</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
       </layout>
@@ -192,28 +210,6 @@ border-right:0px;</string>
          <enum>QFrame::Raised</enum>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <item>
-          <widget class="QPushButton" name="btnReturn">
-           <property name="minimumSize">
-            <size>
-             <width>30</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">color:#4D4D4D;
-border:none;
-font-size:24px;
-font-weight:500;
-font-family:&quot;微软雅黑&quot;;
-text-align:center;
-</string>
-           </property>
-           <property name="text">
-            <string>&lt;</string>
-           </property>
-          </widget>
-         </item>
          <item>
           <widget class="QLineEdit" name="etBookNameHead">
            <property name="styleSheet">
@@ -257,8 +253,8 @@ text-align:left;</string>
              <rect>
               <x>10</x>
               <y>80</y>
-              <width>301</width>
-              <height>381</height>
+              <width>281</width>
+              <height>371</height>
              </rect>
             </property>
             <property name="text">
@@ -278,9 +274,9 @@ text-align:left;</string>
            <widget class="QLineEdit" name="etBookName">
             <property name="geometry">
              <rect>
-              <x>20</x>
+              <x>30</x>
               <y>80</y>
-              <width>141</width>
+              <width>291</width>
               <height>21</height>
              </rect>
             </property>
@@ -293,7 +289,7 @@ font-family:&quot;微软雅黑&quot;;
 text-align:left;</string>
             </property>
             <property name="text">
-             <string>《追风筝的人》</string>
+             <string>能发给你发给你发给你发货那份</string>
             </property>
            </widget>
            <widget class="QLineEdit" name="etAuthorHead">
@@ -379,7 +375,7 @@ text-align:left;</string>
            <widget class="QLineEdit" name="etAuthor">
             <property name="geometry">
              <rect>
-              <x>110</x>
+              <x>130</x>
               <y>150</y>
               <width>191</width>
               <height>21</height>
@@ -396,7 +392,7 @@ text-align:left;</string>
            <widget class="QLineEdit" name="etPublish">
             <property name="geometry">
              <rect>
-              <x>110</x>
+              <x>130</x>
               <y>190</y>
               <width>191</width>
               <height>21</height>
@@ -413,7 +409,7 @@ text-align:left;</string>
            <widget class="QLineEdit" name="etISBN">
             <property name="geometry">
              <rect>
-              <x>110</x>
+              <x>130</x>
               <y>230</y>
               <width>191</width>
               <height>21</height>
@@ -430,7 +426,7 @@ text-align:left;</string>
            <widget class="QLineEdit" name="etClassify">
             <property name="geometry">
              <rect>
-              <x>110</x>
+              <x>130</x>
               <y>270</y>
               <width>191</width>
               <height>21</height>
@@ -467,7 +463,7 @@ text-align:left;</string>
            <widget class="QLineEdit" name="etNowCount">
             <property name="geometry">
              <rect>
-              <x>130</x>
+              <x>140</x>
               <y>390</y>
               <width>171</width>
               <height>21</height>
@@ -504,7 +500,7 @@ text-align:left;</string>
            <widget class="QLineEdit" name="etScore">
             <property name="geometry">
              <rect>
-              <x>110</x>
+              <x>130</x>
               <y>310</y>
               <width>191</width>
               <height>21</height>
@@ -521,7 +517,7 @@ text-align:left;</string>
            <widget class="QLineEdit" name="etCount">
             <property name="geometry">
              <rect>
-              <x>130</x>
+              <x>140</x>
               <y>350</y>
               <width>171</width>
               <height>21</height>

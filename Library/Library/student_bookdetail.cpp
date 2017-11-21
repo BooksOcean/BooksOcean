@@ -8,6 +8,7 @@
 #include<string>
 #include<QMessageBox>
 #include <QTextCodec>
+#include"library.h"
 #include<QDateTime>
 #include"record.h"
 #include"student.h"
@@ -31,6 +32,7 @@ student_bookDetail::student_bookDetail(QWidget *parent)
 	ui.etBookName->setEnabled(false);
 	ui.etAuthor->setEnabled(false);
 	ui.etPublish->setEnabled(false);
+	ui.btnLogout->installEventFilter(this);
 	ui.etISBN->setEnabled(false);
 	ui.etClassify->setEnabled(false);
 	ui.etBookNameHead->setEnabled(false);
@@ -44,7 +46,6 @@ student_bookDetail::student_bookDetail(QWidget *parent)
 	ui.btnInformationchange->installEventFilter(this);
 	ui.btnBorrow->installEventFilter(this);
 	ui.btnOrder->installEventFilter(this);
-	ui.btnReturn->installEventFilter(this);
 	InitThisPage();
 }
 
@@ -113,93 +114,88 @@ bool student_bookDetail::eventFilter(QObject *obj, QEvent *event) {
 			QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("欠款金额达上限，请先归还欠款"), QMessageBox::Ok);
 			return true;
 		}
-		
-		Record thisrecord; 
-		vector<string>VALUES; 
-		vector<Record>res; 
-		VALUES.push_back("one"); 
-		VALUES.push_back("studentId");
-		VALUES.push_back("bookId"); 
-		thisrecord.setStudentId(userConfig::id);
-		thisrecord.setBookId(bookConfig::bookId);
-		FileDB::select("record", thisrecord, VALUES, res);
-		if (res.size() == 0) {
-			
-			
-			vector<BookMap>allBooks;
-			BookMap bookmap;
-			bookmap.setBookId(bookConfig::bookId);
-			bookmap.setIsOut(0);
-			VALUES.clear();
-			VALUES.push_back("one");
-			VALUES.push_back("bookId");
-			FileDB::select("bookMap", bookmap, VALUES, allBooks);
-			if (allBooks.size() > 0) {
+		vector<string>VALUES;
+		vector<BookMap>allBooks;
+		BookMap bookmap;
+		bookmap.setBookId(bookConfig::bookId);
+		bookmap.setIsOut(0);
+		VALUES.push_back("one");
+		VALUES.push_back("bookId");
+		FileDB::select("bookMap", bookmap, VALUES, allBooks);
+		if (allBooks.size() > 0) {
 
-				//更新可借本数
-				Book book;
-				vector<string>VALUES_3;
-				vector<Book>resBook;
-				VALUES_3.push_back("one");
-				VALUES_3.push_back("id");
-				book.setId(bookConfig::bookId);
-				FileDB::select("book", book, VALUES_3, resBook);
+			//更新可借本数
+			Book book;
+			vector<string>VALUES_3;
+			vector<Book>resBook;
+			VALUES_3.push_back("one");
+			VALUES_3.push_back("id");
+			book.setId(bookConfig::bookId);
+			FileDB::select("book", book, VALUES_3, resBook);
 
-				Book lbook;
-				lbook.setId(bookConfig::bookId);
-				resBook[0].setNowCount(resBook[0].nowCount - 1);
-				FileDB::update("book", lbook, resBook[0], VALUES_3);
+			Book lbook;
+			lbook.setId(bookConfig::bookId);
+			resBook[0].setNowCount(resBook[0].nowCount - 1);
+			FileDB::update("book", lbook, resBook[0], VALUES_3);
 
-				//更新bookMap
-				BookMap lbookMap, nbookMap;
-				lbookMap.setId(allBooks[0].id);
-				nbookMap.setBookId(allBooks[0].bookId);
-				nbookMap.setBookNum(allBooks[0].bookNum);
-				nbookMap.setIsOut(1);
-				FileDB::update("bookMap", lbookMap, nbookMap, VALUES_3);
+			//更新bookMap
+			BookMap lbookMap, nbookMap;
+			lbookMap.setId(allBooks[0].id);
+			nbookMap.setBookId(allBooks[0].bookId);
+			nbookMap.setBookNum(allBooks[0].bookNum);
+			nbookMap.setIsOut(1);
+			FileDB::update("bookMap", lbookMap, nbookMap, VALUES_3);
 
-				//插入借阅记录
-				vector<Record>entity;
-				Record record;
-				record.setStudentId(userConfig::id);
-				record.setBookId(allBooks[0].id);
+			//插入借阅记录
+			vector<Record>entity;
+			Record record;
+			record.setStudentId(userConfig::id);
+			record.setBookId(allBooks[0].id);
 
-				QDateTime dt = QDateTime::currentDateTime();
-				QDateTime afterOneMonthDateTime = dt.addMonths(1);
-				QString currentDate = afterOneMonthDateTime.toString("yyyy-MM-dd");
-			
-				char* ch1;
-				QByteArray ba = currentDate.toLatin1();
-				ch1 = ba.data();
-				record.setTime(ch1);
+			QDateTime dt = QDateTime::currentDateTime();
+			QDateTime afterOneMonthDateTime = dt.addMonths(1);
+			QString currentDate = afterOneMonthDateTime.toString("yyyy-MM-dd");
 
-				record.setType(0);
-				record.setMoney(0);
-				entity.push_back(record);
-				int res = FileDB::insert("record", entity);
-				if (res > 0) {
-					QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("借书成功"), QMessageBox::Ok);
-					student_index *rec = new student_index;
-					rec->show();
-					this->close();
-					return true;
-				}
-				else {
-					QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("借书失败，未知错误"), QMessageBox::Ok);
-					return true;
-				}
-			}
-			else {
-				QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("借书失败，没有可借本"), QMessageBox::Ok);
+			char* ch1;
+			QByteArray ba = currentDate.toLatin1();
+			ch1 = ba.data();
+			record.setTime(ch1);
+
+			record.setType(0);
+			record.setMoney(0);
+			entity.push_back(record);
+			int res = FileDB::insert("record", entity);
+			if (res > 0) {
+				QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("借书成功"), QMessageBox::Ok);
+				student_index *rec = new student_index;
+				rec->show();
+				this->close();
 				return true;
 			}
-	
+			else {
+				QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("借书失败，未知错误"), QMessageBox::Ok);
+				return true;
+			}
 		}
 		else {
-			QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("抱歉，您已经借过这本书了"), QMessageBox::Ok);
+			QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("借书失败，没有可借本"), QMessageBox::Ok);
 			return true;
 		}
-
+	}
+	if (obj == ui.btnLogout && event->type() == QEvent::MouseButtonPress) {
+		QMessageBox::StandardButton button;
+		button = QMessageBox::question(this, chartoqs("退出程序"),
+			QString(chartoqs("确认退出程序?")),
+			QMessageBox::Yes | QMessageBox::No);
+		if (button == QMessageBox::No) {
+			event->ignore();  //忽略退出信号，程序继续运行
+		}
+		else if (button == QMessageBox::Yes) {
+			Library *rec = new Library;
+			this->close();
+			rec->show();
+			event->accept();  //接受退出信号，程序退出
+		}
 	}
 
 	if (obj == ui.btnOrder && event->type() == QEvent::MouseButtonPress) {
@@ -227,81 +223,60 @@ bool student_bookDetail::eventFilter(QObject *obj, QEvent *event) {
 				return true;
 			}
 
-			//检测是否已经借过或者预约过这本书了
-			Record thisrecord;
-			VALUES.clear();
-			vector<Record>res;
-			VALUES.push_back("one");
-			VALUES.push_back("studentId");
-			VALUES.push_back("bookId");
-			thisrecord.setStudentId(userConfig::id);
-			thisrecord.setBookId(bookConfig::bookId);
-			FileDB::select("record", thisrecord, VALUES, res);
-			if (res.size() == 0) {
 
+			//vector<BookMap>allBooks;
+			//searchBookMap(bookConfig::bookId, allBooks);
+			//if (allBooks.size() > 0) {
 
-				//vector<BookMap>allBooks;
-				//searchBookMap(bookConfig::bookId, allBooks);
-				//if (allBooks.size() > 0) {
+			//	//更新bookMap
+			//	BookMap lbookMap, nbookMap;
+			//	lbookMap.setId(allBooks[0].id);
+			//	nbookMap.setBookId(allBooks[0].bookId);
+			//	nbookMap.setBookNum(allBooks[0].bookNum);
+			//	nbookMap.setIsOut(2);
+			//	FileDB::update("bookMap", lbookMap, nbookMap, VALUES_3);
 
-				//	//更新bookMap
-				//	BookMap lbookMap, nbookMap;
-				//	lbookMap.setId(allBooks[0].id);
-				//	nbookMap.setBookId(allBooks[0].bookId);
-				//	nbookMap.setBookNum(allBooks[0].bookNum);
-				//	nbookMap.setIsOut(2);
-				//	FileDB::update("bookMap", lbookMap, nbookMap, VALUES_3);
+				//插入借阅记录
+			vector<Record>entity;
+			Record record;
+			record.setStudentId(userConfig::id);
+			record.setBookId(bookConfig::bookId);
 
-					//插入借阅记录
-					vector<Record>entity;
-					Record record;
-					record.setStudentId(userConfig::id);
-					record.setBookId(bookConfig::bookId);
+			/*QDateTime dt;
+			QTime time;
+			QDate date;
+			dt.setTime(time.currentTime());
+			dt.setDate(date.currentDate());*/
 
-					/*QDateTime dt;
-					QTime time;
-					QDate date;
-					dt.setTime(time.currentTime());
-					dt.setDate(date.currentDate());*/
+			//记录预约时间和应该消除预约的时间
+			QDateTime dt = QDateTime::currentDateTime();
+			QDateTime afterFiveDaysDateTime = dt.addDays(5);
+			QString currentDate = afterFiveDaysDateTime.toString("yyyy-MM-dd");
+			//进行类型转换将应当还数的时间记录文件
+			char* ch1;
+			QByteArray ba = currentDate.toLatin1();
+			ch1 = ba.data();
+			record.setTime(ch1);
 
-					//记录预约时间和应该消除预约的时间
-					QDateTime dt = QDateTime::currentDateTime();
-					QDateTime afterFiveDaysDateTime = dt.addDays(5);
-					QString currentDate = afterFiveDaysDateTime.toString("yyyy-MM-dd");
-					//进行类型转换将应当还数的时间记录文件
-					char* ch1;
-					QByteArray ba = currentDate.toLatin1();
-					ch1 = ba.data();
-					record.setTime(ch1);
-
-					record.setType(2);
-					record.setMoney(0);
-					entity.push_back(record);
-					int res = FileDB::insert("record", entity);
-					if (res > 0) {
-						QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("预约成功"), QMessageBox::Ok);
-						student_searchBook *rec = new student_searchBook;
-						rec->show();
-						this->close();
-						return true;
-					}
-					else {
-						QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("预约失败，未知错误"), QMessageBox::Ok);
-						return true;
-					}
+			record.setType(2);
+			record.setMoney(0);
+			entity.push_back(record);
+			int res = FileDB::insert("record", entity);
+			if (res > 0) {
+				QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("预约成功"), QMessageBox::Ok);
+				student_searchBook *rec = new student_searchBook;
+				rec->show();
+				this->close();
+				return true;
 			}
 			else {
-				QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("抱歉，您已经借过或者预约过这本书了"), QMessageBox::Ok);
+				QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("预约失败，未知错误"), QMessageBox::Ok);
 				return true;
 			}
 		}
 		return true;
 	}
-	if (obj == ui.btnReturn && event->type() == QEvent::MouseButtonPress) {
-		student_searchBook *rec = new student_searchBook;
-		rec->show();
-		this->close();
-	}
+	
 	if (obj == ui.btnInformationchange && event->type() == QEvent::MouseButtonPress) {
 		student_update *rec = new student_update;
 		rec->show();

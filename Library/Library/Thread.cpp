@@ -18,19 +18,28 @@ Thread::~Thread()
 
 void Thread::run()
 {
-	QNetworkAccessManager manager;
-	QEventLoop loop;
-	QNetworkReply *reply = manager.get(QNetworkRequest(recommendBuffer::headUrl));
-	//请求结束并下载完成后，退出子事件循环
-	QObject::connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
-	//开启子事件循环
-	loop.exec();
-	QByteArray jpegData = reply->readAll();
-	QPixmap pixmap;
-	pixmap.loadFromData(jpegData);
-	//改变图片大小
-	pixmap = pixmap.scaled(110, 130, Qt::KeepAspectRatio);
-	recommendBuffer::headBuffer.push_back(pixmap);
+	if (!recommendBuffer::headUrlLocal.length()) {
+		QNetworkAccessManager manager;
+		QEventLoop loop;
+		QNetworkReply *reply = manager.get(QNetworkRequest(recommendBuffer::headUrl));
+		//请求结束并下载完成后，退出子事件循环
+		QObject::connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+		//开启子事件循环
+		loop.exec();
+		QByteArray jpegData = reply->readAll();
+		QPixmap pixmap;
+		pixmap.loadFromData(jpegData);
+		//改变图片大小
+		pixmap = pixmap.scaled(110, 130, Qt::KeepAspectRatio);
+		recommendBuffer::headBuffer.push_back(pixmap);
+	}
+	else {
+		QPixmap pixmap;
+		pixmap.load(recommendBuffer::headUrlLocal);
+		//改变图片大小
+		pixmap = pixmap.scaled(110, 130, Qt::KeepAspectRatio);
+		recommendBuffer::headBuffer.push_back(pixmap);
+	}
 
 	for (int i = 0; i < 6; i++) {
 		if (!recommendBuffer::isPostBack) {

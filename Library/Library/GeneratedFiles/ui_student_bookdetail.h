@@ -36,11 +36,11 @@ public:
     QPushButton *btnPersonal;
     QPushButton *btnInformationchange;
     QPushButton *btnSearchbook;
+    QPushButton *btnLogout;
     QFrame *frame_3;
     QVBoxLayout *verticalLayout_2;
     QFrame *frame_4;
     QHBoxLayout *horizontalLayout_3;
-    QPushButton *btnReturn;
     QLineEdit *etBookNameHead;
     QFrame *frame_6;
     QHBoxLayout *horizontalLayout_4;
@@ -140,6 +140,15 @@ public:
 
         verticalLayout->addWidget(btnSearchbook);
 
+        btnLogout = new QPushButton(frame_8);
+        btnLogout->setObjectName(QStringLiteral("btnLogout"));
+        btnLogout->setMinimumSize(QSize(0, 100));
+        btnLogout->setStyleSheet(QString::fromUtf8("font: 12pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"color:white;\n"
+"background:transparent;"));
+
+        verticalLayout->addWidget(btnLogout);
+
 
         verticalLayout_6->addLayout(verticalLayout);
 
@@ -172,19 +181,6 @@ public:
         horizontalLayout_3->setSpacing(6);
         horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
-        btnReturn = new QPushButton(frame_4);
-        btnReturn->setObjectName(QStringLiteral("btnReturn"));
-        btnReturn->setMinimumSize(QSize(30, 0));
-        btnReturn->setStyleSheet(QString::fromUtf8("color:#4D4D4D;\n"
-"border:none;\n"
-"font-size:24px;\n"
-"font-weight:500;\n"
-"font-family:\"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
-"text-align:center;\n"
-""));
-
-        horizontalLayout_3->addWidget(btnReturn);
-
         etBookNameHead = new QLineEdit(frame_4);
         etBookNameHead->setObjectName(QStringLiteral("etBookNameHead"));
         etBookNameHead->setStyleSheet(QString::fromUtf8("color:#4D4D4D;\n"
@@ -214,7 +210,7 @@ public:
         frameBookCover->setFrameShadow(QFrame::Raised);
         lbCover = new QLabel(frameBookCover);
         lbCover->setObjectName(QStringLiteral("lbCover"));
-        lbCover->setGeometry(QRect(10, 80, 301, 381));
+        lbCover->setGeometry(QRect(10, 80, 281, 371));
 
         horizontalLayout_4->addWidget(frameBookCover);
 
@@ -224,7 +220,7 @@ public:
         frame_9->setFrameShadow(QFrame::Raised);
         etBookName = new QLineEdit(frame_9);
         etBookName->setObjectName(QStringLiteral("etBookName"));
-        etBookName->setGeometry(QRect(20, 80, 141, 21));
+        etBookName->setGeometry(QRect(30, 80, 291, 21));
         etBookName->setStyleSheet(QString::fromUtf8("color:#4D4D4D;\n"
 "border:none;\n"
 "font-size:20px;\n"
@@ -265,7 +261,7 @@ public:
 "text-align:left;"));
         etAuthor = new QLineEdit(frame_9);
         etAuthor->setObjectName(QStringLiteral("etAuthor"));
-        etAuthor->setGeometry(QRect(110, 150, 191, 21));
+        etAuthor->setGeometry(QRect(130, 150, 191, 21));
         etAuthor->setStyleSheet(QString::fromUtf8("color:#808080;\n"
 "border:none;\n"
 "font-size:18px;\n"
@@ -273,7 +269,7 @@ public:
 "text-align:left;"));
         etPublish = new QLineEdit(frame_9);
         etPublish->setObjectName(QStringLiteral("etPublish"));
-        etPublish->setGeometry(QRect(110, 190, 191, 21));
+        etPublish->setGeometry(QRect(130, 190, 191, 21));
         etPublish->setStyleSheet(QString::fromUtf8("color:#808080;\n"
 "border:none;\n"
 "font-size:18px;\n"
@@ -281,7 +277,7 @@ public:
 "text-align:left;"));
         etISBN = new QLineEdit(frame_9);
         etISBN->setObjectName(QStringLiteral("etISBN"));
-        etISBN->setGeometry(QRect(110, 230, 191, 21));
+        etISBN->setGeometry(QRect(130, 230, 191, 21));
         etISBN->setStyleSheet(QString::fromUtf8("color:#808080;\n"
 "border:none;\n"
 "font-size:18px;\n"
@@ -289,7 +285,7 @@ public:
 "text-align:left;"));
         etClassify = new QLineEdit(frame_9);
         etClassify->setObjectName(QStringLiteral("etClassify"));
-        etClassify->setGeometry(QRect(110, 270, 191, 21));
+        etClassify->setGeometry(QRect(130, 270, 191, 21));
         etClassify->setStyleSheet(QString::fromUtf8("color:#808080;\n"
 "border:none;\n"
 "font-size:18px;\n"
@@ -305,7 +301,7 @@ public:
 "text-align:left;"));
         etNowCount = new QLineEdit(frame_9);
         etNowCount->setObjectName(QStringLiteral("etNowCount"));
-        etNowCount->setGeometry(QRect(130, 390, 171, 21));
+        etNowCount->setGeometry(QRect(140, 390, 171, 21));
         etNowCount->setStyleSheet(QString::fromUtf8("color:#808080;\n"
 "border:none;\n"
 "font-size:18px;\n"
@@ -321,7 +317,7 @@ public:
 "text-align:left;"));
         etScore = new QLineEdit(frame_9);
         etScore->setObjectName(QStringLiteral("etScore"));
-        etScore->setGeometry(QRect(110, 310, 191, 21));
+        etScore->setGeometry(QRect(130, 310, 191, 21));
         etScore->setStyleSheet(QString::fromUtf8("color:#808080;\n"
 "border:none;\n"
 "font-size:18px;\n"
@@ -329,7 +325,7 @@ public:
 "text-align:left;"));
         etCount = new QLineEdit(frame_9);
         etCount->setObjectName(QStringLiteral("etCount"));
-        etCount->setGeometry(QRect(130, 350, 171, 21));
+        etCount->setGeometry(QRect(140, 350, 171, 21));
         etCount->setStyleSheet(QString::fromUtf8("color:#808080;\n"
 "border:none;\n"
 "font-size:18px;\n"
@@ -408,10 +404,10 @@ public:
         btnPersonal->setText(QApplication::translate("student_bookDetail", "\344\270\252\344\272\272\344\270\255\345\277\203", Q_NULLPTR));
         btnInformationchange->setText(QApplication::translate("student_bookDetail", "\344\277\241\346\201\257\344\277\256\346\224\271", Q_NULLPTR));
         btnSearchbook->setText(QApplication::translate("student_bookDetail", "\345\233\276\344\271\246\346\237\245\350\257\242", Q_NULLPTR));
-        btnReturn->setText(QApplication::translate("student_bookDetail", "<", Q_NULLPTR));
+        btnLogout->setText(QApplication::translate("student_bookDetail", "\351\200\200\345\207\272\347\231\273\345\275\225", Q_NULLPTR));
         etBookNameHead->setText(QApplication::translate("student_bookDetail", "\350\277\275\351\243\216\347\255\235\347\232\204\344\272\272", Q_NULLPTR));
         lbCover->setText(QApplication::translate("student_bookDetail", "TextLabel", Q_NULLPTR));
-        etBookName->setText(QApplication::translate("student_bookDetail", "\343\200\212\350\277\275\351\243\216\347\255\235\347\232\204\344\272\272\343\200\213", Q_NULLPTR));
+        etBookName->setText(QApplication::translate("student_bookDetail", "\350\203\275\345\217\221\347\273\231\344\275\240\345\217\221\347\273\231\344\275\240\345\217\221\347\273\231\344\275\240\345\217\221\350\264\247\351\202\243\344\273\275", Q_NULLPTR));
         etAuthorHead->setText(QApplication::translate("student_bookDetail", "\344\275\234\350\200\205\357\274\232", Q_NULLPTR));
         etPublishHead->setText(QApplication::translate("student_bookDetail", "\345\207\272\347\211\210\347\244\276\357\274\232", Q_NULLPTR));
         etISBNHead->setText(QApplication::translate("student_bookDetail", "ISBN\357\274\232", Q_NULLPTR));

@@ -15,6 +15,7 @@ public:
 	static QVector<QUrl>urlBuffer;
 	static QVector<int>idBuffer;
 	static QUrl headUrl;
+	static QString headUrlLocal;
 	recommendBuffer();
 	~recommendBuffer();
 };

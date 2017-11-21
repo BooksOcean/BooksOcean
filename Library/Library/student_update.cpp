@@ -4,12 +4,15 @@
 #include"student.h"
 #include"student_updatepassword.h"
 #include"userConfig.h"
+#include"library.h"
 #include <QTextCodec>
 #include"student_index.h"
 #include"student_searchbook.h"
 #include<QMessageBox>
+#include<QFileDialog>
+#include<QDateTime>
 #include"student_repay.h"
-
+#include"recommendBuffer.h"
 student_update::student_update(QWidget *parent)
 	: QWidget(parent)
 {
@@ -25,6 +28,8 @@ student_update::student_update(QWidget *parent)
 	ui.lineEdit_9->setEnabled(false);
 	ui.btnInformationchange->installEventFilter(this);
 	ui.btnPersonal->installEventFilter(this);
+	ui.btnHeadIcon->installEventFilter(this);
+	ui.btnLogout->installEventFilter(this);
 	ui.btnSearchbook->installEventFilter(this);
 	ui.pushButton_2->installEventFilter(this);
 	ui.pushButton_3->installEventFilter(this);
@@ -63,6 +68,25 @@ bool student_update::eventFilter(QObject *obj, QEvent *event) {
 		rec->show();
 		return true;
 	}
+	if (obj == ui.btnHeadIcon && event->type() == QEvent::MouseButtonPress) {
+		openFileDiag();
+		return true;
+	}
+	if (obj == ui.btnLogout && event->type() == QEvent::MouseButtonPress) {
+		QMessageBox::StandardButton button;
+		button = QMessageBox::question(this, chartoqs("退出程序"),
+			QString(chartoqs("确认退出程序?")),
+			QMessageBox::Yes | QMessageBox::No);
+		if (button == QMessageBox::No) {
+			event->ignore();  //忽略退出信号，程序继续运行
+		}
+		else if (button == QMessageBox::Yes) {
+			Library *rec = new Library;
+			this->close();
+			rec->show();
+			event->accept();  //接受退出信号，程序退出
+		}
+	}
 	if (obj == ui.pushButton_4 && event->type() == QEvent::MouseButtonPress) {
 		string newmail = qstostr(ui.lineEdit_10->text());
 		if (newmail!="") {
@@ -78,6 +102,10 @@ bool student_update::eventFilter(QObject *obj, QEvent *event) {
 				char* thenewmail;
 				QByteArray ba = ui.lineEdit_10->text().toLatin1();
 				thenewmail = ba.data();
+				//获取新头像
+				char* thenewicon;
+				QByteArray ba2 = filename.toLatin1();
+				thenewicon = ba2.data();
 				//获取用户原来的所有信息
 				Student student;
 				vector<string>VALUES_1;
@@ -92,19 +120,12 @@ bool student_update::eventFilter(QObject *obj, QEvent *event) {
 				VALUES_2.push_back("one");
 				VALUES_2.push_back("id");
 				primarystudent.setId(userConfig::id);
-				//修改用户
-				//Student newstudent;
-				//newstudent.setUsercode(res[0].usercode);
-				//newstudent.setUsername(res[0].username);
-				//newstudent.setPassword(res[0].password);//修改密码
-				//newstudent.setSex(res[0].sex);
-				//newstudent.setDept(res[0].dept);
-				//newstudent.setIcon(res[0].icon);
-				//newstudent.setMail(thenewmail);
-				//newstudent.setMoney(res[0].money);
 				res[0].setMail(thenewmail);
+				res[0].setIcon(thenewicon);
 				int judge = FileDB::update("student", primarystudent, res[0], VALUES_2);
-
+				(*img).save(filename);
+				recommendBuffer::headBuffer.clear();
+				recommendBuffer::headBuffer.push_back(*img);
 				if (judge>0) {
 
 					QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("修改成功"), QMessageBox::Ok);
@@ -118,6 +139,27 @@ bool student_update::eventFilter(QObject *obj, QEvent *event) {
 		}
 	}
 	return false;
+}
+void student_update::openFileDiag() {
+	filename;
+	filename = QFileDialog::getOpenFileName(this, QString::fromLocal8Bit("选择图像"), "", tr("Images (*.png *.bmp *.jpg *.tif *.GIF )"));
+	if (filename.isEmpty()) {
+		return;
+	}
+	else {
+		img = new QPixmap;
+		if (!(img->load(filename))) {
+			QMessageBox::information(this,
+				QString::fromLocal8Bit("打开图像失败"),
+				QString::fromLocal8Bit("打开图像失败!"));
+		}
+		QDateTime time = QDateTime::currentDateTime();   //获取当前时间  
+		int timeT = time.toTime_t();   //将当前时间转为时间戳
+		filename="images/"+ QString::number(timeT, 10)+".jpg";
+		ui.btnHeadIcon->setIcon(*img);
+		ui.btnHeadIcon->setIconSize(QSize((*img).width(), (*img).height()));
+		return;
+	}
 }
 
 void student_update::InitThisPage() {
@@ -134,6 +176,17 @@ void student_update::InitThisPage() {
 	ui.lineEdit_8->setText(chartoqs(res[0].usercode));
 	ui.lineEdit_9->setText(chartoqs(res[0].dept));
 	ui.lineEdit_10->setText(chartoqs(res[0].mail));
+	filename=strtoqs(res[0].icon);
+	QPixmap pixmap = recommendBuffer::headBuffer[0];
+	ui.btnHeadIcon->setText("");
+	ui.btnHeadIcon->setStyleSheet(
+		"color:#4695d2;"
+		"border:none;"
+		"background:white;"
+		"text-size:20px;"
+	);
+	ui.btnHeadIcon->setIcon(pixmap);
+	ui.btnHeadIcon->setIconSize(QSize(pixmap.width(), pixmap.height()));
 }
 
 QString student_update::strtoqs(const string &s)

@@ -18,12 +18,15 @@ public:
 	string qstostr(const QString &s);
 	QString chartoqs(char *p);
 	void InitThisPage();
+	void openFileDiag();
 
 protected:
 	bool eventFilter(QObject *obj, QEvent *event);
 
 private:
 	Ui::student_update ui;
+	QString filename;
+	QPixmap* img;
 };
 
 #endif // STUDENT_UPDATE_H

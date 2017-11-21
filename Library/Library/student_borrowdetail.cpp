@@ -4,6 +4,7 @@
 #include"book.h"
 #include"filedb.h"
 #include"classify.h"
+#include"library.h"
 #include<vector>
 #include<string>
 #include<QMessageBox>
@@ -37,13 +38,13 @@ student_borrowdetail::student_borrowdetail(QWidget *parent)
 	ui.etAuthorHead->setEnabled(false);
 	ui.etPublishHead->setEnabled(false);
 	ui.etISBNHead->setEnabled(false);
+	ui.btnLogout->installEventFilter(this);
 	ui.etClassifyHead->setEnabled(false);
 	ui.btnPersonal->installEventFilter(this);
 	ui.btnSearchbook->installEventFilter(this);
 	ui.btnInformationchange->installEventFilter(this);
 	ui.btnBorrowagain->installEventFilter(this);
 	ui.btnReturnbook->installEventFilter(this);
-	ui.btnReturn->installEventFilter(this);
 	InitThisPage();
 }
 
@@ -184,6 +185,21 @@ bool student_borrowdetail::eventFilter(QObject *obj, QEvent *event) {
 			ReturnOrder();//如果还书时检测到有预约则调用此函数
 		}
 	}
+	if (obj == ui.btnLogout && event->type() == QEvent::MouseButtonPress) {
+		QMessageBox::StandardButton button;
+		button = QMessageBox::question(this, chartoqs("退出程序"),
+			QString(chartoqs("确认退出程序?")),
+			QMessageBox::Yes | QMessageBox::No);
+		if (button == QMessageBox::No) {
+			event->ignore();  //忽略退出信号，程序继续运行
+		}
+		else if (button == QMessageBox::Yes) {
+			Library *rec = new Library;
+			this->close();
+			rec->show();
+			event->accept();  //接受退出信号，程序退出
+		}
+	}
 	if (obj == ui.btnBorrowagain && event->type() == QEvent::MouseButtonPress) {
 		
 		Record record;
@@ -209,11 +225,7 @@ bool student_borrowdetail::eventFilter(QObject *obj, QEvent *event) {
 		FileDB::update("record", record, resRecord[0], VALUES_2);
 		QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("续借成功"), QMessageBox::Ok);
 	}
-	if (obj == ui.btnReturn && event->type() == QEvent::MouseButtonPress) {
-		student_index *rec = new student_index;
-		rec->show();
-		this->close();
-	}
+	
 	if (obj == ui.btnInformationchange && event->type() == QEvent::MouseButtonPress) {
 		student_update *rec = new student_update;
 		rec->show();

@@ -35,6 +35,7 @@ public:
     QPushButton *btnPersonal;
     QPushButton *btnInformationchange;
     QPushButton *btnSearchbook;
+    QPushButton *btnLogout;
     QFrame *frame_3;
     QVBoxLayout *verticalLayout_2;
     QFrame *frame_4;
@@ -51,6 +52,7 @@ public:
     QLineEdit *lineEdit_8;
     QLineEdit *lineEdit_9;
     QLineEdit *lineEdit_10;
+    QPushButton *btnHeadIcon;
     QPushButton *pushButton_4;
 
     void setupUi(QWidget *student_update)
@@ -127,6 +129,15 @@ public:
 "cursor:pointer;"));
 
         verticalLayout->addWidget(btnSearchbook);
+
+        btnLogout = new QPushButton(frame_8);
+        btnLogout->setObjectName(QStringLiteral("btnLogout"));
+        btnLogout->setMinimumSize(QSize(0, 100));
+        btnLogout->setStyleSheet(QString::fromUtf8("font: 12pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"color:white;\n"
+"background:transparent;"));
+
+        verticalLayout->addWidget(btnLogout);
 
 
         verticalLayout_6->addLayout(verticalLayout);
@@ -218,7 +229,7 @@ public:
 "text-align:left;"));
         lineEdit_6 = new QLineEdit(frame_5);
         lineEdit_6->setObjectName(QStringLiteral("lineEdit_6"));
-        lineEdit_6->setGeometry(QRect(70, 300, 61, 31));
+        lineEdit_6->setGeometry(QRect(70, 330, 61, 31));
         lineEdit_6->setStyleSheet(QString::fromUtf8("color:#808080;\n"
 "border:none;\n"
 "font-size:18px;\n"
@@ -255,6 +266,9 @@ public:
 "font-size:18px;\n"
 "font-family:\"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "text-align:left;"));
+        btnHeadIcon = new QPushButton(frame_5);
+        btnHeadIcon->setObjectName(QStringLiteral("btnHeadIcon"));
+        btnHeadIcon->setGeometry(QRect(120, 300, 141, 121));
 
         verticalLayout_2->addWidget(frame_5);
 
@@ -290,6 +304,7 @@ public:
         btnPersonal->setText(QApplication::translate("student_update", "\344\270\252\344\272\272\344\270\255\345\277\203", Q_NULLPTR));
         btnInformationchange->setText(QApplication::translate("student_update", "\344\277\241\346\201\257\344\277\256\346\224\271", Q_NULLPTR));
         btnSearchbook->setText(QApplication::translate("student_update", "\345\233\276\344\271\246\346\237\245\350\257\242", Q_NULLPTR));
+        btnLogout->setText(QApplication::translate("student_update", "\351\200\200\345\207\272\347\231\273\345\275\225", Q_NULLPTR));
         pushButton->setText(QApplication::translate("student_update", "\344\277\241\346\201\257\344\277\256\346\224\271", Q_NULLPTR));
         pushButton_2->setText(QApplication::translate("student_update", "\345\257\206\347\240\201\344\277\256\346\224\271", Q_NULLPTR));
         pushButton_3->setText(QApplication::translate("student_update", "\346\224\257\344\273\230\346\254\240\346\254\276", Q_NULLPTR));
@@ -299,6 +314,7 @@ public:
         lineEdit_5->setText(QApplication::translate("student_update", "\351\202\256\347\256\261\357\274\232", Q_NULLPTR));
         lineEdit_6->setText(QApplication::translate("student_update", "\345\244\264\345\203\217\357\274\232", Q_NULLPTR));
         lineEdit_7->setText(QString());
+        btnHeadIcon->setText(QApplication::translate("student_update", "PushButton", Q_NULLPTR));
         pushButton_4->setText(QApplication::translate("student_update", "\346\217\220\344\272\244\344\277\256\346\224\271", Q_NULLPTR));
     } // retranslateUi
 

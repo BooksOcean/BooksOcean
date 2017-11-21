@@ -1,7 +1,9 @@
 #include "student_classify.h"
 #include<QSignalMapper>
 #include"classify.h"
+#include<QMessageBox>
 #include"filedb.h"
+#include"library.h"
 #include"student_searchbook.h"
 #include"classifyConfig.h"
 #include"student_index.h"
@@ -14,7 +16,7 @@ student_classify::student_classify(QWidget *parent)
 	classifyConfig::isCheck = 0;
 	ui.btnInformationchange->installEventFilter(this);
 	ui.btnPersonal->installEventFilter(this);
-	ui.btnReturn->installEventFilter(this);
+	ui.btnLogout->installEventFilter(this);
 	ui.tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);//设置不可编辑	
 	ui.tableWidget->verticalHeader()->setVisible(false); //设置行号不可见
 	ui.tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);//表宽度自适应
@@ -31,6 +33,21 @@ student_classify::~student_classify()
 
 bool student_classify::eventFilter(QObject *obj, QEvent *event)
 {
+	if (obj == ui.btnLogout && event->type() == QEvent::MouseButtonPress) {
+		QMessageBox::StandardButton button;
+		button = QMessageBox::question(this, QString::fromLocal8Bit("退出程序"),
+			QString(QString::fromLocal8Bit("确认退出程序?")),
+			QMessageBox::Yes | QMessageBox::No);
+		if (button == QMessageBox::No) {
+			event->ignore();  //忽略退出信号，程序继续运行
+		}
+		else if (button == QMessageBox::Yes) {
+			Library *rec = new Library;
+			this->close();
+			rec->show();
+			event->accept();  //接受退出信号，程序退出
+		}
+	}
 	if (obj == ui.btnPersonal && event->type() == QEvent::MouseButtonPress) {
 		student_index *rec = new student_index;
 		this->close();
@@ -43,12 +60,6 @@ bool student_classify::eventFilter(QObject *obj, QEvent *event)
 		rec->show();
 
 	}
-	if (obj == ui.btnReturn && event->type() == QEvent::MouseButtonPress) {
-		student_searchBook *rec = new student_searchBook;
-		rec->show();
-		this->close();
-	}
-
 	else {
 		return QWidget::eventFilter(obj, event);
 	}

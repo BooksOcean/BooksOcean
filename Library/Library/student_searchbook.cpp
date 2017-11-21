@@ -6,11 +6,13 @@
 #include"student_update.h"
 #include"classifyConfig.h"
 #include"qlabel.h"
+#include"library.h"
 #include"classifyMap.h"
 #include"bookConfig.h"
 #include"student_bookdetail.h"
 #include"student_classify.h"
 #include<QSignalMapper>
+#include<QMessageBox>
 #include <qtnetwork/qnetworkaccessmanager>
 #include <qtnetwork/QNetworkRequest>
 #include <qtnetwork/QNetworkRequest>
@@ -24,6 +26,7 @@ student_searchBook::student_searchBook(QWidget *parent)
 	ui.btnFirstPage->installEventFilter(this);
 	ui.btnLastPage->installEventFilter(this);
 	ui.btnNextPage->installEventFilter(this);
+	ui.btnLogout->installEventFilter(this);
 	ui.btnSearch->installEventFilter(this);
 	ui.btnTheLast->installEventFilter(this);
 	ui.tableWidget->setColumnCount(7);
@@ -136,6 +139,21 @@ bool student_searchBook::eventFilter(QObject *obj, QEvent *event)
 		}
 		else {
 			return false;
+		}
+	}
+	if (obj == ui.btnLogout && event->type() == QEvent::MouseButtonPress) {
+		QMessageBox::StandardButton button;
+		button = QMessageBox::question(this, QString::fromLocal8Bit("退出程序"),
+			QString(QString::fromLocal8Bit("确认退出程序?")),
+			QMessageBox::Yes | QMessageBox::No);
+		if (button == QMessageBox::No) {
+			event->ignore();  //忽略退出信号，程序继续运行
+		}
+		else if (button == QMessageBox::Yes) {
+			Library *rec = new Library;
+			this->close();
+			rec->show();
+			event->accept();  //接受退出信号，程序退出
 		}
 	}
 

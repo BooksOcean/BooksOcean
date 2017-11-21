@@ -4,10 +4,11 @@
 #include"filedb.h"
 #include"student.h"
 #include"userConfig.h"
+#include"library.h"
+#include<QMessageBox>
 #include <QTextCodec>
 #include"student_index.h"
 #include"student_searchbook.h"
-#include<QMessageBox>
 #include<vector>
 #include"userConfig.h"
 #include"student_repay.h"
@@ -22,6 +23,7 @@ student_updatePassword::student_updatePassword(QWidget *parent)
 	ui.btnInformationchange->installEventFilter(this);
 	ui.btnPersonal->installEventFilter(this);
 	ui.btnSearchbook->installEventFilter(this);
+	ui.btnLogout->installEventFilter(this);
 	ui.pushButton->installEventFilter(this);
 	ui.pushButton_3->installEventFilter(this);
 	ui.pushButton_4->installEventFilter(this);
@@ -48,6 +50,21 @@ bool student_updatePassword::eventFilter(QObject *obj, QEvent *event) {
 		student_searchBook *rec = new student_searchBook;
 		this->close();
 		rec->show();
+	}
+	if (obj == ui.btnLogout && event->type() == QEvent::MouseButtonPress) {
+		QMessageBox::StandardButton button;
+		button = QMessageBox::question(this, QString::fromLocal8Bit("退出程序"),
+			QString(QString::fromLocal8Bit("确认退出程序?")),
+			QMessageBox::Yes | QMessageBox::No);
+		if (button == QMessageBox::No) {
+			event->ignore();  //忽略退出信号，程序继续运行
+		}
+		else if (button == QMessageBox::Yes) {
+			Library *rec = new Library;
+			this->close();
+			rec->show();
+			event->accept();  //接受退出信号，程序退出
+		}
 	}
 	if (obj == ui.pushButton_3 && event->type() == QEvent::MouseButtonPress) {
 		student_repay *rec = new student_repay;

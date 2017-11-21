@@ -5,6 +5,7 @@
 #include<QMessageBox>
 #include <QTextCodec>
 #include"student.h"
+#include"library.h"
 #include"record.h"
 #include"book.h"
 #include"filedb.h"
@@ -33,12 +34,12 @@ student_borrow::student_borrow(QWidget *parent)
 	ui.lineEdit_5->setEnabled(false);
 	ui.btnInformationchange->installEventFilter(this);
 	ui.btnPersonal->installEventFilter(this);
+	ui.btnLogout->installEventFilter(this);
 	ui.btnSearchbook->installEventFilter(this);
 	ui.btnFirstPage->installEventFilter(this);
 	ui.btnLastPage->installEventFilter(this);
 	ui.btnNextPage->installEventFilter(this);
 	ui.btnTheLast->installEventFilter(this);
-	ui.btnReturn->installEventFilter(this);
 	ui.tableBorrow->installEventFilter(this);
 	ui.btnInformationchange->installEventFilter(this);
 	InitThisPage();
@@ -89,12 +90,6 @@ bool student_borrow::eventFilter(QObject *obj, QEvent *event) {
 			return false;
 		}
 	}
-
-	if (obj == ui.btnReturn && event->type() == QEvent::MouseButtonPress) {
-		student_index *rec = new student_index;
-		rec->show();
-		this->close();
-	}
 	
 	if (obj == ui.btnPersonal && event->type() == QEvent::MouseButtonPress) {
 		student_index *rec = new student_index;
@@ -105,6 +100,21 @@ bool student_borrow::eventFilter(QObject *obj, QEvent *event) {
 		student_searchBook *rec = new student_searchBook;
 		rec->show();
 		this->close();
+	}
+	if (obj == ui.btnLogout && event->type() == QEvent::MouseButtonPress) {
+		QMessageBox::StandardButton button;
+		button = QMessageBox::question(this, chartoqs("退出程序"),
+			QString(chartoqs("确认退出程序?")),
+			QMessageBox::Yes | QMessageBox::No);
+		if (button == QMessageBox::No) {
+			event->ignore();  //忽略退出信号，程序继续运行
+		}
+		else if (button == QMessageBox::Yes) {
+			Library *rec = new Library;
+			this->close();
+			rec->show();
+			event->accept();  //接受退出信号，程序退出
+		}
 	}
 	if (obj == ui.btnInformationchange && event->type() == QEvent::MouseButtonPress) {
 		student_update *rec = new student_update;
@@ -153,7 +163,7 @@ void student_borrow::InitThisPage() {
 	borrowNumber += ")";
 	ui.etBorrowNumber->setText(strtoqs(borrowNumber));
 	QStringList header;
-	header << strtoqs("封面") <<strtoqs("书名") << strtoqs("作者") << strtoqs("出版社")<< strtoqs("查看详情");
+	header << strtoqs("封面") <<strtoqs("书名") << strtoqs("作者") << strtoqs("出版社")<< strtoqs("状态")<<strtoqs("查看详情");
 	ui.tableBorrow->setEditTriggers(QAbstractItemView::NoEditTriggers);//设置不可编辑	
 	ui.tableBorrow->verticalHeader()->setVisible(false); //设置行号不可见
 	ui.tableBorrow->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);//表宽度自适应
@@ -237,9 +247,15 @@ void student_borrow::DataBind() {
 		VALUES.push_back("id");
 		resBook.clear();
 		resBookMap.clear();
-		bookmap.setId(resRecord[i].bookId);
-		FileDB::select("bookMap", bookmap, VALUES, resBookMap);
-		book.setId(resBookMap[0].bookId);
+		if (resRecord[i].type != 2) {
+			bookmap.setId(resRecord[i].bookId);
+			FileDB::select("bookMap", bookmap, VALUES, resBookMap);
+			book.setId(resBookMap[0].bookId);
+		}
+		else{
+			//查询book，得书名
+			book.setId(resRecord[i].bookId);
+		}
 		FileDB::select("book", book, VALUES, resBook);
 		ui.tableBorrow->insertRow(i - currentPageBegin);
 		ui.tableBorrow->setRowHeight(i - currentPageBegin, 200);//第一行
@@ -267,7 +283,12 @@ void student_borrow::DataBind() {
 		addItemContent(i - currentPageBegin, 1, strtoqs(resBook[0].name));
 		addItemContent(i - currentPageBegin, 2, strtoqs(resBook[0].author));
 		addItemContent(i - currentPageBegin, 3, strtoqs(resBook[0].publish));
-
+		if (resRecord[i].type == 0)
+			addItemContent(i, 4, chartoqs("正常"));
+		else if (resRecord[i].type == 1)
+			addItemContent(i, 4, chartoqs("超期"));
+		else
+			addItemContent(i, 4, chartoqs("预约"));
 		//添加“详情”按钮，并绑定事件
 		QPushButton *btn = new QPushButton;
 		ui.tableBorrow->setCellWidget(i - currentPageBegin, 4, btn);

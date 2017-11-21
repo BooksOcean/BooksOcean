@@ -3,6 +3,7 @@
 #include "student_update.h"
 #include<string>
 #include"filedb.h"
+#include"library.h"
 #include"student.h"
 #include"userConfig.h"
 #include <QTextCodec>
@@ -18,6 +19,7 @@ student_repay::student_repay(QWidget *parent)
 	ui.setupUi(this);
 	ui.lineEdit->setEnabled(false);
 	ui.etRepay->setEnabled(false);
+	ui.btnLogout->installEventFilter(this);
 	ui.btnInformationchange->installEventFilter(this);
 	ui.btnPersonal->installEventFilter(this);
 	ui.btnSearchbook->installEventFilter(this);
@@ -51,6 +53,21 @@ bool student_repay::eventFilter(QObject *obj, QEvent *event) {
 		this->close();
 		rec->show();
 		return true;
+	}
+	if (obj == ui.btnLogout && event->type() == QEvent::MouseButtonPress) {
+		QMessageBox::StandardButton button;
+		button = QMessageBox::question(this, QString::fromLocal8Bit("退出程序"),
+			QString(QString::fromLocal8Bit("确认退出程序?")),
+			QMessageBox::Yes | QMessageBox::No);
+		if (button == QMessageBox::No) {
+			event->ignore();  //忽略退出信号，程序继续运行
+		}
+		else if (button == QMessageBox::Yes) {
+			Library *rec = new Library;
+			this->close();
+			rec->show();
+			event->accept();  //接受退出信号，程序退出
+		}
 	}
 	if (obj == ui.pushButton_2 && event->type() == QEvent::MouseButtonPress) {
 		student_updatePassword *rec = new student_updatePassword;

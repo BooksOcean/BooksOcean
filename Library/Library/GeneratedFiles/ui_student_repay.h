@@ -35,6 +35,7 @@ public:
     QPushButton *btnPersonal;
     QPushButton *btnInformationchange;
     QPushButton *btnSearchbook;
+    QPushButton *btnLogout;
     QFrame *frame_3;
     QVBoxLayout *verticalLayout_2;
     QFrame *frame_4;
@@ -122,6 +123,15 @@ public:
 "cursor:pointer;"));
 
         verticalLayout->addWidget(btnSearchbook);
+
+        btnLogout = new QPushButton(frame_8);
+        btnLogout->setObjectName(QStringLiteral("btnLogout"));
+        btnLogout->setMinimumSize(QSize(0, 100));
+        btnLogout->setStyleSheet(QString::fromUtf8("font: 12pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"color:white;\n"
+"background:transparent;"));
+
+        verticalLayout->addWidget(btnLogout);
 
 
         verticalLayout_6->addLayout(verticalLayout);
@@ -239,6 +249,7 @@ public:
         btnPersonal->setText(QApplication::translate("student_repay", "\344\270\252\344\272\272\344\270\255\345\277\203", Q_NULLPTR));
         btnInformationchange->setText(QApplication::translate("student_repay", "\344\277\241\346\201\257\344\277\256\346\224\271", Q_NULLPTR));
         btnSearchbook->setText(QApplication::translate("student_repay", "\345\233\276\344\271\246\346\237\245\350\257\242", Q_NULLPTR));
+        btnLogout->setText(QApplication::translate("student_repay", "\351\200\200\345\207\272\347\231\273\345\275\225", Q_NULLPTR));
         pushButton->setText(QApplication::translate("student_repay", "\344\277\241\346\201\257\344\277\256\346\224\271", Q_NULLPTR));
         pushButton_2->setText(QApplication::translate("student_repay", "\345\257\206\347\240\201\344\277\256\346\224\271", Q_NULLPTR));
         pushButton_3->setText(QApplication::translate("student_repay", "\346\224\257\344\273\230\346\254\240\346\254\276", Q_NULLPTR));

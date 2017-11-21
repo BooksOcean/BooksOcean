@@ -36,11 +36,11 @@ public:
     QPushButton *btnPersonal;
     QPushButton *btnInformationchange;
     QPushButton *btnSearchbook;
+    QPushButton *btnLogout;
     QFrame *frame_3;
     QVBoxLayout *verticalLayout_2;
     QFrame *frame_4;
     QHBoxLayout *horizontalLayout_3;
-    QPushButton *btnReturn;
     QLineEdit *etClassify;
     QFrame *frame_6;
     QHBoxLayout *horizontalLayout_4;
@@ -121,6 +121,15 @@ public:
 
         verticalLayout->addWidget(btnSearchbook);
 
+        btnLogout = new QPushButton(frame_8);
+        btnLogout->setObjectName(QStringLiteral("btnLogout"));
+        btnLogout->setMinimumSize(QSize(0, 100));
+        btnLogout->setStyleSheet(QString::fromUtf8("font: 12pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"color:white;\n"
+"background:transparent;"));
+
+        verticalLayout->addWidget(btnLogout);
+
 
         verticalLayout_6->addLayout(verticalLayout);
 
@@ -153,19 +162,6 @@ public:
         horizontalLayout_3->setSpacing(6);
         horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
-        btnReturn = new QPushButton(frame_4);
-        btnReturn->setObjectName(QStringLiteral("btnReturn"));
-        btnReturn->setMinimumSize(QSize(30, 0));
-        btnReturn->setStyleSheet(QString::fromUtf8("color:#4D4D4D;\n"
-"border:none;\n"
-"font-size:24px;\n"
-"font-weight:500;\n"
-"font-family:\"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
-"text-align:center;\n"
-""));
-
-        horizontalLayout_3->addWidget(btnReturn);
-
         etClassify = new QLineEdit(frame_4);
         etClassify->setObjectName(QStringLiteral("etClassify"));
         etClassify->setStyleSheet(QString::fromUtf8("color:#4D4D4D;\n"
@@ -227,7 +223,7 @@ public:
         btnPersonal->setText(QApplication::translate("student_borrowdetail", "\344\270\252\344\272\272\344\270\255\345\277\203", Q_NULLPTR));
         btnInformationchange->setText(QApplication::translate("student_borrowdetail", "\344\277\241\346\201\257\344\277\256\346\224\271", Q_NULLPTR));
         btnSearchbook->setText(QApplication::translate("student_borrowdetail", "\345\233\276\344\271\246\346\237\245\350\257\242", Q_NULLPTR));
-        btnReturn->setText(QApplication::translate("student_borrowdetail", "<", Q_NULLPTR));
+        btnLogout->setText(QApplication::translate("student_borrowdetail", "\351\200\200\345\207\272\347\231\273\345\275\225", Q_NULLPTR));
         etClassify->setText(QApplication::translate("student_borrowdetail", "\351\200\211\346\213\251\345\210\206\347\261\273", Q_NULLPTR));
     } // retranslateUi
 

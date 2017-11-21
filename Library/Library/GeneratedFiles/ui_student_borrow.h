@@ -36,11 +36,11 @@ public:
     QPushButton *btnPersonal;
     QPushButton *btnInformationchange;
     QPushButton *btnSearchbook;
+    QPushButton *btnLogout;
     QFrame *frame_3;
     QVBoxLayout *verticalLayout_2;
     QFrame *frame_4;
     QHBoxLayout *horizontalLayout_3;
-    QPushButton *btnReturn;
     QPushButton *pushButton;
     QLineEdit *etBorrowNumber;
     QTableWidget *tableBorrow;
@@ -130,6 +130,15 @@ public:
 
         verticalLayout->addWidget(btnSearchbook);
 
+        btnLogout = new QPushButton(frame_8);
+        btnLogout->setObjectName(QStringLiteral("btnLogout"));
+        btnLogout->setMinimumSize(QSize(0, 100));
+        btnLogout->setStyleSheet(QString::fromUtf8("font: 12pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"color:white;\n"
+"background:transparent;"));
+
+        verticalLayout->addWidget(btnLogout);
+
 
         verticalLayout_6->addLayout(verticalLayout);
 
@@ -162,22 +171,6 @@ public:
         horizontalLayout_3->setSpacing(6);
         horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
-        btnReturn = new QPushButton(frame_4);
-        btnReturn->setObjectName(QStringLiteral("btnReturn"));
-        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Minimum);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(btnReturn->sizePolicy().hasHeightForWidth());
-        btnReturn->setSizePolicy(sizePolicy2);
-        btnReturn->setMinimumSize(QSize(30, 0));
-        btnReturn->setStyleSheet(QString::fromUtf8("color:#4D4D4D;\n"
-"border:none;\n"
-"font-size:24px;\n"
-"font-weight:500;\n"
-"font-family:\"\345\276\256\350\275\257\351\233\205\351\273\221\";"));
-
-        horizontalLayout_3->addWidget(btnReturn);
-
         pushButton = new QPushButton(frame_4);
         pushButton->setObjectName(QStringLiteral("pushButton"));
         pushButton->setStyleSheet(QString::fromUtf8("color:#4D4D4D;\n"
@@ -200,8 +193,8 @@ public:
         verticalLayout_2->addWidget(frame_4);
 
         tableBorrow = new QTableWidget(frame_3);
-        if (tableBorrow->columnCount() < 5)
-            tableBorrow->setColumnCount(5);
+        if (tableBorrow->columnCount() < 6)
+            tableBorrow->setColumnCount(6);
         QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
         tableBorrow->setHorizontalHeaderItem(0, __qtablewidgetitem);
         QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
@@ -212,22 +205,24 @@ public:
         tableBorrow->setHorizontalHeaderItem(3, __qtablewidgetitem3);
         QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
         tableBorrow->setHorizontalHeaderItem(4, __qtablewidgetitem4);
+        QTableWidgetItem *__qtablewidgetitem5 = new QTableWidgetItem();
+        tableBorrow->setHorizontalHeaderItem(5, __qtablewidgetitem5);
         tableBorrow->setObjectName(QStringLiteral("tableBorrow"));
-        QSizePolicy sizePolicy3(QSizePolicy::Preferred, QSizePolicy::Preferred);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(0);
-        sizePolicy3.setHeightForWidth(tableBorrow->sizePolicy().hasHeightForWidth());
-        tableBorrow->setSizePolicy(sizePolicy3);
+        QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(tableBorrow->sizePolicy().hasHeightForWidth());
+        tableBorrow->setSizePolicy(sizePolicy2);
 
         verticalLayout_2->addWidget(tableBorrow);
 
         frame_5 = new QFrame(frame_3);
         frame_5->setObjectName(QStringLiteral("frame_5"));
-        QSizePolicy sizePolicy4(QSizePolicy::Preferred, QSizePolicy::Fixed);
-        sizePolicy4.setHorizontalStretch(0);
-        sizePolicy4.setVerticalStretch(0);
-        sizePolicy4.setHeightForWidth(frame_5->sizePolicy().hasHeightForWidth());
-        frame_5->setSizePolicy(sizePolicy4);
+        QSizePolicy sizePolicy3(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(frame_5->sizePolicy().hasHeightForWidth());
+        frame_5->setSizePolicy(sizePolicy3);
         frame_5->setFrameShape(QFrame::StyledPanel);
         frame_5->setFrameShadow(QFrame::Raised);
         horizontalLayout_2 = new QHBoxLayout(frame_5);
@@ -236,8 +231,8 @@ public:
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         btnFirstPage = new QPushButton(frame_5);
         btnFirstPage->setObjectName(QStringLiteral("btnFirstPage"));
-        sizePolicy4.setHeightForWidth(btnFirstPage->sizePolicy().hasHeightForWidth());
-        btnFirstPage->setSizePolicy(sizePolicy4);
+        sizePolicy3.setHeightForWidth(btnFirstPage->sizePolicy().hasHeightForWidth());
+        btnFirstPage->setSizePolicy(sizePolicy3);
         btnFirstPage->setStyleSheet(QLatin1String("color:#4695d2;\n"
 "border:none;\n"
 "font-size:18px;"));
@@ -246,8 +241,8 @@ public:
 
         btnLastPage = new QPushButton(frame_5);
         btnLastPage->setObjectName(QStringLiteral("btnLastPage"));
-        sizePolicy4.setHeightForWidth(btnLastPage->sizePolicy().hasHeightForWidth());
-        btnLastPage->setSizePolicy(sizePolicy4);
+        sizePolicy3.setHeightForWidth(btnLastPage->sizePolicy().hasHeightForWidth());
+        btnLastPage->setSizePolicy(sizePolicy3);
         btnLastPage->setStyleSheet(QLatin1String("color:#4695d2;\n"
 "border:none;\n"
 "font-size:18px;"));
@@ -259,11 +254,11 @@ public:
         horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
         lineEdit = new QLineEdit(frame_5);
         lineEdit->setObjectName(QStringLiteral("lineEdit"));
-        QSizePolicy sizePolicy5(QSizePolicy::Maximum, QSizePolicy::Preferred);
-        sizePolicy5.setHorizontalStretch(0);
-        sizePolicy5.setVerticalStretch(0);
-        sizePolicy5.setHeightForWidth(lineEdit->sizePolicy().hasHeightForWidth());
-        lineEdit->setSizePolicy(sizePolicy5);
+        QSizePolicy sizePolicy4(QSizePolicy::Maximum, QSizePolicy::Preferred);
+        sizePolicy4.setHorizontalStretch(0);
+        sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(lineEdit->sizePolicy().hasHeightForWidth());
+        lineEdit->setSizePolicy(sizePolicy4);
         lineEdit->setMaximumSize(QSize(60, 16777215));
         lineEdit->setStyleSheet(QLatin1String("border:none;\n"
 "font-size:18px;"));
@@ -272,11 +267,11 @@ public:
 
         etPageIndex = new QLineEdit(frame_5);
         etPageIndex->setObjectName(QStringLiteral("etPageIndex"));
-        QSizePolicy sizePolicy6(QSizePolicy::Maximum, QSizePolicy::Fixed);
-        sizePolicy6.setHorizontalStretch(0);
-        sizePolicy6.setVerticalStretch(0);
-        sizePolicy6.setHeightForWidth(etPageIndex->sizePolicy().hasHeightForWidth());
-        etPageIndex->setSizePolicy(sizePolicy6);
+        QSizePolicy sizePolicy5(QSizePolicy::Maximum, QSizePolicy::Fixed);
+        sizePolicy5.setHorizontalStretch(0);
+        sizePolicy5.setVerticalStretch(0);
+        sizePolicy5.setHeightForWidth(etPageIndex->sizePolicy().hasHeightForWidth());
+        etPageIndex->setSizePolicy(sizePolicy5);
         etPageIndex->setMaximumSize(QSize(20, 16777215));
         etPageIndex->setStyleSheet(QLatin1String("border:none;\n"
 "font-size:18px;"));
@@ -285,8 +280,8 @@ public:
 
         lineEdit_3 = new QLineEdit(frame_5);
         lineEdit_3->setObjectName(QStringLiteral("lineEdit_3"));
-        sizePolicy6.setHeightForWidth(lineEdit_3->sizePolicy().hasHeightForWidth());
-        lineEdit_3->setSizePolicy(sizePolicy6);
+        sizePolicy5.setHeightForWidth(lineEdit_3->sizePolicy().hasHeightForWidth());
+        lineEdit_3->setSizePolicy(sizePolicy5);
         lineEdit_3->setMaximumSize(QSize(60, 16777215));
         lineEdit_3->setStyleSheet(QLatin1String("border:none;\n"
 "font-size:18px;"));
@@ -295,8 +290,8 @@ public:
 
         etPageCount = new QLineEdit(frame_5);
         etPageCount->setObjectName(QStringLiteral("etPageCount"));
-        sizePolicy5.setHeightForWidth(etPageCount->sizePolicy().hasHeightForWidth());
-        etPageCount->setSizePolicy(sizePolicy5);
+        sizePolicy4.setHeightForWidth(etPageCount->sizePolicy().hasHeightForWidth());
+        etPageCount->setSizePolicy(sizePolicy4);
         etPageCount->setMaximumSize(QSize(20, 16777215));
         etPageCount->setStyleSheet(QLatin1String("border:none;\n"
 "font-size:18px;"));
@@ -305,8 +300,8 @@ public:
 
         lineEdit_5 = new QLineEdit(frame_5);
         lineEdit_5->setObjectName(QStringLiteral("lineEdit_5"));
-        sizePolicy5.setHeightForWidth(lineEdit_5->sizePolicy().hasHeightForWidth());
-        lineEdit_5->setSizePolicy(sizePolicy5);
+        sizePolicy4.setHeightForWidth(lineEdit_5->sizePolicy().hasHeightForWidth());
+        lineEdit_5->setSizePolicy(sizePolicy4);
         lineEdit_5->setMaximumSize(QSize(20, 16777215));
         lineEdit_5->setStyleSheet(QLatin1String("border:none;\n"
 "font-size:18px;"));
@@ -318,8 +313,8 @@ public:
 
         btnNextPage = new QPushButton(frame_5);
         btnNextPage->setObjectName(QStringLiteral("btnNextPage"));
-        sizePolicy4.setHeightForWidth(btnNextPage->sizePolicy().hasHeightForWidth());
-        btnNextPage->setSizePolicy(sizePolicy4);
+        sizePolicy3.setHeightForWidth(btnNextPage->sizePolicy().hasHeightForWidth());
+        btnNextPage->setSizePolicy(sizePolicy3);
         btnNextPage->setStyleSheet(QLatin1String("color:#4695d2;\n"
 "border:none;\n"
 "font-size:18px;"));
@@ -328,8 +323,8 @@ public:
 
         btnTheLast = new QPushButton(frame_5);
         btnTheLast->setObjectName(QStringLiteral("btnTheLast"));
-        sizePolicy4.setHeightForWidth(btnTheLast->sizePolicy().hasHeightForWidth());
-        btnTheLast->setSizePolicy(sizePolicy4);
+        sizePolicy3.setHeightForWidth(btnTheLast->sizePolicy().hasHeightForWidth());
+        btnTheLast->setSizePolicy(sizePolicy3);
         btnTheLast->setStyleSheet(QLatin1String("color:#4695d2;\n"
 "border:none;\n"
 "font-size:18px;"));
@@ -354,7 +349,7 @@ public:
         btnPersonal->setText(QApplication::translate("student_borrow", "\344\270\252\344\272\272\344\270\255\345\277\203", Q_NULLPTR));
         btnInformationchange->setText(QApplication::translate("student_borrow", "\344\277\241\346\201\257\344\277\256\346\224\271", Q_NULLPTR));
         btnSearchbook->setText(QApplication::translate("student_borrow", "\345\233\276\344\271\246\346\237\245\350\257\242", Q_NULLPTR));
-        btnReturn->setText(QApplication::translate("student_borrow", "<", Q_NULLPTR));
+        btnLogout->setText(QApplication::translate("student_borrow", "\351\200\200\345\207\272\347\231\273\345\275\225", Q_NULLPTR));
         pushButton->setText(QApplication::translate("student_borrow", "\345\275\223\345\211\215\345\200\237\351\230\205", Q_NULLPTR));
         etBorrowNumber->setText(QApplication::translate("student_borrow", "\357\274\21020\357\274\211", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem = tableBorrow->horizontalHeaderItem(0);
@@ -366,7 +361,9 @@ public:
         QTableWidgetItem *___qtablewidgetitem3 = tableBorrow->horizontalHeaderItem(3);
         ___qtablewidgetitem3->setText(QApplication::translate("student_borrow", "\345\207\272\347\211\210\347\244\276", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem4 = tableBorrow->horizontalHeaderItem(4);
-        ___qtablewidgetitem4->setText(QApplication::translate("student_borrow", "\346\237\245\347\234\213\350\257\246\346\203\205", Q_NULLPTR));
+        ___qtablewidgetitem4->setText(QApplication::translate("student_borrow", "\347\212\266\346\200\201", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem5 = tableBorrow->horizontalHeaderItem(5);
+        ___qtablewidgetitem5->setText(QApplication::translate("student_borrow", "\346\237\245\347\234\213\350\257\246\346\203\205", Q_NULLPTR));
         btnFirstPage->setText(QApplication::translate("student_borrow", "\351\246\226\351\241\265", Q_NULLPTR));
         btnLastPage->setText(QApplication::translate("student_borrow", "\344\270\212\344\270\200\351\241\265", Q_NULLPTR));
         lineEdit->setText(QApplication::translate("student_borrow", "\345\275\223\345\211\215\347\254\254", Q_NULLPTR));
