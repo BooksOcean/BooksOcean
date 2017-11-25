@@ -11,6 +11,9 @@ class admin_updatepassword : public QWidget
 public:
 	admin_updatepassword(QWidget *parent = 0);
 	~admin_updatepassword();
+	void InitThisPage();
+protected:
+	bool eventFilter(QObject *obj, QEvent *event);
 
 private:
 	Ui::admin_updatepassword ui;

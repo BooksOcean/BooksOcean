@@ -33,34 +33,28 @@ public:
     QVBoxLayout *verticalLayout_6;
     QVBoxLayout *verticalLayout;
     QPushButton *btnPersonal;
-    QPushButton *btnInformationchange;
+    QPushButton *btnSearchuser;
     QPushButton *btnSearchbook;
-    QPushButton *pushButton;
+    QPushButton *btnClassify;
     QFrame *frame_3;
     QVBoxLayout *verticalLayout_3;
     QFrame *frame_4;
-    QFrame *frameHead;
     QLineEdit *etSname;
-    QLineEdit *etAnumber;
-    QLineEdit *etEmail;
     QFrame *frame_5;
     QVBoxLayout *verticalLayout_4;
     QFrame *frame_6;
     QPushButton *pushButton_6;
     QPushButton *pushButton_7;
     QFrame *frame_7;
-    QLineEdit *lineEdit;
     QLineEdit *lineEdit_13;
-    QLineEdit *lineEdit_14;
-    QLineEdit *lineEdit_15;
-    QLineEdit *lineEdit_18;
-    QPushButton *pushButton_9;
+    QLineEdit *etNewemail;
+    QPushButton *btnSubmit;
 
     void setupUi(QWidget *admin_index)
     {
         if (admin_index->objectName().isEmpty())
             admin_index->setObjectName(QStringLiteral("admin_index"));
-        admin_index->resize(1088, 744);
+        admin_index->resize(1089, 744);
         horizontalLayout = new QHBoxLayout(admin_index);
         horizontalLayout->setSpacing(6);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
@@ -111,15 +105,15 @@ public:
 
         verticalLayout->addWidget(btnPersonal);
 
-        btnInformationchange = new QPushButton(frame_8);
-        btnInformationchange->setObjectName(QStringLiteral("btnInformationchange"));
-        btnInformationchange->setMinimumSize(QSize(0, 100));
-        btnInformationchange->setStyleSheet(QString::fromUtf8("font: 12pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+        btnSearchuser = new QPushButton(frame_8);
+        btnSearchuser->setObjectName(QStringLiteral("btnSearchuser"));
+        btnSearchuser->setMinimumSize(QSize(0, 100));
+        btnSearchuser->setStyleSheet(QString::fromUtf8("font: 12pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "color:white;\n"
 "background:transparent;\n"
 "cursor:pointer;"));
 
-        verticalLayout->addWidget(btnInformationchange);
+        verticalLayout->addWidget(btnSearchuser);
 
         btnSearchbook = new QPushButton(frame_8);
         btnSearchbook->setObjectName(QStringLiteral("btnSearchbook"));
@@ -131,15 +125,15 @@ public:
 
         verticalLayout->addWidget(btnSearchbook);
 
-        pushButton = new QPushButton(frame_8);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setMinimumSize(QSize(0, 100));
-        pushButton->setStyleSheet(QString::fromUtf8("font: 12pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+        btnClassify = new QPushButton(frame_8);
+        btnClassify->setObjectName(QStringLiteral("btnClassify"));
+        btnClassify->setMinimumSize(QSize(0, 100));
+        btnClassify->setStyleSheet(QString::fromUtf8("font: 12pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "color:white;\n"
 "background:transparent;\n"
 "cursor:pointer;"));
 
-        verticalLayout->addWidget(pushButton);
+        verticalLayout->addWidget(btnClassify);
 
 
         verticalLayout_6->addLayout(verticalLayout);
@@ -168,19 +162,13 @@ public:
         sizePolicy2.setVerticalStretch(80);
         sizePolicy2.setHeightForWidth(frame_4->sizePolicy().hasHeightForWidth());
         frame_4->setSizePolicy(sizePolicy2);
-        frame_4->setMinimumSize(QSize(0, 100));
-        frame_4->setMaximumSize(QSize(16777215, 150));
+        frame_4->setMinimumSize(QSize(0, 30));
+        frame_4->setMaximumSize(QSize(16777215, 40));
         frame_4->setFrameShape(QFrame::StyledPanel);
         frame_4->setFrameShadow(QFrame::Raised);
-        frameHead = new QFrame(frame_4);
-        frameHead->setObjectName(QStringLiteral("frameHead"));
-        frameHead->setGeometry(QRect(10, 0, 111, 131));
-        frameHead->setStyleSheet(QString::fromUtf8("image: url(:/Library/images/\346\244\255\345\234\206 1.png);"));
-        frameHead->setFrameShape(QFrame::StyledPanel);
-        frameHead->setFrameShadow(QFrame::Raised);
         etSname = new QLineEdit(frame_4);
         etSname->setObjectName(QStringLiteral("etSname"));
-        etSname->setGeometry(QRect(130, 20, 81, 51));
+        etSname->setGeometry(QRect(20, 0, 661, 41));
         QSizePolicy sizePolicy3(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy3.setHorizontalStretch(0);
         sizePolicy3.setVerticalStretch(0);
@@ -188,18 +176,6 @@ public:
         etSname->setSizePolicy(sizePolicy3);
         etSname->setStyleSheet(QString::fromUtf8("font: 14pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "border-width:0;\n"
-"border-style:outset;"));
-        etAnumber = new QLineEdit(frame_4);
-        etAnumber->setObjectName(QStringLiteral("etAnumber"));
-        etAnumber->setGeometry(QRect(130, 60, 171, 21));
-        etAnumber->setStyleSheet(QString::fromUtf8("border-width:0;\n"
-"font: 10pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
-"border-style:outset;"));
-        etEmail = new QLineEdit(frame_4);
-        etEmail->setObjectName(QStringLiteral("etEmail"));
-        etEmail->setGeometry(QRect(130, 90, 271, 21));
-        etEmail->setStyleSheet(QString::fromUtf8("border-width:0;\n"
-"font: 9pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "border-style:outset;"));
 
         verticalLayout_3->addWidget(frame_4);
@@ -248,41 +224,18 @@ public:
         frame_7->setObjectName(QStringLiteral("frame_7"));
         frame_7->setFrameShape(QFrame::StyledPanel);
         frame_7->setFrameShadow(QFrame::Raised);
-        lineEdit = new QLineEdit(frame_7);
-        lineEdit->setObjectName(QStringLiteral("lineEdit"));
-        lineEdit->setGeometry(QRect(70, 70, 61, 31));
-        lineEdit->setStyleSheet(QString::fromUtf8("color:#808080;\n"
-"border:none;\n"
-"font-size:18px;\n"
-"font-family:\"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
-"text-align:left;"));
         lineEdit_13 = new QLineEdit(frame_7);
         lineEdit_13->setObjectName(QStringLiteral("lineEdit_13"));
-        lineEdit_13->setGeometry(QRect(70, 130, 61, 31));
+        lineEdit_13->setGeometry(QRect(50, 30, 61, 31));
         lineEdit_13->setStyleSheet(QString::fromUtf8("color:#808080;\n"
 "border:none;\n"
 "font-size:18px;\n"
 "font-family:\"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "text-align:left;"));
-        lineEdit_14 = new QLineEdit(frame_7);
-        lineEdit_14->setObjectName(QStringLiteral("lineEdit_14"));
-        lineEdit_14->setGeometry(QRect(70, 190, 61, 31));
-        lineEdit_14->setStyleSheet(QString::fromUtf8("color:#808080;\n"
-"border:none;\n"
-"font-size:18px;\n"
-"font-family:\"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
-"text-align:left;"));
-        lineEdit_15 = new QLineEdit(frame_7);
-        lineEdit_15->setObjectName(QStringLiteral("lineEdit_15"));
-        lineEdit_15->setGeometry(QRect(130, 70, 201, 31));
-        lineEdit_15->setStyleSheet(QString::fromUtf8("border:1px solid #cccccc;\n"
-"font-size:18px;\n"
-"font-family:\"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
-"text-align:left;"));
-        lineEdit_18 = new QLineEdit(frame_7);
-        lineEdit_18->setObjectName(QStringLiteral("lineEdit_18"));
-        lineEdit_18->setGeometry(QRect(130, 130, 341, 31));
-        lineEdit_18->setStyleSheet(QString::fromUtf8("color:#808080;\n"
+        etNewemail = new QLineEdit(frame_7);
+        etNewemail->setObjectName(QStringLiteral("etNewemail"));
+        etNewemail->setGeometry(QRect(110, 30, 341, 31));
+        etNewemail->setStyleSheet(QString::fromUtf8("color:#808080;\n"
 "border:1px solid #cccccc;\n"
 "font-size:18px;\n"
 "font-family:\"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
@@ -290,14 +243,14 @@ public:
 
         verticalLayout_4->addWidget(frame_7);
 
-        pushButton_9 = new QPushButton(frame_5);
-        pushButton_9->setObjectName(QStringLiteral("pushButton_9"));
+        btnSubmit = new QPushButton(frame_5);
+        btnSubmit->setObjectName(QStringLiteral("btnSubmit"));
         QSizePolicy sizePolicy5(QSizePolicy::Expanding, QSizePolicy::Fixed);
         sizePolicy5.setHorizontalStretch(0);
         sizePolicy5.setVerticalStretch(0);
-        sizePolicy5.setHeightForWidth(pushButton_9->sizePolicy().hasHeightForWidth());
-        pushButton_9->setSizePolicy(sizePolicy5);
-        pushButton_9->setStyleSheet(QString::fromUtf8("color:white;\n"
+        sizePolicy5.setHeightForWidth(btnSubmit->sizePolicy().hasHeightForWidth());
+        btnSubmit->setSizePolicy(sizePolicy5);
+        btnSubmit->setStyleSheet(QString::fromUtf8("color:white;\n"
 "border:none;\n"
 "font-size:20px;\n"
 "font-family:\"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
@@ -305,7 +258,7 @@ public:
 "padding-top:5;\n"
 "padding-bottom:5;"));
 
-        verticalLayout_4->addWidget(pushButton_9);
+        verticalLayout_4->addWidget(btnSubmit);
 
 
         verticalLayout_3->addWidget(frame_5);
@@ -323,19 +276,14 @@ public:
     {
         admin_index->setWindowTitle(QApplication::translate("admin_index", "admin_index", Q_NULLPTR));
         btnPersonal->setText(QApplication::translate("admin_index", "\344\270\252\344\272\272\344\270\255\345\277\203", Q_NULLPTR));
-        btnInformationchange->setText(QApplication::translate("admin_index", "\350\264\246\345\217\267\347\256\241\347\220\206", Q_NULLPTR));
+        btnSearchuser->setText(QApplication::translate("admin_index", "\350\264\246\345\217\267\347\256\241\347\220\206", Q_NULLPTR));
         btnSearchbook->setText(QApplication::translate("admin_index", "\345\233\276\344\271\246\347\256\241\347\220\206", Q_NULLPTR));
-        pushButton->setText(QApplication::translate("admin_index", "\345\210\206\347\261\273\347\256\241\347\220\206", Q_NULLPTR));
+        btnClassify->setText(QApplication::translate("admin_index", "\345\210\206\347\261\273\347\256\241\347\220\206", Q_NULLPTR));
         etSname->setText(QApplication::translate("admin_index", "admin", Q_NULLPTR));
-        etAnumber->setText(QApplication::translate("admin_index", "(count123456)", Q_NULLPTR));
-        etEmail->setText(QApplication::translate("admin_index", "email-admin@ouc.edu.cn", Q_NULLPTR));
-        pushButton_6->setText(QApplication::translate("admin_index", "\344\277\241\346\201\257\344\277\256\346\224\271", Q_NULLPTR));
+        pushButton_6->setText(QApplication::translate("admin_index", "\351\202\256\347\256\261\344\277\256\346\224\271", Q_NULLPTR));
         pushButton_7->setText(QApplication::translate("admin_index", "\345\257\206\347\240\201\344\277\256\346\224\271", Q_NULLPTR));
-        lineEdit->setText(QApplication::translate("admin_index", "\345\247\223\345\220\215\357\274\232", Q_NULLPTR));
         lineEdit_13->setText(QApplication::translate("admin_index", "\351\202\256\347\256\261\357\274\232", Q_NULLPTR));
-        lineEdit_14->setText(QApplication::translate("admin_index", "\345\244\264\345\203\217\357\274\232", Q_NULLPTR));
-        lineEdit_15->setText(QString());
-        pushButton_9->setText(QApplication::translate("admin_index", "\346\217\220\344\272\244\344\277\256\346\224\271", Q_NULLPTR));
+        btnSubmit->setText(QApplication::translate("admin_index", "\346\217\220\344\272\244\344\277\256\346\224\271", Q_NULLPTR));
     } // retranslateUi
 
 };

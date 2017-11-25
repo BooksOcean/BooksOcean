@@ -117,7 +117,7 @@ cursor:pointer;</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="btnInformationchange">
+          <widget class="QPushButton" name="btnSearchuser">
            <property name="minimumSize">
             <size>
              <width>0</width>
@@ -156,7 +156,7 @@ background-color:rgba(255,255,255,0.4);</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QPushButton" name="btnClassify">
            <property name="minimumSize">
             <size>
              <width>0</width>
@@ -269,6 +269,52 @@ font-size:18px;</string>
        </widget>
       </item>
       <item>
+       <widget class="QFrame" name="frame_6">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QRadioButton" name="radioName">
+           <property name="text">
+            <string>书名</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radioAuthor">
+           <property name="text">
+            <string>作者</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radioISBN">
+           <property name="text">
+            <string>ISBN</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radioClassify">
+           <property name="text">
+            <string>分类</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
        <widget class="QTableWidget" name="tableWidget">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -276,11 +322,6 @@ font-size:18px;</string>
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
-        <column>
-         <property name="text">
-          <string>封面</string>
-         </property>
-        </column>
         <column>
          <property name="text">
           <string>书名</string>
@@ -298,7 +339,12 @@ font-size:18px;</string>
         </column>
         <column>
          <property name="text">
-          <string>库存</string>
+          <string>库存量</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>可借本数</string>
          </property>
         </column>
         <column>

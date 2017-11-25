@@ -19,6 +19,7 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QRadioButton>
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QTextEdit>
 #include <QtWidgets/QVBoxLayout>
@@ -36,9 +37,9 @@ public:
     QVBoxLayout *verticalLayout_6;
     QVBoxLayout *verticalLayout;
     QPushButton *btnPersonal;
-    QPushButton *btnInformationchange;
+    QPushButton *btnSearchuser;
     QPushButton *btnSearchbook;
-    QPushButton *pushButton;
+    QPushButton *btnClassify;
     QFrame *frame_3;
     QVBoxLayout *verticalLayout_2;
     QFrame *frame_4;
@@ -46,6 +47,12 @@ public:
     QTextEdit *txtSearch;
     QPushButton *btnSearch;
     QPushButton *pushButton_2;
+    QFrame *frame_6;
+    QHBoxLayout *horizontalLayout_4;
+    QRadioButton *radioName;
+    QRadioButton *radioAuthor;
+    QRadioButton *radioISBN;
+    QRadioButton *radioClassify;
     QTableWidget *tableWidget;
     QFrame *frame_5;
     QHBoxLayout *horizontalLayout_2;
@@ -114,15 +121,15 @@ public:
 
         verticalLayout->addWidget(btnPersonal);
 
-        btnInformationchange = new QPushButton(frame_8);
-        btnInformationchange->setObjectName(QStringLiteral("btnInformationchange"));
-        btnInformationchange->setMinimumSize(QSize(0, 100));
-        btnInformationchange->setStyleSheet(QString::fromUtf8("font: 12pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+        btnSearchuser = new QPushButton(frame_8);
+        btnSearchuser->setObjectName(QStringLiteral("btnSearchuser"));
+        btnSearchuser->setMinimumSize(QSize(0, 100));
+        btnSearchuser->setStyleSheet(QString::fromUtf8("font: 12pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "color:white;\n"
 "background:transparent;\n"
 "cursor:pointer;"));
 
-        verticalLayout->addWidget(btnInformationchange);
+        verticalLayout->addWidget(btnSearchuser);
 
         btnSearchbook = new QPushButton(frame_8);
         btnSearchbook->setObjectName(QStringLiteral("btnSearchbook"));
@@ -135,15 +142,15 @@ public:
 
         verticalLayout->addWidget(btnSearchbook);
 
-        pushButton = new QPushButton(frame_8);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setMinimumSize(QSize(0, 100));
-        pushButton->setStyleSheet(QString::fromUtf8("font: 12pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+        btnClassify = new QPushButton(frame_8);
+        btnClassify->setObjectName(QStringLiteral("btnClassify"));
+        btnClassify->setMinimumSize(QSize(0, 100));
+        btnClassify->setStyleSheet(QString::fromUtf8("font: 12pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "color:white;\n"
 "background:transparent;\n"
 "cursor:pointer;"));
 
-        verticalLayout->addWidget(pushButton);
+        verticalLayout->addWidget(btnClassify);
 
 
         verticalLayout_6->addLayout(verticalLayout);
@@ -211,6 +218,38 @@ public:
 
 
         verticalLayout_2->addWidget(frame_4);
+
+        frame_6 = new QFrame(frame_3);
+        frame_6->setObjectName(QStringLiteral("frame_6"));
+        frame_6->setMaximumSize(QSize(16777215, 50));
+        frame_6->setFrameShape(QFrame::StyledPanel);
+        frame_6->setFrameShadow(QFrame::Raised);
+        horizontalLayout_4 = new QHBoxLayout(frame_6);
+        horizontalLayout_4->setSpacing(6);
+        horizontalLayout_4->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
+        radioName = new QRadioButton(frame_6);
+        radioName->setObjectName(QStringLiteral("radioName"));
+
+        horizontalLayout_4->addWidget(radioName);
+
+        radioAuthor = new QRadioButton(frame_6);
+        radioAuthor->setObjectName(QStringLiteral("radioAuthor"));
+
+        horizontalLayout_4->addWidget(radioAuthor);
+
+        radioISBN = new QRadioButton(frame_6);
+        radioISBN->setObjectName(QStringLiteral("radioISBN"));
+
+        horizontalLayout_4->addWidget(radioISBN);
+
+        radioClassify = new QRadioButton(frame_6);
+        radioClassify->setObjectName(QStringLiteral("radioClassify"));
+
+        horizontalLayout_4->addWidget(radioClassify);
+
+
+        verticalLayout_2->addWidget(frame_6);
 
         tableWidget = new QTableWidget(frame_3);
         if (tableWidget->columnCount() < 6)
@@ -365,21 +404,25 @@ public:
     {
         admin_searchbook->setWindowTitle(QApplication::translate("admin_searchbook", "admin_searchbook", Q_NULLPTR));
         btnPersonal->setText(QApplication::translate("admin_searchbook", "\344\270\252\344\272\272\344\270\255\345\277\203", Q_NULLPTR));
-        btnInformationchange->setText(QApplication::translate("admin_searchbook", "\350\264\246\345\217\267\347\256\241\347\220\206", Q_NULLPTR));
+        btnSearchuser->setText(QApplication::translate("admin_searchbook", "\350\264\246\345\217\267\347\256\241\347\220\206", Q_NULLPTR));
         btnSearchbook->setText(QApplication::translate("admin_searchbook", "\345\233\276\344\271\246\347\256\241\347\220\206", Q_NULLPTR));
-        pushButton->setText(QApplication::translate("admin_searchbook", "\345\210\206\347\261\273\347\256\241\347\220\206", Q_NULLPTR));
+        btnClassify->setText(QApplication::translate("admin_searchbook", "\345\210\206\347\261\273\347\256\241\347\220\206", Q_NULLPTR));
         btnSearch->setText(QString());
         pushButton_2->setText(QApplication::translate("admin_searchbook", "\346\267\273\345\212\240\345\233\276\344\271\246", Q_NULLPTR));
+        radioName->setText(QApplication::translate("admin_searchbook", "\344\271\246\345\220\215", Q_NULLPTR));
+        radioAuthor->setText(QApplication::translate("admin_searchbook", "\344\275\234\350\200\205", Q_NULLPTR));
+        radioISBN->setText(QApplication::translate("admin_searchbook", "ISBN", Q_NULLPTR));
+        radioClassify->setText(QApplication::translate("admin_searchbook", "\345\210\206\347\261\273", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem = tableWidget->horizontalHeaderItem(0);
-        ___qtablewidgetitem->setText(QApplication::translate("admin_searchbook", "\345\260\201\351\235\242", Q_NULLPTR));
+        ___qtablewidgetitem->setText(QApplication::translate("admin_searchbook", "\344\271\246\345\220\215", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem1 = tableWidget->horizontalHeaderItem(1);
-        ___qtablewidgetitem1->setText(QApplication::translate("admin_searchbook", "\344\271\246\345\220\215", Q_NULLPTR));
+        ___qtablewidgetitem1->setText(QApplication::translate("admin_searchbook", "\344\275\234\350\200\205", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem2 = tableWidget->horizontalHeaderItem(2);
-        ___qtablewidgetitem2->setText(QApplication::translate("admin_searchbook", "\344\275\234\350\200\205", Q_NULLPTR));
+        ___qtablewidgetitem2->setText(QApplication::translate("admin_searchbook", "\345\207\272\347\211\210\347\244\276", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem3 = tableWidget->horizontalHeaderItem(3);
-        ___qtablewidgetitem3->setText(QApplication::translate("admin_searchbook", "\345\207\272\347\211\210\347\244\276", Q_NULLPTR));
+        ___qtablewidgetitem3->setText(QApplication::translate("admin_searchbook", "\345\272\223\345\255\230\351\207\217", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem4 = tableWidget->horizontalHeaderItem(4);
-        ___qtablewidgetitem4->setText(QApplication::translate("admin_searchbook", "\345\272\223\345\255\230", Q_NULLPTR));
+        ___qtablewidgetitem4->setText(QApplication::translate("admin_searchbook", "\345\217\257\345\200\237\346\234\254\346\225\260", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem5 = tableWidget->horizontalHeaderItem(5);
         ___qtablewidgetitem5->setText(QApplication::translate("admin_searchbook", "\346\233\264\346\224\271\345\233\276\344\271\246", Q_NULLPTR));
         btnFirstPage->setText(QApplication::translate("admin_searchbook", "\351\246\226\351\241\265", Q_NULLPTR));

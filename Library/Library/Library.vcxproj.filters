@@ -287,6 +287,15 @@
     <ClCompile Include="Thread.cpp">
       <Filter>Source Files\Common</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_admin_classifyshow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_admin_classifyshow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="admin_classifyshow.cpp">
+      <Filter>Source Files\Admin</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="library.qrc">
@@ -424,6 +433,12 @@
     <CustomBuild Include="recommendBuffer.h">
       <Filter>Header Files\Tool</Filter>
     </CustomBuild>
+    <CustomBuild Include="admin_classifyshow.ui">
+      <Filter>Form Files\Admin</Filter>
+    </CustomBuild>
+    <CustomBuild Include="admin_classifyshow.h">
+      <Filter>Header Files\Admin</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_library.h">
@@ -521,6 +536,9 @@
     </ClInclude>
     <ClInclude Include="classifyMap.h">
       <Filter>Header Files\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_admin_classifyshow.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

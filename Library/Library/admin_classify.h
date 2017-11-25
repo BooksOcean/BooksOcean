@@ -12,6 +12,8 @@ public:
 	admin_classify(QWidget *parent = 0);
 	~admin_classify();
 
+
+
 private:
 	Ui::admin_classify ui;
 };

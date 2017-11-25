@@ -20,6 +20,7 @@ public:
 
 public slots:
 	void ClickButton();
+	void ClickButtonToAdmin();
 
 protected:
 	bool eventFilter(QObject *obj, QEvent *event);

@@ -240,7 +240,7 @@ void student_borrow::DataBind() {
 	vector<Book>resBook;
 	BookMap bookmap;
 	vector<BookMap>resBookMap;
-	for (int i = currentPageBegin; i < currentPageEnd; i++) {
+	for (int i = currentPageEnd-1; i >= currentPageBegin; i--) {
 		VALUES.clear();
 		resBook.clear();
 		VALUES.push_back("one");
@@ -257,8 +257,8 @@ void student_borrow::DataBind() {
 			book.setId(resRecord[i].bookId);
 		}
 		FileDB::select("book", book, VALUES, resBook);
-		ui.tableBorrow->insertRow(i - currentPageBegin);
-		ui.tableBorrow->setRowHeight(i - currentPageBegin, 200);//第一行
+		ui.tableBorrow->insertRow(currentPageEnd - 1 - i);
+		ui.tableBorrow->setRowHeight(currentPageEnd - 1 - i, 200);//第一行
 		//加载图片
 		QUrl url(resBook[0].cover);
 		QNetworkAccessManager manager;
@@ -277,21 +277,23 @@ void student_borrow::DataBind() {
 		pixmap = pixmap.scaled(110, 130, Qt::KeepAspectRatio);
 		QLabel *label = new QLabel;
 		label->setPixmap(pixmap);
-		ui.tableBorrow->setCellWidget(i - currentPageBegin, 0, label);
+		ui.tableBorrow->setCellWidget(currentPageEnd - 1 - i, 0, label);
 		//加载书名作者出版社
 
-		addItemContent(i - currentPageBegin, 1, strtoqs(resBook[0].name));
-		addItemContent(i - currentPageBegin, 2, strtoqs(resBook[0].author));
-		addItemContent(i - currentPageBegin, 3, strtoqs(resBook[0].publish));
+		addItemContent(currentPageEnd - 1 - i, 1, strtoqs(resBook[0].name));
+		addItemContent(currentPageEnd - 1 - i, 2, strtoqs(resBook[0].author));
+		addItemContent(currentPageEnd - 1 - i, 3, strtoqs(resBook[0].publish));
 		if (resRecord[i].type == 0)
-			addItemContent(i, 4, chartoqs("正常"));
+			addItemContent(currentPageEnd - 1 - i, 4, chartoqs("正常"));
 		else if (resRecord[i].type == 1)
-			addItemContent(i, 4, chartoqs("超期"));
-		else
-			addItemContent(i, 4, chartoqs("预约"));
+			addItemContent(currentPageEnd - 1 - i, 4, chartoqs("超期"));
+		else if(resRecord[i].type == 2)
+			addItemContent(currentPageEnd - 1 - i, 4, chartoqs("预约"));
+		else 
+			addItemContent(currentPageEnd - 1 - i, 4, chartoqs("已归还"));
 		//添加“详情”按钮，并绑定事件
 		QPushButton *btn = new QPushButton;
-		ui.tableBorrow->setCellWidget(i - currentPageBegin, 4, btn);
+		ui.tableBorrow->setCellWidget(currentPageEnd - 1 - i, 5, btn);
 		btn->setText(strtoqs("详情"));
 		btn->setStyleSheet(
 			"color:#4695d2;"
@@ -314,8 +316,8 @@ void student_borrow::ClickButton() {
 
 void student_borrow::OnBtnClicked(int id)
 {
-	bookConfig::bookNo = id;
-	student_borrowdetail *rec = new student_borrowdetail;
+	bookConfig::bookId = id;
+	student_bookDetail *rec = new student_bookDetail;
 	rec->show();
 	this->close();
 }

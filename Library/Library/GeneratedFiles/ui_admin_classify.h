@@ -64,7 +64,7 @@ public:
     {
         if (admin_classify->objectName().isEmpty())
             admin_classify->setObjectName(QStringLiteral("admin_classify"));
-        admin_classify->resize(1060, 722);
+        admin_classify->resize(1060, 730);
         horizontalLayout = new QHBoxLayout(admin_classify);
         horizontalLayout->setSpacing(6);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);

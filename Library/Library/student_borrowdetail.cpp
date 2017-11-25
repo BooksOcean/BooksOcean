@@ -159,14 +159,14 @@ bool student_borrowdetail::eventFilter(QObject *obj, QEvent *event) {
 			FileDB::update("bookMap", lbookMap, nbookMap, VALUES);
 
 
-			//删除record表记录
 			Record record_delete;
 			vector<string>VALUES_2;
 			VALUES_2.push_back("one");
 			VALUES_2.push_back("id");
 			record_delete.setId(res[0].id);
-			int res_2 = FileDB::Delete("record", record_delete, VALUES_2);
-
+			res[0].setType(4);
+			//更新借阅记录type=4,表示已归还
+			int res_2=FileDB::update("record", record_delete, res[0], VALUES_2);
 			if (res_2 > 0) {
 				QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("还书成功"), QMessageBox::Ok);
 				student_index *rec = new student_index;
