@@ -252,8 +252,8 @@ public:
         verticalLayout_2->addWidget(frame_6);
 
         tableWidget = new QTableWidget(frame_3);
-        if (tableWidget->columnCount() < 6)
-            tableWidget->setColumnCount(6);
+        if (tableWidget->columnCount() < 7)
+            tableWidget->setColumnCount(7);
         QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
         tableWidget->setHorizontalHeaderItem(0, __qtablewidgetitem);
         QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
@@ -266,6 +266,8 @@ public:
         tableWidget->setHorizontalHeaderItem(4, __qtablewidgetitem4);
         QTableWidgetItem *__qtablewidgetitem5 = new QTableWidgetItem();
         tableWidget->setHorizontalHeaderItem(5, __qtablewidgetitem5);
+        QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
+        tableWidget->setHorizontalHeaderItem(6, __qtablewidgetitem6);
         tableWidget->setObjectName(QStringLiteral("tableWidget"));
         QSizePolicy sizePolicy3(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy3.setHorizontalStretch(0);
@@ -425,6 +427,8 @@ public:
         ___qtablewidgetitem4->setText(QApplication::translate("admin_searchbook", "\345\217\257\345\200\237\346\234\254\346\225\260", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem5 = tableWidget->horizontalHeaderItem(5);
         ___qtablewidgetitem5->setText(QApplication::translate("admin_searchbook", "\346\233\264\346\224\271\345\233\276\344\271\246", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem6 = tableWidget->horizontalHeaderItem(6);
+        ___qtablewidgetitem6->setText(QApplication::translate("admin_searchbook", "\345\210\240\351\231\244\345\233\276\344\271\246", Q_NULLPTR));
         btnFirstPage->setText(QApplication::translate("admin_searchbook", "\351\246\226\351\241\265", Q_NULLPTR));
         btnLastPage->setText(QApplication::translate("admin_searchbook", "\344\270\212\344\270\200\351\241\265", Q_NULLPTR));
         lineEdit_4->setText(QApplication::translate("admin_searchbook", "\345\275\223\345\211\215\347\254\254", Q_NULLPTR));

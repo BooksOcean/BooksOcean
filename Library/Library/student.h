@@ -5,9 +5,9 @@ class Student {
 private:
 	static const int USERCODE_SIZE = 15;
 	static const int PASSWORD_SIZE = 50;
-	static const int USERNAME_SIZE = 12;
+	static const int USERNAME_SIZE = 20;
 	static const int SEX_SIZE = 5;
-	static const int DEPT_SIZE = 20;
+	static const int DEPT_SIZE = 50;
 	static const int ICON_SIZE = 50;
 	static const int MAIL_SIZE = 50;
 public:

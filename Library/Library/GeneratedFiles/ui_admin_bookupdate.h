@@ -40,7 +40,6 @@ public:
     QVBoxLayout *verticalLayout_2;
     QFrame *frame_4;
     QPushButton *pushButton_2;
-    QPushButton *pushButton_6;
     QFrame *frame_5;
     QLineEdit *lineEdit;
     QLineEdit *lineEdit_2;
@@ -177,13 +176,9 @@ public:
         frame_4->setFrameShadow(QFrame::Raised);
         pushButton_2 = new QPushButton(frame_4);
         pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-        pushButton_2->setGeometry(QRect(90, 10, 131, 51));
+        pushButton_2->setGeometry(QRect(10, 10, 121, 51));
         pushButton_2->setStyleSheet(QLatin1String("border:none;\n"
 ""));
-        pushButton_6 = new QPushButton(frame_4);
-        pushButton_6->setObjectName(QStringLiteral("pushButton_6"));
-        pushButton_6->setGeometry(QRect(30, 10, 51, 51));
-        pushButton_6->setStyleSheet(QStringLiteral("border:none;"));
 
         verticalLayout_2->addWidget(frame_4);
 
@@ -341,7 +336,6 @@ public:
         btnSearchbook->setText(QApplication::translate("admin_bookupdate", "\345\233\276\344\271\246\347\256\241\347\220\206", Q_NULLPTR));
         pushButton->setText(QApplication::translate("admin_bookupdate", "\345\210\206\347\261\273\347\256\241\347\220\206", Q_NULLPTR));
         pushButton_2->setText(QApplication::translate("admin_bookupdate", "\346\233\264\346\226\260\345\233\276\344\271\246", Q_NULLPTR));
-        pushButton_6->setText(QApplication::translate("admin_bookupdate", "<", Q_NULLPTR));
         lineEdit->setText(QApplication::translate("admin_bookupdate", "\344\271\246\345\220\215\357\274\232", Q_NULLPTR));
         lineEdit_2->setText(QApplication::translate("admin_bookupdate", "\344\275\234\350\200\205\357\274\232", Q_NULLPTR));
         lineEdit_3->setText(QApplication::translate("admin_bookupdate", "\345\207\272\347\211\210\347\244\276\357\274\232", Q_NULLPTR));

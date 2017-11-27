@@ -3,11 +3,15 @@
 #include"admin_searchuser.h"
 #include"admin_classify.h"
 #include"classifyConfig.h"
+#include"bookConfig.h"
+#include<QTextCodec>
+#include"admin_bookdetail.h"
 #include"book.h"
 #include"classify.h"
 #include"classifyMap.h"
 #include"admin_classifyshow.h"
 #include"filedb.h"
+#include"admin_bookdetail.h"
 #include<QSignalMapper>
 #include<QMessageBox>
 admin_searchbook::admin_searchbook(QWidget *parent)
@@ -23,7 +27,7 @@ admin_searchbook::admin_searchbook(QWidget *parent)
 	ui.btnNextPage->installEventFilter(this);
 	ui.btnSearch->installEventFilter(this);
 	ui.btnTheLast->installEventFilter(this);
-	ui.tableWidget->setColumnCount(6);
+	ui.tableWidget->setColumnCount(7);
 	ui.btnLastPage->setEnabled(false);
 	ui.btnFirstPage->setEnabled(false);
 	//连接分类信号
@@ -250,6 +254,20 @@ void admin_searchbook::DataBind() {
 		connect(btn, SIGNAL(clicked()), signalMapper, SLOT(map()));
 		signalMapper->setMapping(btn, DataTable[i].id);
 		connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(OnBtnClicked(int)));
+
+		QPushButton *btn2 = new QPushButton;
+		ui.tableWidget->setCellWidget(i - currentPageBegin, 6, btn2);
+		btn2->setText(QString::fromLocal8Bit("删除"));
+		btn2->setStyleSheet(
+			"color:#4695d2;"
+			"border:none;"
+			"background:white;"
+			"text-size:20px;"
+		);
+		QSignalMapper* signalMapper2 = new QSignalMapper(this);
+		connect(btn2, SIGNAL(clicked()), signalMapper2, SLOT(map()));
+		signalMapper2->setMapping(btn2, DataTable[i].id);
+		connect(signalMapper2, SIGNAL(mapped(int)), this, SLOT(OnBtnClickedDelete(int)));
 	}
 }
 
@@ -298,5 +316,30 @@ void admin_searchbook::OnBtnClicked(int id)
 	student_bookDetail *rec = new student_bookDetail;
 	rec->show();
 	this->close();*/
+}
+
+void admin_searchbook::OnBtnClickedDelete(int id)
+{
+	bookConfig::bookId = id;
+	admin_bookdetail *rec = new admin_bookdetail;
+	connect(rec, SIGNAL(DeleteSuccess(int)), this, SLOT(UpdateUI(int)));
+	rec->show();
+}
+
+void admin_searchbook::UpdateUI(int id) {
+	QTextCodec * BianMa = QTextCodec::codecForName("GBK");
+	QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("删除成功"), QMessageBox::Ok);
+	vector<Book>::iterator i;
+	for (i = DataTable.begin(); i != DataTable.end();i++) {
+		if ((*i).id == id) {
+			(*i).count--;
+			if ((*i).count == 0) {
+				DataTable.erase(i);
+				break;
+			}
+			(*i).nowCount--;
+		}
+	}
+	DataBind();
 }
 

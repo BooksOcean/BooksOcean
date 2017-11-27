@@ -19,8 +19,10 @@ protected:
 
 public slots:
 	void OnBtnClicked(int id);
+	void OnBtnClickedDelete(int id);
 	void radioBtnSlot();
 	void radioBtnSlotOther();
+	void UpdateUI(int);
 
 private:
 	Ui::admin_searchbook ui;

@@ -1,13 +1,9 @@
-﻿  Uic'ing admin_classifyshow.ui...
-  admin_classifyshow.cpp
-  admin_searchbook.cpp
+﻿  admin_searchuser.cpp
 c:\users\zqx\desktop\uml\library\library\filedb.h(192): warning C4806: “!=”: 不安全操作: 从类型“bool”提升到类型“int”的值不能等于给定的常量
-  admin_searchbook.cpp(200): note: 参见对正在编译的函数 模板 实例化“int FileDB::selectLike<Book>(std::string,std::string,char *,std::vector<Book,std::allocator<_Ty>> &)”的引用
+  admin_searchuser.cpp(192): note: 参见对正在编译的函数 模板 实例化“int FileDB::selectLike<Student>(std::string,std::string,char *,std::vector<Student,std::allocator<_Ty>> &)”的引用
           with
           [
-              _Ty=Book
+              _Ty=Student
           ]
-  moc_admin_classifyshow.cpp
-  正在生成代码...
   Library.vcxproj -> C:\Users\zqx\Desktop\UML\Library\x64\Debug\Library.exe
   Library.vcxproj -> C:\Users\zqx\Desktop\UML\Library\x64\Debug\Library.pdb (Full PDB)

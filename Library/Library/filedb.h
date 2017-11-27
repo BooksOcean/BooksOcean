@@ -422,6 +422,8 @@ public:
 			//idº”ÀŸ
 			if (VALUES[1] == "id") {
 				Uentity.setId(Sentity.getId());
+				//11-27 BUG–ﬁ∏¥
+				Uentity.setDirty(0);
 				writeFile.seekp(Sentity.getId() * sizeof(Sentity), ios::beg);
 				writeFile.write((char*)&Uentity, sizeof(Uentity));
 				return 1;

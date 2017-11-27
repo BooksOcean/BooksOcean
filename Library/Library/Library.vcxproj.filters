@@ -296,6 +296,36 @@
     <ClCompile Include="admin_classifyshow.cpp">
       <Filter>Source Files\Admin</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_admin_studentclassify.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_admin_studentclassify.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="admin_studentclassify.cpp">
+      <Filter>Source Files\Admin</Filter>
+    </ClCompile>
+    <ClCompile Include="studentClassifyConfig.cpp">
+      <Filter>Source Files\Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_admin_bookdetail.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_admin_bookdetail.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="admin_bookdetail.cpp">
+      <Filter>Source Files\Admin</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_admin_addclassify.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_admin_addclassify.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="admin_addclassify.cpp">
+      <Filter>Source Files\Admin</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="library.qrc">
@@ -439,6 +469,24 @@
     <CustomBuild Include="admin_classifyshow.h">
       <Filter>Header Files\Admin</Filter>
     </CustomBuild>
+    <CustomBuild Include="admin_studentclassify.ui">
+      <Filter>Form Files\Admin</Filter>
+    </CustomBuild>
+    <CustomBuild Include="admin_studentclassify.h">
+      <Filter>Header Files\Admin</Filter>
+    </CustomBuild>
+    <CustomBuild Include="admin_bookdetail.ui">
+      <Filter>Form Files\Admin</Filter>
+    </CustomBuild>
+    <CustomBuild Include="admin_bookdetail.h">
+      <Filter>Header Files\Admin</Filter>
+    </CustomBuild>
+    <CustomBuild Include="admin_addclassify.ui">
+      <Filter>Form Files\Admin</Filter>
+    </CustomBuild>
+    <CustomBuild Include="admin_addclassify.h">
+      <Filter>Header Files\Admin</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_library.h">
@@ -538,6 +586,21 @@
       <Filter>Header Files\Entity</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_admin_classifyshow.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_admin_studentclassify.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dept.h">
+      <Filter>Header Files\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="studentClassifyConfig.h">
+      <Filter>Header Files\Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_admin_bookdetail.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_admin_addclassify.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

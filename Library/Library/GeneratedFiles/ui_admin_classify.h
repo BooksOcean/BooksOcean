@@ -36,16 +36,16 @@ public:
     QVBoxLayout *verticalLayout_6;
     QVBoxLayout *verticalLayout;
     QPushButton *btnPersonal;
-    QPushButton *btnInformationchange;
+    QPushButton *btnSearchuser;
     QPushButton *btnSearchbook;
-    QPushButton *pushButton;
+    QPushButton *btnClassify;
     QFrame *frame_3;
     QVBoxLayout *verticalLayout_2;
     QFrame *frame_4;
     QGridLayout *gridLayout;
     QTextEdit *txtSearch;
     QPushButton *btnSearch;
-    QPushButton *pushButton_2;
+    QPushButton *btnAdd;
     QTableWidget *tableWidget;
     QFrame *frame_5;
     QHBoxLayout *horizontalLayout_2;
@@ -114,15 +114,15 @@ public:
 
         verticalLayout->addWidget(btnPersonal);
 
-        btnInformationchange = new QPushButton(frame_8);
-        btnInformationchange->setObjectName(QStringLiteral("btnInformationchange"));
-        btnInformationchange->setMinimumSize(QSize(0, 100));
-        btnInformationchange->setStyleSheet(QString::fromUtf8("font: 12pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+        btnSearchuser = new QPushButton(frame_8);
+        btnSearchuser->setObjectName(QStringLiteral("btnSearchuser"));
+        btnSearchuser->setMinimumSize(QSize(0, 100));
+        btnSearchuser->setStyleSheet(QString::fromUtf8("font: 12pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "color:white;\n"
 "background:transparent;\n"
 "cursor:pointer;"));
 
-        verticalLayout->addWidget(btnInformationchange);
+        verticalLayout->addWidget(btnSearchuser);
 
         btnSearchbook = new QPushButton(frame_8);
         btnSearchbook->setObjectName(QStringLiteral("btnSearchbook"));
@@ -135,16 +135,16 @@ public:
 
         verticalLayout->addWidget(btnSearchbook);
 
-        pushButton = new QPushButton(frame_8);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setMinimumSize(QSize(0, 100));
-        pushButton->setStyleSheet(QString::fromUtf8("font: 12pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+        btnClassify = new QPushButton(frame_8);
+        btnClassify->setObjectName(QStringLiteral("btnClassify"));
+        btnClassify->setMinimumSize(QSize(0, 100));
+        btnClassify->setStyleSheet(QString::fromUtf8("font: 12pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "color:white;\n"
 "background:transparent;\n"
 "cursor:pointer;\n"
 "background-color:rgba(255,255,255,0.4);"));
 
-        verticalLayout->addWidget(pushButton);
+        verticalLayout->addWidget(btnClassify);
 
 
         verticalLayout_6->addLayout(verticalLayout);
@@ -202,13 +202,13 @@ public:
 
         gridLayout->addWidget(btnSearch, 0, 1, 1, 1);
 
-        pushButton_2 = new QPushButton(frame_4);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-        pushButton_2->setStyleSheet(QLatin1String("color:#4695d2;\n"
+        btnAdd = new QPushButton(frame_4);
+        btnAdd->setObjectName(QStringLiteral("btnAdd"));
+        btnAdd->setStyleSheet(QLatin1String("color:#4695d2;\n"
 "border:none;\n"
 "font-size:18px;"));
 
-        gridLayout->addWidget(pushButton_2, 0, 2, 1, 1);
+        gridLayout->addWidget(btnAdd, 0, 2, 1, 1);
 
 
         verticalLayout_2->addWidget(frame_4);
@@ -360,11 +360,11 @@ public:
     {
         admin_classify->setWindowTitle(QApplication::translate("admin_classify", "admin_classify", Q_NULLPTR));
         btnPersonal->setText(QApplication::translate("admin_classify", "\344\270\252\344\272\272\344\270\255\345\277\203", Q_NULLPTR));
-        btnInformationchange->setText(QApplication::translate("admin_classify", "\350\264\246\345\217\267\347\256\241\347\220\206", Q_NULLPTR));
+        btnSearchuser->setText(QApplication::translate("admin_classify", "\350\264\246\345\217\267\347\256\241\347\220\206", Q_NULLPTR));
         btnSearchbook->setText(QApplication::translate("admin_classify", "\345\233\276\344\271\246\347\256\241\347\220\206", Q_NULLPTR));
-        pushButton->setText(QApplication::translate("admin_classify", "\345\210\206\347\261\273\347\256\241\347\220\206", Q_NULLPTR));
+        btnClassify->setText(QApplication::translate("admin_classify", "\345\210\206\347\261\273\347\256\241\347\220\206", Q_NULLPTR));
         btnSearch->setText(QString());
-        pushButton_2->setText(QApplication::translate("admin_classify", "\346\267\273\345\212\240\345\210\206\347\261\273", Q_NULLPTR));
+        btnAdd->setText(QApplication::translate("admin_classify", "\346\267\273\345\212\240\345\210\206\347\261\273", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem = tableWidget->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QApplication::translate("admin_classify", "\345\210\206\347\261\273", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem1 = tableWidget->horizontalHeaderItem(1);

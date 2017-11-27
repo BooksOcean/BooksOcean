@@ -352,6 +352,11 @@ font-size:18px;</string>
           <string>更改图书</string>
          </property>
         </column>
+        <column>
+         <property name="text">
+          <string>删除图书</string>
+         </property>
+        </column>
        </widget>
       </item>
       <item>

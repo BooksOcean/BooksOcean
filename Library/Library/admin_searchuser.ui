@@ -157,7 +157,7 @@ cursor:pointer;
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QPushButton" name="btnClassify">
            <property name="minimumSize">
             <size>
              <width>0</width>
@@ -270,6 +270,45 @@ font-size:18px;</string>
        </widget>
       </item>
       <item>
+       <widget class="QFrame" name="frame_6">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QRadioButton" name="radioName">
+           <property name="text">
+            <string>姓名</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radioCode">
+           <property name="text">
+            <string>学号</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radioMajor">
+           <property name="text">
+            <string>专业</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
        <widget class="QTableWidget" name="tableWidget">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -294,7 +333,12 @@ font-size:18px;</string>
         </column>
         <column>
          <property name="text">
-          <string>修改\删除</string>
+          <string>修改</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>删除</string>
          </property>
         </column>
        </widget>
@@ -431,7 +475,7 @@ font-size:18px;</string>
              </property>
              <property name="maximumSize">
               <size>
-               <width>20</width>
+               <width>40</width>
                <height>16777215</height>
               </size>
              </property>

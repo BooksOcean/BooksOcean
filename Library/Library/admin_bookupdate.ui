@@ -224,9 +224,9 @@ margin-right:20px;</string>
         <widget class="QPushButton" name="pushButton_2">
          <property name="geometry">
           <rect>
-           <x>90</x>
+           <x>10</x>
            <y>10</y>
-           <width>131</width>
+           <width>121</width>
            <height>51</height>
           </rect>
          </property>
@@ -236,22 +236,6 @@ margin-right:20px;</string>
          </property>
          <property name="text">
           <string>更新图书</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="pushButton_6">
-         <property name="geometry">
-          <rect>
-           <x>30</x>
-           <y>10</y>
-           <width>51</width>
-           <height>51</height>
-          </rect>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">border:none;</string>
-         </property>
-         <property name="text">
-          <string>&lt;</string>
          </property>
         </widget>
        </widget>

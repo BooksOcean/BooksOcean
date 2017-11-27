@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 	QApplication a(argc, argv);
 	userConfig::id = 0;
 	userConfig::username = "1234567";
-	userConfig::password = "111111";
+	userConfig::password = "111";
 	admin_index w;
 	w.show();
 
