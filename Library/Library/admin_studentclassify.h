@@ -16,6 +16,8 @@ protected:
 
 public slots:
 	void OnClicked(QString);
+signals:
+	void UpdateDeptSignal(QString);
 private:
 	Ui::admin_studentclassify ui;
 	vector<Dept>DataTable;

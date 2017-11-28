@@ -5,6 +5,7 @@
 #include"admin_classify.h"
 #include"admin_studentclassify.h"
 #include"studentClassifyConfig.h"
+#include"admin_adduser.h"
 #include"classifyConfig.h"
 #include"book.h"
 #include"classify.h"
@@ -21,6 +22,7 @@ admin_searchuser::admin_searchuser(QWidget *parent)
 	ui.setupUi(this);
 	ui.btnSearchbook->installEventFilter(this);
 	ui.btnClassify->installEventFilter(this);
+	ui.btnAdd->installEventFilter(this);
 	ui.btnPersonal->installEventFilter(this);
 	ui.btnLastPage->installEventFilter(this);
 	ui.btnFirstPage->installEventFilter(this);
@@ -28,7 +30,7 @@ admin_searchuser::admin_searchuser(QWidget *parent)
 	ui.btnNextPage->installEventFilter(this);
 	ui.btnSearch->installEventFilter(this);
 	ui.btnTheLast->installEventFilter(this);
-	ui.tableWidget->setColumnCount(5);
+	ui.tableWidget->setColumnCount(7);
 	ui.btnLastPage->setEnabled(false);
 	ui.btnFirstPage->setEnabled(false);
 	//连接分类信号
@@ -139,6 +141,11 @@ bool admin_searchuser::eventFilter(QObject *obj, QEvent *event)
 		this->close();
 		rec->show();
 	}
+	if (obj == ui.btnAdd && event->type() == QEvent::MouseButtonPress) {
+		admin_adduser *rec = new admin_adduser;
+		this->close();
+		rec->show();
+	}
 	if (obj == ui.btnClassify && event->type() == QEvent::MouseButtonPress) {
 		admin_classify *rec = new admin_classify;
 		this->close();
@@ -238,8 +245,36 @@ void admin_searchuser::DataBind() {
 		signalMapper->setMapping(btn, DataTable[i].id);
 		connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(OnBtnClicked(int)));*/
 
+		QPushButton *btn3 = new QPushButton;
+		ui.tableWidget->setCellWidget(i - currentPageBegin, 4, btn3);
+		btn3->setText(QString::fromLocal8Bit("重置密码"));
+		btn3->setStyleSheet(
+			"color:#4695d2;"
+			"border:none;"
+			"background:white;"
+			"text-size:20px;"
+		);
+		QSignalMapper* signalMapper3 = new QSignalMapper(this);
+		connect(btn3, SIGNAL(clicked()), signalMapper3, SLOT(map()));
+		signalMapper3->setMapping(btn3, DataTable[i].id);
+		connect(signalMapper3, SIGNAL(mapped(int)), this, SLOT(OnBtnClickedReset(int)));
+
+		QPushButton *btn4 = new QPushButton;
+		ui.tableWidget->setCellWidget(i - currentPageBegin, 5, btn4);
+		btn4->setText(QString::fromLocal8Bit("清除欠款"));
+		btn4->setStyleSheet(
+			"color:#4695d2;"
+			"border:none;"
+			"background:white;"
+			"text-size:20px;"
+		);
+		QSignalMapper* signalMapper4 = new QSignalMapper(this);
+		connect(btn4, SIGNAL(clicked()), signalMapper4, SLOT(map()));
+		signalMapper4->setMapping(btn4, DataTable[i].id);
+		connect(signalMapper4, SIGNAL(mapped(int)), this, SLOT(OnBtnClickedClear(int)));
+
 		QPushButton *btn2 = new QPushButton;
-		ui.tableWidget->setCellWidget(i - currentPageBegin, 4, btn2);
+		ui.tableWidget->setCellWidget(i - currentPageBegin, 6, btn2);
 		btn2->setText(QString::fromLocal8Bit("删除"));
 		btn2->setStyleSheet(
 			"color:#4695d2;"
@@ -317,4 +352,33 @@ void admin_searchuser::OnBtnClickedDelete(int id)
 		DataBind();
 		return;
 	}
+}
+void admin_searchuser::OnBtnClickedReset(int id)
+{
+	QTextCodec * BianMa = QTextCodec::codecForName("GBK");
+	Student cla;
+	cla.setId(id);
+	vector<string>VALUES;
+	vector<Student>resStudent;
+	VALUES.push_back("one");
+	VALUES.push_back("id");
+	FileDB::select("student", cla, VALUES, resStudent);
+	resStudent[0].setPassword("111111");
+	FileDB::update("student", cla, resStudent[0], VALUES);
+	QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("重置成功，新密码为111111"), QMessageBox::Ok);
+}
+
+void admin_searchuser::OnBtnClickedClear(int id)
+{
+	QTextCodec * BianMa = QTextCodec::codecForName("GBK");
+	Student cla;
+	cla.setId(id);
+	vector<string>VALUES;
+	vector<Student>resStudent;
+	VALUES.push_back("one");
+	VALUES.push_back("id");
+	FileDB::select("student", cla, VALUES, resStudent);
+	resStudent[0].setMoney(0);
+	FileDB::update("student", cla, resStudent[0], VALUES);
+	QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("清除成功"), QMessageBox::Ok);
 }

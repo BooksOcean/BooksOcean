@@ -46,7 +46,7 @@ public:
     QGridLayout *gridLayout;
     QTextEdit *txtSearch;
     QPushButton *btnSearch;
-    QPushButton *pushButton_2;
+    QPushButton *btnAdd;
     QFrame *frame_6;
     QHBoxLayout *horizontalLayout_4;
     QRadioButton *radioName;
@@ -208,13 +208,13 @@ public:
 
         gridLayout->addWidget(btnSearch, 0, 1, 1, 1);
 
-        pushButton_2 = new QPushButton(frame_4);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-        pushButton_2->setStyleSheet(QLatin1String("color:#4695d2;\n"
+        btnAdd = new QPushButton(frame_4);
+        btnAdd->setObjectName(QStringLiteral("btnAdd"));
+        btnAdd->setStyleSheet(QLatin1String("color:#4695d2;\n"
 "border:none;\n"
 "font-size:18px;"));
 
-        gridLayout->addWidget(pushButton_2, 0, 2, 1, 1);
+        gridLayout->addWidget(btnAdd, 0, 2, 1, 1);
 
 
         verticalLayout_2->addWidget(frame_4);
@@ -247,8 +247,8 @@ public:
         verticalLayout_2->addWidget(frame_6);
 
         tableWidget = new QTableWidget(frame_3);
-        if (tableWidget->columnCount() < 5)
-            tableWidget->setColumnCount(5);
+        if (tableWidget->columnCount() < 7)
+            tableWidget->setColumnCount(7);
         QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
         tableWidget->setHorizontalHeaderItem(0, __qtablewidgetitem);
         QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
@@ -259,6 +259,10 @@ public:
         tableWidget->setHorizontalHeaderItem(3, __qtablewidgetitem3);
         QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
         tableWidget->setHorizontalHeaderItem(4, __qtablewidgetitem4);
+        QTableWidgetItem *__qtablewidgetitem5 = new QTableWidgetItem();
+        tableWidget->setHorizontalHeaderItem(5, __qtablewidgetitem5);
+        QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
+        tableWidget->setHorizontalHeaderItem(6, __qtablewidgetitem6);
         tableWidget->setObjectName(QStringLiteral("tableWidget"));
         QSizePolicy sizePolicy3(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy3.setHorizontalStretch(0);
@@ -401,7 +405,7 @@ public:
         btnSearchbook->setText(QApplication::translate("admin_searchuser", "\345\233\276\344\271\246\347\256\241\347\220\206", Q_NULLPTR));
         btnClassify->setText(QApplication::translate("admin_searchuser", "\345\210\206\347\261\273\347\256\241\347\220\206", Q_NULLPTR));
         btnSearch->setText(QString());
-        pushButton_2->setText(QApplication::translate("admin_searchuser", "\346\267\273\345\212\240\345\255\246\347\224\237", Q_NULLPTR));
+        btnAdd->setText(QApplication::translate("admin_searchuser", "\346\267\273\345\212\240\345\255\246\347\224\237", Q_NULLPTR));
         radioName->setText(QApplication::translate("admin_searchuser", "\345\247\223\345\220\215", Q_NULLPTR));
         radioCode->setText(QApplication::translate("admin_searchuser", "\345\255\246\345\217\267", Q_NULLPTR));
         radioMajor->setText(QApplication::translate("admin_searchuser", "\344\270\223\344\270\232", Q_NULLPTR));
@@ -414,7 +418,11 @@ public:
         QTableWidgetItem *___qtablewidgetitem3 = tableWidget->horizontalHeaderItem(3);
         ___qtablewidgetitem3->setText(QApplication::translate("admin_searchuser", "\344\277\256\346\224\271", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem4 = tableWidget->horizontalHeaderItem(4);
-        ___qtablewidgetitem4->setText(QApplication::translate("admin_searchuser", "\345\210\240\351\231\244", Q_NULLPTR));
+        ___qtablewidgetitem4->setText(QApplication::translate("admin_searchuser", "\351\207\215\347\275\256\345\257\206\347\240\201", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem5 = tableWidget->horizontalHeaderItem(5);
+        ___qtablewidgetitem5->setText(QApplication::translate("admin_searchuser", "\346\270\205\351\231\244\346\254\240\346\254\276", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem6 = tableWidget->horizontalHeaderItem(6);
+        ___qtablewidgetitem6->setText(QApplication::translate("admin_searchuser", "\345\210\240\351\231\244", Q_NULLPTR));
         btnFirstPage->setText(QApplication::translate("admin_searchuser", "\351\246\226\351\241\265", Q_NULLPTR));
         btnLastPage->setText(QApplication::translate("admin_searchuser", "\344\270\212\344\270\200\351\241\265", Q_NULLPTR));
         lineEdit_4->setText(QApplication::translate("admin_searchuser", "\345\275\223\345\211\215\347\254\254", Q_NULLPTR));

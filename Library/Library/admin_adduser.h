@@ -11,9 +11,15 @@ class admin_adduser : public QWidget
 public:
 	admin_adduser(QWidget *parent = 0);
 	~admin_adduser();
-
+	void openFileDiag();
+protected:
+	bool eventFilter(QObject *obj, QEvent *event);
+public slots:
+	void UpdateDeptSlot(QString);
 private:
 	Ui::admin_adduser ui;
+	QString filename;
+	QPixmap* img;
 };
 
 #endif // ADMIN_ADDUSER_H

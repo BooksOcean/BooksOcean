@@ -17,6 +17,8 @@ protected:
 
 public slots:
 	void OnBtnClickedDelete(int id);
+	void OnBtnClickedReset(int id);
+	void OnBtnClickedClear(int id);
 	void radioBtnSlot();
 	void radioBtnSlotOther();
 private:

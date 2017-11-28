@@ -107,11 +107,17 @@ void admin_studentclassify::DataBind() {
 
 void admin_studentclassify::OnClicked(QString id)
 {
-	studentClassifyConfig::isCheck = 1;
-	QByteArray ba = id.toLocal8Bit();
-	char *name = ba.data();
-	studentClassifyConfig::classifyName =name;
-	admin_searchuser *rec = new admin_searchuser;
-	rec->show();
-	this->close();
+	if (studentClassifyConfig::isCheck) {
+		studentClassifyConfig::isCheck = 1;
+		QByteArray ba = id.toLocal8Bit();
+		char *name = ba.data();
+		studentClassifyConfig::classifyName = name;
+		admin_searchuser *rec = new admin_searchuser;
+		rec->show();
+		this->close();
+	}
+	else {
+		emit UpdateDeptSignal(id);
+		this->close();
+	}
 }

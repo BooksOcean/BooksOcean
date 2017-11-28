@@ -36,28 +36,28 @@ public:
     QPushButton *btnPersonal;
     QPushButton *btnInformationchange;
     QPushButton *btnSearchbook;
-    QPushButton *pushButton;
+    QPushButton *btnClassify;
     QFrame *frame_3;
     QVBoxLayout *verticalLayout_2;
     QFrame *frame_4;
     QPushButton *pushButton_2;
-    QPushButton *pushButton_6;
     QFrame *frame_5;
     QLineEdit *lineEdit;
     QLineEdit *lineEdit_2;
     QLineEdit *lineEdit_3;
     QLineEdit *lineEdit_5;
     QLineEdit *lineEdit_6;
-    QLineEdit *lineEdit_7;
-    QLineEdit *lineEdit_8;
-    QLineEdit *lineEdit_9;
-    QLineEdit *lineEdit_10;
-    QRadioButton *radioButton;
-    QRadioButton *radioButton_2;
+    QLineEdit *etName;
+    QLineEdit *etCode;
+    QLineEdit *etMail;
+    QRadioButton *radioMan;
+    QRadioButton *radioWoman;
     QLineEdit *lineEdit_4;
+    QPushButton *btnDept;
+    QPushButton *btnHeadIcon;
     QFrame *frame_6;
     QHBoxLayout *horizontalLayout_2;
-    QPushButton *pushButton_4;
+    QPushButton *btnAdd;
 
     void setupUi(QWidget *admin_adduser)
     {
@@ -135,15 +135,15 @@ public:
 
         verticalLayout->addWidget(btnSearchbook);
 
-        pushButton = new QPushButton(frame_8);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setMinimumSize(QSize(0, 100));
-        pushButton->setStyleSheet(QString::fromUtf8("font: 12pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+        btnClassify = new QPushButton(frame_8);
+        btnClassify->setObjectName(QStringLiteral("btnClassify"));
+        btnClassify->setMinimumSize(QSize(0, 100));
+        btnClassify->setStyleSheet(QString::fromUtf8("font: 12pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "color:white;\n"
 "background:transparent;\n"
 "cursor:pointer;"));
 
-        verticalLayout->addWidget(pushButton);
+        verticalLayout->addWidget(btnClassify);
 
 
         verticalLayout_6->addLayout(verticalLayout);
@@ -179,13 +179,9 @@ public:
         frame_4->setFrameShadow(QFrame::Raised);
         pushButton_2 = new QPushButton(frame_4);
         pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-        pushButton_2->setGeometry(QRect(90, 10, 131, 51));
+        pushButton_2->setGeometry(QRect(20, 10, 121, 51));
         pushButton_2->setStyleSheet(QLatin1String("border:none;\n"
 ""));
-        pushButton_6 = new QPushButton(frame_4);
-        pushButton_6->setObjectName(QStringLiteral("pushButton_6"));
-        pushButton_6->setGeometry(QRect(30, 10, 51, 51));
-        pushButton_6->setStyleSheet(QStringLiteral("border:none;"));
 
         verticalLayout_2->addWidget(frame_4);
 
@@ -227,49 +223,43 @@ public:
 "text-align:left;"));
         lineEdit_6 = new QLineEdit(frame_5);
         lineEdit_6->setObjectName(QStringLiteral("lineEdit_6"));
-        lineEdit_6->setGeometry(QRect(70, 350, 61, 31));
+        lineEdit_6->setGeometry(QRect(70, 380, 61, 31));
         lineEdit_6->setStyleSheet(QString::fromUtf8("color:#808080;\n"
 "border:none;\n"
 "font-size:18px;\n"
 "font-family:\"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "text-align:left;"));
-        lineEdit_7 = new QLineEdit(frame_5);
-        lineEdit_7->setObjectName(QStringLiteral("lineEdit_7"));
-        lineEdit_7->setGeometry(QRect(130, 70, 201, 31));
-        lineEdit_7->setStyleSheet(QString::fromUtf8("border:1px solid #cccccc;\n"
+        etName = new QLineEdit(frame_5);
+        etName->setObjectName(QStringLiteral("etName"));
+        etName->setGeometry(QRect(130, 70, 201, 31));
+        etName->setStyleSheet(QString::fromUtf8("border:1px solid #cccccc;\n"
 "font-size:18px;\n"
 "font-family:\"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "text-align:left;"));
-        lineEdit_8 = new QLineEdit(frame_5);
-        lineEdit_8->setObjectName(QStringLiteral("lineEdit_8"));
-        lineEdit_8->setGeometry(QRect(130, 120, 201, 31));
-        lineEdit_8->setStyleSheet(QString::fromUtf8("color:#808080;\n"
+        etCode = new QLineEdit(frame_5);
+        etCode->setObjectName(QStringLiteral("etCode"));
+        etCode->setGeometry(QRect(130, 120, 201, 31));
+        etCode->setStyleSheet(QString::fromUtf8("color:#808080;\n"
 "border:1px solid #cccccc;\n"
 "font-size:18px;\n"
 "font-family:\"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "text-align:left;"));
-        lineEdit_9 = new QLineEdit(frame_5);
-        lineEdit_9->setObjectName(QStringLiteral("lineEdit_9"));
-        lineEdit_9->setGeometry(QRect(130, 170, 201, 31));
-        lineEdit_9->setStyleSheet(QString::fromUtf8("color:#808080;\n"
+        etMail = new QLineEdit(frame_5);
+        etMail->setObjectName(QStringLiteral("etMail"));
+        etMail->setGeometry(QRect(130, 290, 251, 31));
+        etMail->setStyleSheet(QString::fromUtf8("color:#808080;\n"
 "border:1px solid #cccccc;\n"
 "font-size:18px;\n"
 "font-family:\"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "text-align:left;"));
-        lineEdit_10 = new QLineEdit(frame_5);
-        lineEdit_10->setObjectName(QStringLiteral("lineEdit_10"));
-        lineEdit_10->setGeometry(QRect(130, 290, 251, 31));
-        lineEdit_10->setStyleSheet(QString::fromUtf8("color:#808080;\n"
-"border:1px solid #cccccc;\n"
-"font-size:18px;\n"
-"font-family:\"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
-"text-align:left;"));
-        radioButton = new QRadioButton(frame_5);
-        radioButton->setObjectName(QStringLiteral("radioButton"));
-        radioButton->setGeometry(QRect(140, 220, 41, 31));
-        radioButton_2 = new QRadioButton(frame_5);
-        radioButton_2->setObjectName(QStringLiteral("radioButton_2"));
-        radioButton_2->setGeometry(QRect(200, 220, 41, 31));
+        radioMan = new QRadioButton(frame_5);
+        radioMan->setObjectName(QStringLiteral("radioMan"));
+        radioMan->setGeometry(QRect(140, 220, 41, 31));
+        radioMan->setCheckable(true);
+        radioMan->setChecked(true);
+        radioWoman = new QRadioButton(frame_5);
+        radioWoman->setObjectName(QStringLiteral("radioWoman"));
+        radioWoman->setGeometry(QRect(200, 220, 41, 31));
         lineEdit_4 = new QLineEdit(frame_5);
         lineEdit_4->setObjectName(QStringLiteral("lineEdit_4"));
         lineEdit_4->setGeometry(QRect(70, 220, 61, 31));
@@ -278,6 +268,16 @@ public:
 "font-size:18px;\n"
 "font-family:\"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "text-align:left;"));
+        btnDept = new QPushButton(frame_5);
+        btnDept->setObjectName(QStringLiteral("btnDept"));
+        btnDept->setGeometry(QRect(130, 170, 201, 31));
+        btnDept->setStyleSheet(QLatin1String("color:#4695d2;\n"
+"border:none;\n"
+"background:white;\n"
+"text-size:80px;"));
+        btnHeadIcon = new QPushButton(frame_5);
+        btnHeadIcon->setObjectName(QStringLiteral("btnHeadIcon"));
+        btnHeadIcon->setGeometry(QRect(120, 340, 131, 101));
 
         verticalLayout_2->addWidget(frame_5);
 
@@ -292,14 +292,14 @@ public:
         horizontalLayout_2->setSpacing(6);
         horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        pushButton_4 = new QPushButton(frame_6);
-        pushButton_4->setObjectName(QStringLiteral("pushButton_4"));
+        btnAdd = new QPushButton(frame_6);
+        btnAdd->setObjectName(QStringLiteral("btnAdd"));
         QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Expanding);
         sizePolicy2.setHorizontalStretch(0);
         sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(pushButton_4->sizePolicy().hasHeightForWidth());
-        pushButton_4->setSizePolicy(sizePolicy2);
-        pushButton_4->setStyleSheet(QString::fromUtf8("color:white;\n"
+        sizePolicy2.setHeightForWidth(btnAdd->sizePolicy().hasHeightForWidth());
+        btnAdd->setSizePolicy(sizePolicy2);
+        btnAdd->setStyleSheet(QString::fromUtf8("color:white;\n"
 "border:none;\n"
 "font-size:20px;\n"
 "font-family:\"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
@@ -307,7 +307,7 @@ public:
 "padding-top:5;\n"
 "padding-bottom:5;"));
 
-        horizontalLayout_2->addWidget(pushButton_4);
+        horizontalLayout_2->addWidget(btnAdd);
 
 
         verticalLayout_2->addWidget(frame_6);
@@ -327,19 +327,20 @@ public:
         btnPersonal->setText(QApplication::translate("admin_adduser", "\344\270\252\344\272\272\344\270\255\345\277\203", Q_NULLPTR));
         btnInformationchange->setText(QApplication::translate("admin_adduser", "\350\264\246\345\217\267\347\256\241\347\220\206", Q_NULLPTR));
         btnSearchbook->setText(QApplication::translate("admin_adduser", "\345\233\276\344\271\246\347\256\241\347\220\206", Q_NULLPTR));
-        pushButton->setText(QApplication::translate("admin_adduser", "\345\210\206\347\261\273\347\256\241\347\220\206", Q_NULLPTR));
+        btnClassify->setText(QApplication::translate("admin_adduser", "\345\210\206\347\261\273\347\256\241\347\220\206", Q_NULLPTR));
         pushButton_2->setText(QApplication::translate("admin_adduser", "\346\267\273\345\212\240\345\255\246\347\224\237", Q_NULLPTR));
-        pushButton_6->setText(QApplication::translate("admin_adduser", "<", Q_NULLPTR));
         lineEdit->setText(QApplication::translate("admin_adduser", "\345\247\223\345\220\215\357\274\232", Q_NULLPTR));
         lineEdit_2->setText(QApplication::translate("admin_adduser", "\345\255\246\345\217\267\357\274\232", Q_NULLPTR));
         lineEdit_3->setText(QApplication::translate("admin_adduser", "\344\270\223\344\270\232\357\274\232", Q_NULLPTR));
         lineEdit_5->setText(QApplication::translate("admin_adduser", "\351\202\256\347\256\261\357\274\232", Q_NULLPTR));
         lineEdit_6->setText(QApplication::translate("admin_adduser", "\345\244\264\345\203\217\357\274\232", Q_NULLPTR));
-        lineEdit_7->setText(QString());
-        radioButton->setText(QApplication::translate("admin_adduser", "\347\224\267", Q_NULLPTR));
-        radioButton_2->setText(QApplication::translate("admin_adduser", "\345\245\263", Q_NULLPTR));
+        etName->setText(QString());
+        radioMan->setText(QApplication::translate("admin_adduser", "\347\224\267", Q_NULLPTR));
+        radioWoman->setText(QApplication::translate("admin_adduser", "\345\245\263", Q_NULLPTR));
         lineEdit_4->setText(QApplication::translate("admin_adduser", "\346\200\247\345\210\253\357\274\232", Q_NULLPTR));
-        pushButton_4->setText(QApplication::translate("admin_adduser", "\347\241\256\350\256\244\346\267\273\345\212\240", Q_NULLPTR));
+        btnDept->setText(QApplication::translate("admin_adduser", "\350\256\241\347\256\227\346\234\272\347\247\221\345\255\246\344\270\216\346\212\200\346\234\257", Q_NULLPTR));
+        btnHeadIcon->setText(QApplication::translate("admin_adduser", "PushButton", Q_NULLPTR));
+        btnAdd->setText(QApplication::translate("admin_adduser", "\347\241\256\350\256\244\346\267\273\345\212\240", Q_NULLPTR));
     } // retranslateUi
 
 };

@@ -141,7 +141,6 @@ bool student_update::eventFilter(QObject *obj, QEvent *event) {
 	return false;
 }
 void student_update::openFileDiag() {
-	filename;
 	filename = QFileDialog::getOpenFileName(this, QString::fromLocal8Bit("Ñ¡ÔñÍ¼Ïñ"), "", tr("Images (*.png *.bmp *.jpg *.tif *.GIF )"));
 	if (filename.isEmpty()) {
 		return;
