@@ -39,6 +39,7 @@ public:
     QPushButton *btnSearchuser;
     QPushButton *btnSearchbook;
     QPushButton *btnClassify;
+    QPushButton *btnLogout;
     QFrame *frame_3;
     QVBoxLayout *verticalLayout_2;
     QFrame *frame_4;
@@ -145,6 +146,17 @@ public:
 "background-color:rgba(255,255,255,0.4);"));
 
         verticalLayout->addWidget(btnClassify);
+
+        btnLogout = new QPushButton(frame_8);
+        btnLogout->setObjectName(QStringLiteral("btnLogout"));
+        btnLogout->setMinimumSize(QSize(0, 100));
+        btnLogout->setStyleSheet(QString::fromUtf8("font: 12pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"color:white;\n"
+"background:transparent;\n"
+"cursor:pointer;\n"
+""));
+
+        verticalLayout->addWidget(btnLogout);
 
 
         verticalLayout_6->addLayout(verticalLayout);
@@ -363,6 +375,7 @@ public:
         btnSearchuser->setText(QApplication::translate("admin_classify", "\350\264\246\345\217\267\347\256\241\347\220\206", Q_NULLPTR));
         btnSearchbook->setText(QApplication::translate("admin_classify", "\345\233\276\344\271\246\347\256\241\347\220\206", Q_NULLPTR));
         btnClassify->setText(QApplication::translate("admin_classify", "\345\210\206\347\261\273\347\256\241\347\220\206", Q_NULLPTR));
+        btnLogout->setText(QApplication::translate("admin_classify", "\351\200\200\345\207\272\347\231\273\345\275\225", Q_NULLPTR));
         btnSearch->setText(QString());
         btnAdd->setText(QApplication::translate("admin_classify", "\346\267\273\345\212\240\345\210\206\347\261\273", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem = tableWidget->horizontalHeaderItem(0);

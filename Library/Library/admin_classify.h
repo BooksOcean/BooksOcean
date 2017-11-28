@@ -20,6 +20,8 @@ protected:
 public slots:
 	void OnBtnClickedDelete(int id);
 
+
+
 private:
 	Ui::admin_classify ui;
 	vector<Classify>DataTable;

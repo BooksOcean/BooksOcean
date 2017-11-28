@@ -13,10 +13,10 @@ int main(int argc, char *argv[])
 {
 	QTextCodec * BianMa = QTextCodec::codecForName("GBK");
 	QApplication a(argc, argv);
-	userConfig::id = 0;
+	/*userConfig::id = 0;
 	userConfig::username = "1234567";
-	userConfig::password = "111";
-	admin_index w;
+	userConfig::password = "111";*/
+	Library w;
 	w.show();
 
 	return a.exec();

@@ -36,6 +36,7 @@ public:
     QPushButton *btnSearchuser;
     QPushButton *btnSearchbook;
     QPushButton *btnClassify;
+    QPushButton *btnLogout;
     QFrame *frame_3;
     QVBoxLayout *verticalLayout_3;
     QFrame *frame_4;
@@ -134,6 +135,17 @@ public:
 "cursor:pointer;"));
 
         verticalLayout->addWidget(btnClassify);
+
+        btnLogout = new QPushButton(frame_8);
+        btnLogout->setObjectName(QStringLiteral("btnLogout"));
+        btnLogout->setMinimumSize(QSize(0, 100));
+        btnLogout->setStyleSheet(QString::fromUtf8("font: 12pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"color:white;\n"
+"background:transparent;\n"
+"cursor:pointer;\n"
+""));
+
+        verticalLayout->addWidget(btnLogout);
 
 
         verticalLayout_6->addLayout(verticalLayout);
@@ -279,6 +291,7 @@ public:
         btnSearchuser->setText(QApplication::translate("admin_index", "\350\264\246\345\217\267\347\256\241\347\220\206", Q_NULLPTR));
         btnSearchbook->setText(QApplication::translate("admin_index", "\345\233\276\344\271\246\347\256\241\347\220\206", Q_NULLPTR));
         btnClassify->setText(QApplication::translate("admin_index", "\345\210\206\347\261\273\347\256\241\347\220\206", Q_NULLPTR));
+        btnLogout->setText(QApplication::translate("admin_index", "\351\200\200\345\207\272\347\231\273\345\275\225", Q_NULLPTR));
         etSname->setText(QApplication::translate("admin_index", "admin", Q_NULLPTR));
         pushButton_6->setText(QApplication::translate("admin_index", "\351\202\256\347\256\261\344\277\256\346\224\271", Q_NULLPTR));
         pushButton_7->setText(QApplication::translate("admin_index", "\345\257\206\347\240\201\344\277\256\346\224\271", Q_NULLPTR));

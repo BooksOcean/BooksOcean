@@ -5,6 +5,7 @@
 #include"bookMap.h"
 #include"record.h"
 #include"student.h"
+#include"library.h"
 #include"book.h"
 #include<QPushButton>
 #include<QMessageBox>

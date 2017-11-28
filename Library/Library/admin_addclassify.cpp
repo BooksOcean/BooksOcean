@@ -3,6 +3,7 @@
 #include<QTextCodec>
 #include"classify.h"
 #include"filedb.h"
+#include"library.h"
 admin_addclassify::admin_addclassify(QWidget *parent)
 	: QWidget(parent)
 {

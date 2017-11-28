@@ -16,6 +16,8 @@ protected:
 
 public slots:
 	void OnClicked(int id);
+signals:
+	void UpdateClassSignal(QString);
 
 private:
 	Ui::admin_classifyshow ui;

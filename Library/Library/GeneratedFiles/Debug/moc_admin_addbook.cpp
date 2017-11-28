@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_admin_addbook_t {
-    QByteArrayData data[1];
-    char stringdata0[14];
+    QByteArrayData data[5];
+    char stringdata0[43];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -31,10 +31,15 @@ struct qt_meta_stringdata_admin_addbook_t {
     )
 static const qt_meta_stringdata_admin_addbook_t qt_meta_stringdata_admin_addbook = {
     {
-QT_MOC_LITERAL(0, 0, 13) // "admin_addbook"
+QT_MOC_LITERAL(0, 0, 13), // "admin_addbook"
+QT_MOC_LITERAL(1, 14, 15), // "UpdateClassSlot"
+QT_MOC_LITERAL(2, 30, 0), // ""
+QT_MOC_LITERAL(3, 31, 8), // "InitBook"
+QT_MOC_LITERAL(4, 40, 2) // "id"
 
     },
-    "admin_addbook"
+    "admin_addbook\0UpdateClassSlot\0\0InitBook\0"
+    "id"
 };
 #undef QT_MOC_LITERAL
 
@@ -44,22 +49,35 @@ static const uint qt_meta_data_admin_addbook[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       0,    0, // methods
+       2,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
        0,       // signalCount
 
+ // slots: name, argc, parameters, tag, flags
+       1,    1,   24,    2, 0x0a /* Public */,
+       3,    1,   27,    2, 0x0a /* Public */,
+
+ // slots: parameters
+    QMetaType::Void, QMetaType::QString,    2,
+    QMetaType::Void, QMetaType::Int,    4,
+
        0        // eod
 };
 
 void admin_addbook::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
-    Q_UNUSED(_o);
-    Q_UNUSED(_id);
-    Q_UNUSED(_c);
-    Q_UNUSED(_a);
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        admin_addbook *_t = static_cast<admin_addbook *>(_o);
+        Q_UNUSED(_t)
+        switch (_id) {
+        case 0: _t->UpdateClassSlot((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 1: _t->InitBook((*reinterpret_cast< int(*)>(_a[1]))); break;
+        default: ;
+        }
+    }
 }
 
 const QMetaObject admin_addbook::staticMetaObject = {
@@ -86,6 +104,15 @@ int admin_addbook::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     _id = QWidget::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        if (_id < 2)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 2;
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        if (_id < 2)
+            *reinterpret_cast<int*>(_a[0]) = -1;
+        _id -= 2;
+    }
     return _id;
 }
 QT_WARNING_POP

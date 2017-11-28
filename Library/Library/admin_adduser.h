@@ -3,7 +3,8 @@
 
 #include <QWidget>
 #include "ui_admin_adduser.h"
-
+#include"student.h"
+#include<vector>
 class admin_adduser : public QWidget
 {
 	Q_OBJECT
@@ -16,10 +17,15 @@ protected:
 	bool eventFilter(QObject *obj, QEvent *event);
 public slots:
 	void UpdateDeptSlot(QString);
+	void InitStudent(int id);
 private:
 	Ui::admin_adduser ui;
 	QString filename;
 	QPixmap* img;
+	bool isChange;
+	vector<Student>resStudent;
+	
+
 };
 
 #endif // ADMIN_ADDUSER_H

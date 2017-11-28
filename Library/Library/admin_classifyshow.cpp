@@ -6,6 +6,9 @@
 #include"admin_searchuser.h"
 #include"admin_classify.h"
 #include"filedb.h"
+#include"library.h"
+#include<QMessageBox>
+#include<QTextCodec>
 #include<QSignalMapper>
 admin_classifyshow::admin_classifyshow(QWidget *parent)
 	: QWidget(parent)
@@ -15,6 +18,7 @@ admin_classifyshow::admin_classifyshow(QWidget *parent)
 	classifyConfig::isCheck = 0;
 	ui.btnSearchuser->installEventFilter(this);
 	ui.btnClassify->installEventFilter(this);
+	ui.btnLogout->installEventFilter(this);
 	ui.btnPersonal->installEventFilter(this);
 	ui.tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);//设置不可编辑	
 	ui.tableWidget->verticalHeader()->setVisible(false); //设置行号不可见
@@ -28,21 +32,21 @@ admin_classifyshow::admin_classifyshow(QWidget *parent)
 
 bool admin_classifyshow::eventFilter(QObject *obj, QEvent *event)
 {
-	//if (obj == ui.btnLogout && event->type() == QEvent::MouseButtonPress) {
-	//	QMessageBox::StandardButton button;
-	//	button = QMessageBox::question(this, QString::fromLocal8Bit("退出程序"),
-	//		QString(QString::fromLocal8Bit("确认退出程序?")),
-	//		QMessageBox::Yes | QMessageBox::No);
-	//	if (button == QMessageBox::No) {
-	//		event->ignore();  //忽略退出信号，程序继续运行
-	//	}
-	//	else if (button == QMessageBox::Yes) {
-	//		Library *rec = new Library;
-	//		this->close();
-	//		rec->show();
-	//		event->accept();  //接受退出信号，程序退出
-	//	}
-	//}
+	if (obj == ui.btnLogout && event->type() == QEvent::MouseButtonPress) {
+		QMessageBox::StandardButton button;
+		button = QMessageBox::question(this, QString::fromLocal8Bit("退出程序"),
+			QString(QString::fromLocal8Bit("确认退出程序?")),
+			QMessageBox::Yes | QMessageBox::No);
+		if (button == QMessageBox::No) {
+			event->ignore();  //忽略退出信号，程序继续运行
+		}
+		else if (button == QMessageBox::Yes) {
+			Library *rec = new Library;
+			this->close();
+			rec->show();
+			event->accept();  //接受退出信号，程序退出
+		}
+	}
 	if (obj == ui.btnSearchuser && event->type() == QEvent::MouseButtonPress) {
 		admin_searchuser *rec = new admin_searchuser;
 		this->close();
@@ -103,11 +107,24 @@ void admin_classifyshow::DataBind() {
 
 void admin_classifyshow::OnClicked(int id)
 {
-	classifyConfig::isCheck = 1;
-	classifyConfig::classifyId = id;
-	admin_searchbook *rec = new admin_searchbook;
-	rec->show();
-	this->close();
+	if (classifyConfig::isCheck) {
+		classifyConfig::isCheck = 1;
+		classifyConfig::classifyId = id;
+		admin_searchbook *rec = new admin_searchbook;
+		rec->show();
+		this->close();
+	}
+	else {
+		Classify cla;
+		cla.setId(id);
+		vector<string>VALUES;
+		VALUES.push_back("one");
+		VALUES.push_back("id");
+		vector<Classify>resCla;
+		FileDB::select("classify", cla, VALUES, resCla);
+		emit UpdateClassSignal(QString::fromLocal8Bit( resCla[0].name));
+		this->close();
+	}
 }
 
 admin_classifyshow::~admin_classifyshow()

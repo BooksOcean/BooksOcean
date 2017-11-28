@@ -37,6 +37,7 @@ public:
     QPushButton *btnInformationchange;
     QPushButton *btnSearchbook;
     QPushButton *btnClassify;
+    QPushButton *btnLogout;
     QFrame *frame_3;
     QVBoxLayout *verticalLayout_2;
     QFrame *frame_4;
@@ -145,6 +146,17 @@ public:
 
         verticalLayout->addWidget(btnClassify);
 
+        btnLogout = new QPushButton(frame_8);
+        btnLogout->setObjectName(QStringLiteral("btnLogout"));
+        btnLogout->setMinimumSize(QSize(0, 100));
+        btnLogout->setStyleSheet(QString::fromUtf8("font: 12pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"color:white;\n"
+"background:transparent;\n"
+"cursor:pointer;\n"
+""));
+
+        verticalLayout->addWidget(btnLogout);
+
 
         verticalLayout_6->addLayout(verticalLayout);
 
@@ -179,7 +191,7 @@ public:
         frame_4->setFrameShadow(QFrame::Raised);
         pushButton_2 = new QPushButton(frame_4);
         pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-        pushButton_2->setGeometry(QRect(20, 10, 121, 51));
+        pushButton_2->setGeometry(QRect(20, 10, 171, 51));
         pushButton_2->setStyleSheet(QLatin1String("border:none;\n"
 ""));
 
@@ -328,7 +340,8 @@ public:
         btnInformationchange->setText(QApplication::translate("admin_adduser", "\350\264\246\345\217\267\347\256\241\347\220\206", Q_NULLPTR));
         btnSearchbook->setText(QApplication::translate("admin_adduser", "\345\233\276\344\271\246\347\256\241\347\220\206", Q_NULLPTR));
         btnClassify->setText(QApplication::translate("admin_adduser", "\345\210\206\347\261\273\347\256\241\347\220\206", Q_NULLPTR));
-        pushButton_2->setText(QApplication::translate("admin_adduser", "\346\267\273\345\212\240\345\255\246\347\224\237", Q_NULLPTR));
+        btnLogout->setText(QApplication::translate("admin_adduser", "\351\200\200\345\207\272\347\231\273\345\275\225", Q_NULLPTR));
+        pushButton_2->setText(QApplication::translate("admin_adduser", "\346\267\273\345\212\240/\344\277\256\346\224\271\345\255\246\347\224\237", Q_NULLPTR));
         lineEdit->setText(QApplication::translate("admin_adduser", "\345\247\223\345\220\215\357\274\232", Q_NULLPTR));
         lineEdit_2->setText(QApplication::translate("admin_adduser", "\345\255\246\345\217\267\357\274\232", Q_NULLPTR));
         lineEdit_3->setText(QApplication::translate("admin_adduser", "\344\270\223\344\270\232\357\274\232", Q_NULLPTR));
@@ -340,7 +353,7 @@ public:
         lineEdit_4->setText(QApplication::translate("admin_adduser", "\346\200\247\345\210\253\357\274\232", Q_NULLPTR));
         btnDept->setText(QApplication::translate("admin_adduser", "\350\256\241\347\256\227\346\234\272\347\247\221\345\255\246\344\270\216\346\212\200\346\234\257", Q_NULLPTR));
         btnHeadIcon->setText(QApplication::translate("admin_adduser", "PushButton", Q_NULLPTR));
-        btnAdd->setText(QApplication::translate("admin_adduser", "\347\241\256\350\256\244\346\267\273\345\212\240", Q_NULLPTR));
+        btnAdd->setText(QApplication::translate("admin_adduser", "\347\241\256\350\256\244\346\217\220\344\272\244", Q_NULLPTR));
     } // retranslateUi
 
 };

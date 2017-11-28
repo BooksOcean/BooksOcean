@@ -40,6 +40,7 @@ public:
     QPushButton *btnInformationchange;
     QPushButton *btnSearchbook;
     QPushButton *btnClassify;
+    QPushButton *btnLogout;
     QFrame *frame_3;
     QVBoxLayout *verticalLayout_2;
     QFrame *frame_4;
@@ -151,6 +152,16 @@ public:
 "cursor:pointer;"));
 
         verticalLayout->addWidget(btnClassify);
+
+        btnLogout = new QPushButton(frame_8);
+        btnLogout->setObjectName(QStringLiteral("btnLogout"));
+        btnLogout->setMinimumSize(QSize(0, 100));
+        btnLogout->setStyleSheet(QString::fromUtf8("font: 12pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"color:white;\n"
+"background:transparent;\n"
+"cursor:pointer;"));
+
+        verticalLayout->addWidget(btnLogout);
 
 
         verticalLayout_6->addLayout(verticalLayout);
@@ -325,7 +336,7 @@ public:
         etIndexPage->setObjectName(QStringLiteral("etIndexPage"));
         sizePolicy5.setHeightForWidth(etIndexPage->sizePolicy().hasHeightForWidth());
         etIndexPage->setSizePolicy(sizePolicy5);
-        etIndexPage->setMaximumSize(QSize(20, 16777215));
+        etIndexPage->setMaximumSize(QSize(40, 16777215));
         etIndexPage->setStyleSheet(QLatin1String("border:none;\n"
 "font-size:18px;"));
 
@@ -404,6 +415,7 @@ public:
         btnInformationchange->setText(QApplication::translate("admin_searchuser", "\350\264\246\345\217\267\347\256\241\347\220\206", Q_NULLPTR));
         btnSearchbook->setText(QApplication::translate("admin_searchuser", "\345\233\276\344\271\246\347\256\241\347\220\206", Q_NULLPTR));
         btnClassify->setText(QApplication::translate("admin_searchuser", "\345\210\206\347\261\273\347\256\241\347\220\206", Q_NULLPTR));
+        btnLogout->setText(QApplication::translate("admin_searchuser", "\351\200\200\345\207\272\347\231\273\345\275\225", Q_NULLPTR));
         btnSearch->setText(QString());
         btnAdd->setText(QApplication::translate("admin_searchuser", "\346\267\273\345\212\240\345\255\246\347\224\237", Q_NULLPTR));
         radioName->setText(QApplication::translate("admin_searchuser", "\345\247\223\345\220\215", Q_NULLPTR));

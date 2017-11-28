@@ -19,8 +19,13 @@ public slots:
 	void OnBtnClickedDelete(int id);
 	void OnBtnClickedReset(int id);
 	void OnBtnClickedClear(int id);
+	void OnBtnClickedChange(int id);
 	void radioBtnSlot();
 	void radioBtnSlotOther();
+	
+
+signals:
+	void emitChange(int);
 private:
 	Ui::admin_searchuser ui;
 	vector<Student>DataTable;

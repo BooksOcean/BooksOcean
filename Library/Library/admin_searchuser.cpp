@@ -13,6 +13,7 @@
 #include"admin_classifyshow.h"
 #include"filedb.h"
 #include"record.h"
+#include"library.h"
 #include<QSignalMapper>
 #include<QMessageBox>
 #include <QTextCodec>
@@ -26,6 +27,7 @@ admin_searchuser::admin_searchuser(QWidget *parent)
 	ui.btnPersonal->installEventFilter(this);
 	ui.btnLastPage->installEventFilter(this);
 	ui.btnFirstPage->installEventFilter(this);
+	ui.btnLogout->installEventFilter(this);
 	ui.btnLastPage->installEventFilter(this);
 	ui.btnNextPage->installEventFilter(this);
 	ui.btnSearch->installEventFilter(this);
@@ -115,21 +117,21 @@ bool admin_searchuser::eventFilter(QObject *obj, QEvent *event)
 			return false;
 		}
 	}
-	//if (obj == ui.btnLogout && event->type() == QEvent::MouseButtonPress) {
-	//	QMessageBox::StandardButton button;
-	//	button = QMessageBox::question(this, QString::fromLocal8Bit("退出程序"),
-	//		QString(QString::fromLocal8Bit("确认退出程序?")),
-	//		QMessageBox::Yes | QMessageBox::No);
-	//	if (button == QMessageBox::No) {
-	//		event->ignore();  //忽略退出信号，程序继续运行
-	//	}
-	//	else if (button == QMessageBox::Yes) {
-	//		Library *rec = new Library;
-	//		this->close();
-	//		rec->show();
-	//		event->accept();  //接受退出信号，程序退出
-	//	}
-	//}
+	if (obj == ui.btnLogout && event->type() == QEvent::MouseButtonPress) {
+		QMessageBox::StandardButton button;
+		button = QMessageBox::question(this, QString::fromLocal8Bit("退出程序"),
+			QString(QString::fromLocal8Bit("确认退出程序?")),
+			QMessageBox::Yes | QMessageBox::No);
+		if (button == QMessageBox::No) {
+			event->ignore();  //忽略退出信号，程序继续运行
+		}
+		else if (button == QMessageBox::Yes) {
+			Library *rec = new Library;
+			this->close();
+			rec->show();
+			event->accept();  //接受退出信号，程序退出
+		}
+	}
 
 	if (obj == ui.btnSearchbook && event->type() == QEvent::MouseButtonPress) {
 		admin_searchbook *rec = new admin_searchbook;
@@ -240,10 +242,10 @@ void admin_searchuser::DataBind() {
 			"background:white;"
 			"text-size:20px;"
 		);
-		/*QSignalMapper* signalMapper = new QSignalMapper(this);
+		QSignalMapper* signalMapper = new QSignalMapper(this);
 		connect(btn, SIGNAL(clicked()), signalMapper, SLOT(map()));
 		signalMapper->setMapping(btn, DataTable[i].id);
-		connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(OnBtnClicked(int)));*/
+		connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(OnBtnClickedChange(int)));
 
 		QPushButton *btn3 = new QPushButton;
 		ui.tableWidget->setCellWidget(i - currentPageBegin, 4, btn3);
@@ -381,4 +383,13 @@ void admin_searchuser::OnBtnClickedClear(int id)
 	resStudent[0].setMoney(0);
 	FileDB::update("student", cla, resStudent[0], VALUES);
 	QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("清除成功"), QMessageBox::Ok);
+}
+
+void admin_searchuser::OnBtnClickedChange(int id)
+{
+	admin_adduser *rec = new admin_adduser;
+	connect(this, SIGNAL(emitChange(int)), rec, SLOT(InitBook(int)));
+	emit emitChange(id);
+	rec->show();
+	this->close();
 }

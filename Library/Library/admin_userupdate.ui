@@ -174,6 +174,25 @@ cursor:pointer;</string>
            </property>
           </widget>
          </item>
+         <item>
+          <widget class="QPushButton" name="btnLogout">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>100</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">font: 12pt &quot;微软雅黑&quot;;
+color:white;
+background:transparent;
+cursor:pointer;</string>
+           </property>
+           <property name="text">
+            <string>退出登录</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
       </layout>
@@ -480,20 +499,6 @@ text-align:left;</string>
           <string>性别：</string>
          </property>
         </widget>
-        <zorder>lineEdit</zorder>
-        <zorder>lineEdit_2</zorder>
-        <zorder>lineEdit_3</zorder>
-        <zorder>lineEdit_5</zorder>
-        <zorder>lineEdit_6</zorder>
-        <zorder>lineEdit_7</zorder>
-        <zorder>lineEdit_8</zorder>
-        <zorder>lineEdit_9</zorder>
-        <zorder>lineEdit_10</zorder>
-        <zorder>radioButton</zorder>
-        <zorder>radioButton_2</zorder>
-        <zorder>lineEdit_4</zorder>
-        <zorder>pushButton_4</zorder>
-        <zorder>frame_6</zorder>
        </widget>
       </item>
       <item>

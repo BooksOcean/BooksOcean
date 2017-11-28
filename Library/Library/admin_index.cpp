@@ -9,7 +9,7 @@
 #include"admin.h"
 #include<QMessageBox>
 #include"filedb.h"
-
+#include"library.h"
 admin_index::admin_index(QWidget *parent)
 	: QWidget(parent)
 {
@@ -19,6 +19,7 @@ admin_index::admin_index(QWidget *parent)
 	ui.pushButton_7->installEventFilter(this);
 	ui.btnSubmit->installEventFilter(this);
 	ui.btnSearchuser->installEventFilter(this);
+	ui.btnLogout->installEventFilter(this);
 	ui.btnClassify->installEventFilter(this);
 	ui.btnSearchbook->installEventFilter(this);
 	InitThisPage();
@@ -42,6 +43,21 @@ void admin_index::InitThisPage() {
 
 bool admin_index::eventFilter(QObject *obj, QEvent *event) {
 	QTextCodec * BianMa = QTextCodec::codecForName("GBK");
+	if (obj == ui.btnLogout && event->type() == QEvent::MouseButtonPress) {
+		QMessageBox::StandardButton button;
+		button = QMessageBox::question(this, QString::fromLocal8Bit("退出程序"),
+			QString(QString::fromLocal8Bit("确认退出程序?")),
+			QMessageBox::Yes | QMessageBox::No);
+		if (button == QMessageBox::No) {
+			event->ignore();  //忽略退出信号，程序继续运行
+		}
+		else if (button == QMessageBox::Yes) {
+			Library *rec = new Library;
+			this->close();
+			rec->show();
+			event->accept();  //接受退出信号，程序退出
+		}
+	}
 	if (obj == ui.pushButton_7 && event->type() == QEvent::MouseButtonPress) {
 		admin_updatepassword *rec = new admin_updatepassword;
 		rec->show();

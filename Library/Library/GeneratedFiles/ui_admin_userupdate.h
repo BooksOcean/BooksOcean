@@ -37,6 +37,7 @@ public:
     QPushButton *btnInformationchange;
     QPushButton *btnSearchbook;
     QPushButton *pushButton;
+    QPushButton *btnLogout;
     QFrame *frame_3;
     QVBoxLayout *verticalLayout_2;
     QFrame *frame_4;
@@ -144,6 +145,16 @@ public:
 "cursor:pointer;"));
 
         verticalLayout->addWidget(pushButton);
+
+        btnLogout = new QPushButton(frame_8);
+        btnLogout->setObjectName(QStringLiteral("btnLogout"));
+        btnLogout->setMinimumSize(QSize(0, 100));
+        btnLogout->setStyleSheet(QString::fromUtf8("font: 12pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"color:white;\n"
+"background:transparent;\n"
+"cursor:pointer;"));
+
+        verticalLayout->addWidget(btnLogout);
 
 
         verticalLayout_6->addLayout(verticalLayout);
@@ -278,18 +289,6 @@ public:
 "font-size:18px;\n"
 "font-family:\"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "text-align:left;"));
-        lineEdit->raise();
-        lineEdit_2->raise();
-        lineEdit_3->raise();
-        lineEdit_5->raise();
-        lineEdit_6->raise();
-        lineEdit_7->raise();
-        lineEdit_8->raise();
-        lineEdit_9->raise();
-        lineEdit_10->raise();
-        radioButton->raise();
-        radioButton_2->raise();
-        lineEdit_4->raise();
 
         verticalLayout_2->addWidget(frame_5);
 
@@ -354,6 +353,7 @@ public:
         btnInformationchange->setText(QApplication::translate("admin_userupdate", "\350\264\246\345\217\267\347\256\241\347\220\206", Q_NULLPTR));
         btnSearchbook->setText(QApplication::translate("admin_userupdate", "\345\233\276\344\271\246\347\256\241\347\220\206", Q_NULLPTR));
         pushButton->setText(QApplication::translate("admin_userupdate", "\345\210\206\347\261\273\347\256\241\347\220\206", Q_NULLPTR));
+        btnLogout->setText(QApplication::translate("admin_userupdate", "\351\200\200\345\207\272\347\231\273\345\275\225", Q_NULLPTR));
         pushButton_2->setText(QApplication::translate("admin_userupdate", "\344\277\241\346\201\257\344\277\256\346\224\271", Q_NULLPTR));
         pushButton_6->setText(QApplication::translate("admin_userupdate", "<", Q_NULLPTR));
         lineEdit->setText(QApplication::translate("admin_userupdate", "\345\247\223\345\220\215\357\274\232", Q_NULLPTR));

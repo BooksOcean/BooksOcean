@@ -6,13 +6,20 @@
 #include"admin_classifyshow.h"
 #include"admin_classify.h"
 #include"filedb.h"
+#include"library.h"
 #include"dept.h"
 #include"admin_studentclassify.h"
 #include<vector>
 #include<QMessageBox>
 #include<QFileDialog>
 #include<QDateTime>
-
+#include<QPixmap>
+#include<QUrl>
+#include <qtnetwork/qnetworkaccessmanager>
+#include <qtnetwork/QNetworkRequest>
+#include <qtnetwork/QNetworkRequest>
+#include <qtnetwork/QNetworkReply>
+#include<QEventLoop>
 admin_adduser::admin_adduser(QWidget *parent)
 	: QWidget(parent)
 {
@@ -20,6 +27,7 @@ admin_adduser::admin_adduser(QWidget *parent)
 	ui.btnSearchbook->installEventFilter(this);
 	ui.btnClassify->installEventFilter(this);
 	ui.btnPersonal->installEventFilter(this);
+	ui.btnLogout->installEventFilter(this);
 	ui.btnDept->installEventFilter(this);
 	ui.btnAdd->installEventFilter(this);
 	ui.btnHeadIcon->installEventFilter(this);
@@ -28,6 +36,9 @@ admin_adduser::admin_adduser(QWidget *parent)
 	img->load(filename);
 	ui.btnHeadIcon->setIcon(*img);
 	ui.btnHeadIcon->setIconSize(QSize((*img).width(), (*img).height()));
+	//不是修改
+	isChange = false;
+	
 }
 
 admin_adduser::~admin_adduser()
@@ -37,21 +48,21 @@ admin_adduser::~admin_adduser()
 
 bool admin_adduser::eventFilter(QObject *obj, QEvent *event)
 {
-	//if (obj == ui.btnLogout && event->type() == QEvent::MouseButtonPress) {
-	//	QMessageBox::StandardButton button;
-	//	button = QMessageBox::question(this, QString::fromLocal8Bit("退出程序"),
-	//		QString(QString::fromLocal8Bit("确认退出程序?")),
-	//		QMessageBox::Yes | QMessageBox::No);
-	//	if (button == QMessageBox::No) {
-	//		event->ignore();  //忽略退出信号，程序继续运行
-	//	}
-	//	else if (button == QMessageBox::Yes) {
-	//		Library *rec = new Library;
-	//		this->close();
-	//		rec->show();
-	//		event->accept();  //接受退出信号，程序退出
-	//	}
-	//}
+	if (obj == ui.btnLogout && event->type() == QEvent::MouseButtonPress) {
+		QMessageBox::StandardButton button;
+		button = QMessageBox::question(this, QString::fromLocal8Bit("退出程序"),
+			QString(QString::fromLocal8Bit("确认退出程序?")),
+			QMessageBox::Yes | QMessageBox::No);
+		if (button == QMessageBox::No) {
+			event->ignore();  //忽略退出信号，程序继续运行
+		}
+		else if (button == QMessageBox::Yes) {
+			Library *rec = new Library;
+			this->close();
+			rec->show();
+			event->accept();  //接受退出信号，程序退出
+		}
+	}
 
 	if (obj == ui.btnSearchbook && event->type() == QEvent::MouseButtonPress) {
 		admin_searchbook *rec = new admin_searchbook;
@@ -109,11 +120,22 @@ bool admin_adduser::eventFilter(QObject *obj, QEvent *event)
 		else {
 			student.setSex("女");
 		}
-		student.setMoney(0);
-		vector<Student>resStudent;
-		resStudent.push_back(student);
-		FileDB::insert("student", resStudent);
-		QMessageBox::information(NULL, QString::fromLocal8Bit(""), QString::fromLocal8Bit("添加成功！"), QMessageBox::Ok);
+		(*img).save(filename);
+		if (!isChange) {
+			student.setMoney(0);
+			vector<Student>resStudent2;
+			resStudent2.push_back(student);
+			FileDB::insert("student", resStudent2);
+			QMessageBox::information(NULL, QString::fromLocal8Bit(""), QString::fromLocal8Bit("添加成功！"), QMessageBox::Ok);
+		}
+		else {
+			vector<string>VALUES;
+			VALUES.push_back("one");
+			VALUES.push_back("id");
+			student.setMoney(resStudent[0].money);
+			FileDB::update("student", resStudent[0], student, VALUES);
+			QMessageBox::information(NULL, QString::fromLocal8Bit(""), QString::fromLocal8Bit("修改成功！"), QMessageBox::Ok);
+		}
 
 	}
 
@@ -150,5 +172,49 @@ void admin_adduser::openFileDiag() {
 		ui.btnHeadIcon->setIcon(*img);
 		ui.btnHeadIcon->setIconSize(QSize((*img).width(), (*img).height()));
 		return;
+	}
+}
+
+void admin_adduser::InitStudent(int id) {
+	//修改
+	isChange = true;
+	Student cla;
+	cla.setId(id);
+	vector<string>VALUES;
+	VALUES.push_back("one");
+	VALUES.push_back("id");
+	FileDB::select("student", cla, VALUES, resStudent);
+	ui.etName->setText(QString::fromLocal8Bit(resStudent[0].username));
+	ui.etCode->setText(QString::fromLocal8Bit(resStudent[0].usercode));
+	ui.etMail->setText(QString::fromLocal8Bit(resStudent[0].mail));
+	if (strcmp("男", resStudent[0].sex)) {
+		ui.radioMan->setChecked(true);
+	}
+	else {
+		ui.radioWoman->setChecked(true);
+	}
+	ui.btnDept->setText(QString::fromLocal8Bit(resStudent[0].dept));
+	filename = QString::fromLocal8Bit(resStudent[0].icon);
+	if (!strstr(resStudent[0].icon,"images")) {
+		QNetworkAccessManager manager;
+		QEventLoop loop;
+		QNetworkReply *reply = manager.get(QNetworkRequest(QUrl(filename)));
+		//请求结束并下载完成后，退出子事件循环
+		QObject::connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+		//开启子事件循环
+		loop.exec();
+		QByteArray jpegData = reply->readAll();
+		QPixmap pixmap;
+		pixmap.loadFromData(jpegData);
+		//改变图片大小
+		ui.btnHeadIcon->setIcon(pixmap);
+		ui.btnHeadIcon->setIconSize(QSize((pixmap).width(), (pixmap).height()));
+	}
+	else {
+		img = new QPixmap;
+		img->load(filename);
+		//改变图片大小
+		ui.btnHeadIcon->setIcon(*img);
+		ui.btnHeadIcon->setIconSize(QSize((*img).width(), (*img).height()));
 	}
 }

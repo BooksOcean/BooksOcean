@@ -174,6 +174,25 @@ cursor:pointer;</string>
            </property>
           </widget>
          </item>
+         <item>
+          <widget class="QPushButton" name="btnLogout">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>100</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">font: 12pt &quot;微软雅黑&quot;;
+color:white;
+background:transparent;
+cursor:pointer;</string>
+           </property>
+           <property name="text">
+            <string>退出登录</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
       </layout>
@@ -254,7 +273,7 @@ font-size:18px;</string>
           </widget>
          </item>
          <item row="0" column="2">
-          <widget class="QPushButton" name="pushButton_2">
+          <widget class="QPushButton" name="btnAdd">
            <property name="styleSheet">
             <string notr="true">color:#4695d2;
 border:none;
@@ -345,6 +364,11 @@ font-size:18px;</string>
         <column>
          <property name="text">
           <string>可借本数</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>增加库存</string>
          </property>
         </column>
         <column>

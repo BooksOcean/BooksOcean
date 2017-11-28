@@ -6,11 +6,13 @@
 #include"bookConfig.h"
 #include<QTextCodec>
 #include"admin_bookdetail.h"
+#include"admin_addbook.h"
 #include"book.h"
 #include"classify.h"
 #include"classifyMap.h"
 #include"admin_classifyshow.h"
 #include"filedb.h"
+#include"library.h"
 #include"admin_bookdetail.h"
 #include<QSignalMapper>
 #include<QMessageBox>
@@ -20,14 +22,16 @@ admin_searchbook::admin_searchbook(QWidget *parent)
 	ui.setupUi(this);
 	ui.btnSearchuser->installEventFilter(this);
 	ui.btnClassify->installEventFilter(this);
+	ui.btnLogout->installEventFilter(this);
 	ui.btnPersonal->installEventFilter(this);
+	ui.btnAdd->installEventFilter(this);
 	ui.btnLastPage->installEventFilter(this);
 	ui.btnFirstPage->installEventFilter(this);
 	ui.btnLastPage->installEventFilter(this);
 	ui.btnNextPage->installEventFilter(this);
 	ui.btnSearch->installEventFilter(this);
 	ui.btnTheLast->installEventFilter(this);
-	ui.tableWidget->setColumnCount(7);
+	ui.tableWidget->setColumnCount(8);
 	ui.btnLastPage->setEnabled(false);
 	ui.btnFirstPage->setEnabled(false);
 	//连接分类信号
@@ -65,6 +69,7 @@ admin_searchbook::admin_searchbook(QWidget *parent)
 
 bool admin_searchbook::eventFilter(QObject *obj, QEvent *event)
 {
+
 	if (obj == ui.btnLastPage) {
 		if (event->type() == QEvent::MouseButtonPress) {
 			if (!(PageIndex == 1))
@@ -116,21 +121,21 @@ bool admin_searchbook::eventFilter(QObject *obj, QEvent *event)
 			return false;
 		}
 	}
-	//if (obj == ui.btnLogout && event->type() == QEvent::MouseButtonPress) {
-	//	QMessageBox::StandardButton button;
-	//	button = QMessageBox::question(this, QString::fromLocal8Bit("退出程序"),
-	//		QString(QString::fromLocal8Bit("确认退出程序?")),
-	//		QMessageBox::Yes | QMessageBox::No);
-	//	if (button == QMessageBox::No) {
-	//		event->ignore();  //忽略退出信号，程序继续运行
-	//	}
-	//	else if (button == QMessageBox::Yes) {
-	//		Library *rec = new Library;
-	//		this->close();
-	//		rec->show();
-	//		event->accept();  //接受退出信号，程序退出
-	//	}
-	//}
+	if (obj == ui.btnLogout && event->type() == QEvent::MouseButtonPress) {
+		QMessageBox::StandardButton button;
+		button = QMessageBox::question(this, QString::fromLocal8Bit("退出程序"),
+			QString(QString::fromLocal8Bit("确认退出程序?")),
+			QMessageBox::Yes | QMessageBox::No);
+		if (button == QMessageBox::No) {
+			event->ignore();  //忽略退出信号，程序继续运行
+		}
+		else if (button == QMessageBox::Yes) {
+			Library *rec = new Library;
+			this->close();
+			rec->show();
+			event->accept();  //接受退出信号，程序退出
+		}
+	}
 
 	if (obj == ui.btnSearchuser && event->type() == QEvent::MouseButtonPress) {
 		admin_searchuser *rec = new admin_searchuser;
@@ -139,6 +144,11 @@ bool admin_searchbook::eventFilter(QObject *obj, QEvent *event)
 	}
 	if (obj == ui.btnPersonal && event->type() == QEvent::MouseButtonPress) {
 		admin_index *rec = new admin_index;
+		this->close();
+		rec->show();
+	}
+	if (obj == ui.btnAdd && event->type() == QEvent::MouseButtonPress) {
+		admin_addbook *rec = new admin_addbook;
 		this->close();
 		rec->show();
 	}
@@ -241,8 +251,23 @@ void admin_searchbook::DataBind() {
 		ui.tableWidget->setItem(i - currentPageBegin, 3, new QTableWidgetItem(QString::number(DataTable[i].count, 10)));
 		ui.tableWidget->setItem(i - currentPageBegin, 4, new QTableWidgetItem(QString::number(DataTable[i].nowCount, 10)));
 		//添加“详情”按钮，并绑定事件
+		//添加“详情”按钮，并绑定事件
+		QPushButton *btn0 = new QPushButton;
+		ui.tableWidget->setCellWidget(i - currentPageBegin, 5, btn0);
+		btn0->setText(QString::fromLocal8Bit("增加库存"));
+		btn0->setStyleSheet(
+			"color:#4695d2;"
+			"border:none;"
+			"background:white;"
+			"text-size:20px;"
+		);
+		QSignalMapper* signalMapper0 = new QSignalMapper(this);
+		connect(btn0, SIGNAL(clicked()), signalMapper0, SLOT(map()));
+		signalMapper0->setMapping(btn0, DataTable[i].id);
+		connect(signalMapper0, SIGNAL(mapped(int)), this, SLOT(OnBtnClickedAddCount(int)));
+
 		QPushButton *btn = new QPushButton;
-		ui.tableWidget->setCellWidget(i - currentPageBegin, 5, btn);
+		ui.tableWidget->setCellWidget(i - currentPageBegin, 6, btn);
 		btn->setText(QString::fromLocal8Bit("修改"));
 		btn->setStyleSheet(
 			"color:#4695d2;"
@@ -253,10 +278,12 @@ void admin_searchbook::DataBind() {
 		QSignalMapper* signalMapper = new QSignalMapper(this);
 		connect(btn, SIGNAL(clicked()), signalMapper, SLOT(map()));
 		signalMapper->setMapping(btn, DataTable[i].id);
-		connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(OnBtnClicked(int)));
+		connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(OnBtnClickedChange(int)));
+
+
 
 		QPushButton *btn2 = new QPushButton;
-		ui.tableWidget->setCellWidget(i - currentPageBegin, 6, btn2);
+		ui.tableWidget->setCellWidget(i - currentPageBegin, 7, btn2);
 		btn2->setText(QString::fromLocal8Bit("删除"));
 		btn2->setStyleSheet(
 			"color:#4695d2;"
@@ -343,3 +370,43 @@ void admin_searchbook::UpdateUI(int id) {
 	DataBind();
 }
 
+void admin_searchbook::OnBtnClickedChange(int id)
+{
+
+	admin_addbook *rec = new admin_addbook;
+	connect(this, SIGNAL(emitChange(int)), rec, SLOT(InitBook(int)));
+	emit emitChange(id);
+	rec->show();
+	this->close();
+}
+
+void admin_searchbook::OnBtnClickedAddCount(int id)
+{
+	Book book;
+	vector<string>VALUES;
+	VALUES.push_back("one");
+	VALUES.push_back("id");
+	book.setId(id);
+	for (int i = 0; i < DataTable.size(); i++) {
+		if (DataTable[i].id == id) {
+			DataTable[i].count++;
+			DataTable[i].nowCount++;
+			FileDB::update("book", book, DataTable[i], VALUES);
+			//维护BookMap
+			BookMap bookmap;
+			bookmap.setBookId(id);
+			VALUES.pop_back();
+			VALUES.push_back("bookId");
+			vector<BookMap>resBookmap;
+			FileDB::select("bookMap", bookmap, VALUES, resBookmap);
+			bookmap.setBookNum(resBookmap[resBookmap.size() - 1].bookNum + 1);
+			resBookmap.clear();
+			bookmap.setIsOut(0);
+			resBookmap.push_back(bookmap);
+			FileDB::insert("bookMap", resBookmap);
+			break;
+		}
+	}
+	DataBind();
+	QMessageBox::information(NULL, QString::fromLocal8Bit(""), QString::fromLocal8Bit("添加成功"), QMessageBox::Ok);
+}

@@ -22,7 +22,11 @@ public slots:
 	void OnBtnClickedDelete(int id);
 	void radioBtnSlot();
 	void radioBtnSlotOther();
+	void OnBtnClickedChange(int id);
+	void OnBtnClickedAddCount(int id);
 	void UpdateUI(int);
+signals:
+	void emitChange(int);
 
 private:
 	Ui::admin_searchbook ui;
