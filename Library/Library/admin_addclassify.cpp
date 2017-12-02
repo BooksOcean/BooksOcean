@@ -9,6 +9,7 @@ admin_addclassify::admin_addclassify(QWidget *parent)
 {
 	ui.setupUi(this);
 	ui.btnAdd->installEventFilter(this);
+	isChange = false;
 }
 
 admin_addclassify::~admin_addclassify()
@@ -26,6 +27,7 @@ bool admin_addclassify::eventFilter(QObject *obj, QEvent *event)
 		QByteArray ba = str.toLocal8Bit();
 		char *name = ba.data();
 		Classify classify;
+		classify.setName(name);
 		vector<Classify>resClassify;
 		vector<string>VALUES;
 		VALUES.push_back("one");
@@ -35,13 +37,30 @@ bool admin_addclassify::eventFilter(QObject *obj, QEvent *event)
 			QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("分类名重复"), QMessageBox::Ok);
 			return true;
 		}
-		classify.setName(name);
-		resClassify.push_back(classify);
-		FileDB::insert("classify", resClassify);
-		QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("添加成功"), QMessageBox::Ok);
-		this->close();
+		if (!isChange) {
+			classify.setName(name);
+			resClassify.push_back(classify);
+			FileDB::insert("classify", resClassify);
+			QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("添加成功"), QMessageBox::Ok);
+			this->close();
+		}
+		else {
+			QByteArray ba = claName.toLocal8Bit();
+			char *Sname = ba.data();
+			Classify Sclassify;
+			Sclassify.setName(Sname);
+			FileDB::update("classify", Sclassify, classify, VALUES);
+			QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("修改成功"), QMessageBox::Ok);
+			this->close();
+		}
 		return true;
 	}
-	return true;
+	return false;
 
+}
+
+void admin_addclassify::InitClassify(QString name) {
+	isChange = true;
+	ui.etName->setText(name);
+	claName = name;
 }

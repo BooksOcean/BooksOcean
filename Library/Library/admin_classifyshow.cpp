@@ -15,7 +15,7 @@ admin_classifyshow::admin_classifyshow(QWidget *parent)
 {
 	ui.setupUi(this);
 	ui.tableWidget->setColumnCount(5);
-	classifyConfig::isCheck = 0;
+	//classifyConfig::isCheck = 0;
 	ui.btnSearchuser->installEventFilter(this);
 	ui.btnClassify->installEventFilter(this);
 	ui.btnLogout->installEventFilter(this);
@@ -108,7 +108,7 @@ void admin_classifyshow::DataBind() {
 void admin_classifyshow::OnClicked(int id)
 {
 	if (classifyConfig::isCheck) {
-		classifyConfig::isCheck = 1;
+		//classifyConfig::isCheck = 1;
 		classifyConfig::classifyId = id;
 		admin_searchbook *rec = new admin_searchbook;
 		rec->show();

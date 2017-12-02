@@ -4,7 +4,7 @@
 #include<QDateTime>
 #include<QMessageBox>
 #include <QTextCodec>
-#include"qlabel.h"
+#include "qlabel.h"
 #include"filedb.h"
 #include"library.h"
 #include"book.h"
@@ -187,7 +187,7 @@ void student_index::InitThisPage() {
 	QDateTime now = QDateTime::currentDateTime();
 	for (int i = 0; i < resRecord.size(); i++) {
 		//正常
-		if (resRecord[i].type == 0) resRecordNormal.push_back(resRecord[i]);
+		if (resRecord[i].type == 0||resRecord[i].type == 3) resRecordNormal.push_back(resRecord[i]);
 		//超期
 		if (resRecord[i].type == 1) resRecordExceed.push_back(resRecord[i]);
 		//预约
@@ -248,7 +248,7 @@ void student_index::InitThisPage() {
 	//加载借阅但未超期的数目（注意此时可能有一部分变为超期）
 	for (int i = 0; i < resRecord.size(); i++) {
 		//检查是否超期
-		if (resRecord[i].type == 0) {
+		if (resRecord[i].type == 0 || resRecord[i].type == 3) {
 			QDateTime then = QDateTime::fromString(resRecord[i].time, "yyyy-MM-dd");
 			int span = then.secsTo(now);
 			if (span > 0) {
@@ -286,7 +286,7 @@ void student_index::InitThisPage() {
 		addItemContent(i, 0, chartoqs(resBook[0].name));
 		addItemContent(i, 1, chartoqs(resBook[0].author));
 		addItemContent(i, 2, chartoqs(resBook[0].publish));
-		if(resRecord[i].type==0)
+		if(resRecord[i].type==0 || resRecord[i].type == 3)
 			addItemContent(i, 3, chartoqs("正常"));
 		else if(resRecord[i].type == 1)
 			addItemContent(i, 3, chartoqs("超期"));

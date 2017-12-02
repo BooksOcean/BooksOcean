@@ -326,6 +326,18 @@
     <ClCompile Include="admin_addclassify.cpp">
       <Filter>Source Files\Admin</Filter>
     </ClCompile>
+    <ClCompile Include="filedb.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_selectData.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_selectData.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="selectData.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="library.qrc">
@@ -487,6 +499,12 @@
     <CustomBuild Include="admin_addclassify.h">
       <Filter>Header Files\Admin</Filter>
     </CustomBuild>
+    <CustomBuild Include="selectData.ui">
+      <Filter>Form Files\Common</Filter>
+    </CustomBuild>
+    <CustomBuild Include="selectData.h">
+      <Filter>Header Files\Common</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_library.h">
@@ -601,6 +619,9 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_admin_addclassify.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_selectData.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

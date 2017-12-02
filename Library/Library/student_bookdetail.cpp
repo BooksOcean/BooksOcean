@@ -114,6 +114,25 @@ bool student_bookDetail::eventFilter(QObject *obj, QEvent *event) {
 			QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("欠款金额达上限，请先归还欠款"), QMessageBox::Ok);
 			return true;
 		}
+
+		//插入借阅记录
+		vector<Record>entity;
+		Record record;
+		record.setStudentId(userConfig::id);
+		VALUES0.pop_back();
+		VALUES0.push_back("studentId");
+		FileDB::select("record", record, VALUES0, entity);
+		int sum = 0;
+		for (int i = 0; i < entity.size(); i++) {
+			if (entity[i].type == 0 || entity[i].type == 3) {
+				sum++;
+			}
+		}
+
+		if (sum >= 4) {
+			QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("当前所借书籍已达上限4本，不可继续借书"), QMessageBox::Ok);
+			return true;
+		}
 		vector<string>VALUES;
 		vector<BookMap>allBooks;
 		BookMap bookmap;

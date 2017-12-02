@@ -13,6 +13,11 @@ public:
 protected:
 	bool eventFilter(QObject *obj, QEvent *event);
 
+public slots:
+	void InitClassify(QString);
+
 private:
 	Ui::admin_addclassify ui;
+	bool isChange;
+	QString claName;
 };

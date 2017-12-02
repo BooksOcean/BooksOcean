@@ -214,6 +214,11 @@ bool student_borrowdetail::eventFilter(QObject *obj, QEvent *event) {
 			QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("超期，不得续借"), QMessageBox::Ok);
 			return true;
 		}
+		//检查是否已经续借过
+		if (resRecord[0].type == 3) {
+			QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("已经续借过，不可再次续借"), QMessageBox::Ok);
+			return true;
+		}
 		QDateTime dt = QDateTime::fromString(resRecord[0].time, "yyyy-MM-dd");
 		QDateTime afterOneMonthDateTime = dt.addMonths(1);
 		QString currentDate = afterOneMonthDateTime.toString("yyyy-MM-dd");
@@ -221,6 +226,7 @@ bool student_borrowdetail::eventFilter(QObject *obj, QEvent *event) {
 		QByteArray ba = currentDate.toLatin1();
 		ch1 = ba.data();
 		resRecord[0].setTime(ch1);
+		resRecord[0].setType(3);
 		ui.etDate->setText(chartoqs(resRecord[0].time));
 		FileDB::update("record", record, resRecord[0], VALUES_2);
 		QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("续借成功"), QMessageBox::Ok);

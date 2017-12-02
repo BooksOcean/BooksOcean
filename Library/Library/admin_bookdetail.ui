@@ -10,6 +10,12 @@
     <height>365</height>
    </rect>
   </property>
+  <property name="maximumSize">
+   <size>
+    <width>488</width>
+    <height>365</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>admin_bookdetail</string>
   </property>

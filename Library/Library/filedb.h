@@ -14,7 +14,8 @@ using namespace std;
 class FileDB
 {
 public:
-	
+	static string rootPath;
+
 	//选择数据，DB_NAME为表名，entity为选择条件，VALUES为选择字段，resultSet为结果集
 	//操作成功，返回受影响的行数，操作失败，返回-1
 	template<typename T>
@@ -24,7 +25,7 @@ public:
 		try {
 			T temp;
 			int TSize = sizeof(temp);
-			readFile.open(DB_NAME + ".dat", ios::in | ios::out | ios::binary);
+			readFile.open(rootPath + DB_NAME + ".dat", ios::in | ios::out | ios::binary);
 			if (!readFile) {
 				ios_base::failure fail("ERROR");
 				throw fail;
@@ -58,7 +59,7 @@ public:
 				else {
 					selectMany(readFile, entity, VALUES, resultSet);
 				}
-			
+
 			}
 			readFile.close();
 			return resultSet.size();
@@ -70,7 +71,7 @@ public:
 	}
 
 	template<typename T>
-	static void selectInt(ifstream& readFile, string valueName,int value, vector<T>& resultSet) {
+	static void selectInt(ifstream& readFile, string valueName, int value, vector<T>& resultSet) {
 		T temp;
 		int TSize = sizeof(T);
 		while (readFile.read(reinterpret_cast<char*>(&temp), TSize)) {
@@ -85,7 +86,7 @@ public:
 		T temp;
 		int TSize = sizeof(T);
 		while (readFile.read(reinterpret_cast<char*>(&temp), TSize)) {
-			if (!temp.dirty && !strcmp(temp.getCharElemByName(valueName),value)) {
+			if (!temp.dirty && !strcmp(temp.getCharElemByName(valueName), value)) {
 				resultSet.push_back(temp);
 			}
 		}
@@ -178,12 +179,12 @@ public:
 
 	//字符串的模糊查询，基于子串的模糊查询
 	template<typename T>
-	static int selectLike(string DB_NAME, string valueName,char* value, vector<T>& resultSet) {
+	static int selectLike(string DB_NAME, string valueName, char* value, vector<T>& resultSet) {
 		ifstream readFile;
 		try {
 			T temp;
 			int TSize = sizeof(temp);
-			readFile.open(DB_NAME + ".dat", ios::in | ios::out | ios::binary);
+			readFile.open(rootPath + DB_NAME + ".dat", ios::in | ios::out | ios::binary);
 			if (!readFile) {
 				ios_base::failure fail("ERROR");
 				throw fail;
@@ -201,7 +202,7 @@ public:
 		}
 
 	}
-	
+
 
 	//字符串的模糊查询，基于正则表达式的模糊查询
 	template<typename T>
@@ -210,7 +211,7 @@ public:
 		try {
 			T temp;
 			int TSize = sizeof(temp);
-			readFile.open(DB_NAME + ".dat", ios::in | ios::out | ios::binary);
+			readFile.open(rootPath + DB_NAME + ".dat", ios::in | ios::out | ios::binary);
 			if (!readFile) {
 				ios_base::failure fail("ERROR");
 				throw fail;
@@ -219,7 +220,7 @@ public:
 				if (!temp.dirty) {
 					const char * value = temp.getCharElemByName(valueName);
 					cmatch narrowMatch;
-					if (regex_match(value, value+strlen(value), narrowMatch, rx) == 1)
+					if (regex_match(value, value + strlen(value), narrowMatch, rx) == 1)
 						resultSet.push_back(temp);
 				}
 			}
@@ -242,17 +243,17 @@ public:
 		ifstream readFile;
 		try {
 			//读取info文件，获取最后一条数据id，实现PK自增功能
-			readFile.open(DB_NAME + "Info.dat", ios::in | ios::out | ios::binary);
+			readFile.open(rootPath + DB_NAME + "Info.dat", ios::in | ios::out | ios::binary);
 			if (!readFile) {
 				ios_base::failure fail("ERROR");
 				throw fail;
 			}
-			writeFile.open(DB_NAME + ".dat", ios::app | ios::binary);
+			writeFile.open(rootPath + DB_NAME + ".dat", ios::app | ios::binary);
 			if (!writeFile) {
 				ios_base::failure fail("ERROR");
 				throw fail;
 			}
-			
+
 			readFile.read((char*)&id, sizeof(id));
 			readFile.close();
 
@@ -265,7 +266,7 @@ public:
 
 			writeFile.close();
 
-			writeFile.open(DB_NAME + "Info.dat", ios::in | ios::out | ios::binary);
+			writeFile.open(rootPath + DB_NAME + "Info.dat", ios::in | ios::out | ios::binary);
 			if (!writeFile) {
 				ios_base::failure fail("ERROR");
 				throw fail;
@@ -293,17 +294,17 @@ public:
 		//DELETE * FORM DB_NAME
 		try {
 			if (VALUES[0] == "all") {
-				writeFile.open(DB_NAME + ".dat", ios::in | ios::out | ios::binary);
+				writeFile.open(rootPath + DB_NAME + ".dat", ios::in | ios::out | ios::binary);
 				if (!writeFile) {
 					ios_base::failure fail("ERROR");
 					throw fail;
 				}
-				writeFile.open(DB_NAME + ".dat", ios::trunc);
+				writeFile.open(rootPath + DB_NAME + ".dat", ios::trunc);
 				writeFile.close();
 				return 1;
 			}
-			
-			writeFile.open(DB_NAME + ".dat",  ios::in | ios::out | ios::binary);
+
+			writeFile.open(rootPath + DB_NAME + ".dat", ios::in | ios::out | ios::binary);
 			if (!writeFile) {
 				ios_base::failure fail("ERROR");
 				throw fail;
@@ -318,7 +319,7 @@ public:
 			}
 
 			//DELETE * FORM DB_NAME WHERE......
-			readFile.open(DB_NAME + ".dat", ios::in | ios::out | ios::binary);
+			readFile.open(rootPath + DB_NAME + ".dat", ios::in | ios::out | ios::binary);
 			if (!readFile) {
 				ios_base::failure fail("ERROR");
 				throw fail;
@@ -414,7 +415,7 @@ public:
 		ofstream writeFile;
 		ifstream readFile;
 		try {
-			writeFile.open(DB_NAME + ".dat", ios::in | ios::out | ios::binary);
+			writeFile.open(rootPath + DB_NAME + ".dat", ios::in | ios::out | ios::binary);
 			if (!writeFile) {
 				ios_base::failure fail("ERROR");
 				throw fail;
@@ -428,7 +429,7 @@ public:
 				writeFile.write((char*)&Uentity, sizeof(Uentity));
 				return 1;
 			}
-			readFile.open(DB_NAME + ".dat", ios::in | ios::out | ios::binary);
+			readFile.open(rootPath + DB_NAME + ".dat", ios::in | ios::out | ios::binary);
 			if (!readFile) {
 				ios_base::failure fail("ERROR");
 				throw fail;

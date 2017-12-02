@@ -25,6 +25,7 @@ protected:
 
 private:
 	Ui::student_update ui;
+	bool isChangeIcon;
 	QString filename;
 	QPixmap* img;
 };

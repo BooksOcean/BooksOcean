@@ -34,6 +34,7 @@ student_update::student_update(QWidget *parent)
 	ui.pushButton_2->installEventFilter(this);
 	ui.pushButton_3->installEventFilter(this);
 	ui.pushButton_4->installEventFilter(this);
+	isChangeIcon = false;
 	InitThisPage();
 }
 
@@ -102,10 +103,7 @@ bool student_update::eventFilter(QObject *obj, QEvent *event) {
 				char* thenewmail;
 				QByteArray ba = ui.lineEdit_10->text().toLatin1();
 				thenewmail = ba.data();
-				//获取新头像
-				char* thenewicon;
-				QByteArray ba2 = filename.toLatin1();
-				thenewicon = ba2.data();
+				
 				//获取用户原来的所有信息
 				Student student;
 				vector<string>VALUES_1;
@@ -121,11 +119,19 @@ bool student_update::eventFilter(QObject *obj, QEvent *event) {
 				VALUES_2.push_back("id");
 				primarystudent.setId(userConfig::id);
 				res[0].setMail(thenewmail);
-				res[0].setIcon(thenewicon);
+				if (isChangeIcon) {
+					//获取新头像
+					char* thenewicon;
+					QByteArray ba2 = filename.toLatin1();
+					thenewicon = ba2.data();
+					res[0].setIcon(thenewicon);
+					(*img).save(filename);
+					recommendBuffer::headBuffer.clear();
+					recommendBuffer::headBuffer.push_back(*img);
+				}
 				int judge = FileDB::update("student", primarystudent, res[0], VALUES_2);
-				(*img).save(filename);
-				recommendBuffer::headBuffer.clear();
-				recommendBuffer::headBuffer.push_back(*img);
+				
+				
 				if (judge>0) {
 
 					QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("修改成功"), QMessageBox::Ok);
@@ -156,6 +162,7 @@ void student_update::openFileDiag() {
 		int timeT = time.toTime_t();   //将当前时间转为时间戳
 		filename="images/"+ QString::number(timeT, 10)+".jpg";
 		ui.btnHeadIcon->setIcon(*img);
+		isChangeIcon = true;
 		ui.btnHeadIcon->setIconSize(QSize((*img).width(), (*img).height()));
 		return;
 	}

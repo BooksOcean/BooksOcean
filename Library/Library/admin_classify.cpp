@@ -35,7 +35,6 @@ admin_classify::admin_classify(QWidget *parent)
 	ui.tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);//表宽度自适应
 	ui.tableWidget->setFrameShape(QFrame::NoFrame);//设置无边框
 	ui.tableWidget->setShowGrid(false); //设置不显示格子线
-
 }
 
 admin_classify::~admin_classify()
@@ -219,8 +218,8 @@ void admin_classify::DataBind() {
 		);
 		QSignalMapper* signalMapper = new QSignalMapper(this);
 		connect(btn, SIGNAL(clicked()), signalMapper, SLOT(map()));
-		signalMapper->setMapping(btn, DataTable[i].id);
-		connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(OnBtnClicked(int)));
+		signalMapper->setMapping(btn, QString::fromLocal8Bit(DataTable[i].name));
+		connect(signalMapper, SIGNAL(mapped(QString)), this, SLOT(OnBtnClicked(QString)));
 
 		QPushButton *btn2 = new QPushButton;
 		ui.tableWidget->setCellWidget(i - currentPageBegin, 2, btn2);
@@ -283,4 +282,12 @@ void admin_classify::OnBtnClickedDelete(int id){
 		DataBind();
 		return;
 	}
+}
+
+void admin_classify::OnBtnClicked(QString id) {
+	admin_addclassify *rec = new admin_addclassify;
+	connect(this, SIGNAL(emitChangeClassify(QString)), rec, SLOT(InitClassify(QString)));
+	emit emitChangeClassify(id);
+	rec->show();
+	//this->close();
 }

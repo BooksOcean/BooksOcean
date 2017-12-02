@@ -35,7 +35,6 @@ public:
     QVBoxLayout *verticalLayout;
     QSpacerItem *verticalSpacer;
     QFrame *frame;
-    QPushButton *pushButton;
     QWidget *layoutWidget;
     QHBoxLayout *horizontalLayout_2;
     QSpacerItem *horizontalSpacer_4;
@@ -94,16 +93,6 @@ public:
         frame->setStyleSheet(QStringLiteral("background:white;"));
         frame->setFrameShape(QFrame::StyledPanel);
         frame->setFrameShadow(QFrame::Raised);
-        pushButton = new QPushButton(frame);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(250, 440, 93, 28));
-        QFont font;
-        font.setFamily(QString::fromUtf8("\345\276\256\350\275\257\351\233\205\351\273\221"));
-        font.setPointSize(10);
-        pushButton->setFont(font);
-        pushButton->setStyleSheet(QLatin1String("color:#4695d2;\n"
-"border:none;\n"
-"text-size:20px;"));
         layoutWidget = new QWidget(frame);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
         layoutWidget->setGeometry(QRect(0, 200, 351, 52));
@@ -119,6 +108,9 @@ public:
         etUsername = new QLineEdit(layoutWidget);
         etUsername->setObjectName(QStringLiteral("etUsername"));
         etUsername->setMinimumSize(QSize(300, 50));
+        QFont font;
+        font.setFamily(QString::fromUtf8("\345\276\256\350\275\257\351\233\205\351\273\221"));
+        font.setPointSize(10);
         etUsername->setFont(font);
         etUsername->setFocusPolicy(Qt::StrongFocus);
         etUsername->setStyleSheet(QString::fromUtf8("border:2px solid #ccc;\n"
@@ -221,11 +213,6 @@ public:
 
         horizontalLayout_5->addItem(horizontalSpacer_9);
 
-        layoutWidget->raise();
-        layoutWidget->raise();
-        layoutWidget->raise();
-        layoutWidget->raise();
-        pushButton->raise();
 
         verticalLayout->addWidget(frame);
 
@@ -253,7 +240,6 @@ public:
     void retranslateUi(QMainWindow *LibraryClass)
     {
         LibraryClass->setWindowTitle(QApplication::translate("LibraryClass", "Library", Q_NULLPTR));
-        pushButton->setText(QApplication::translate("LibraryClass", "\345\257\206\347\240\201\346\211\276\345\233\236", Q_NULLPTR));
         etUsername->setText(QString());
 #ifndef QT_NO_TOOLTIP
         etPassword->setToolTip(QString());

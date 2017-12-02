@@ -14,7 +14,7 @@ admin_studentclassify::admin_studentclassify(QWidget *parent)
 {
 	ui.setupUi(this);
 	ui.tableWidget->setColumnCount(4);
-	studentClassifyConfig::isCheck = 0;
+	//studentClassifyConfig::isCheck = 0;
 	ui.btnSearchbook->installEventFilter(this);
 	ui.btnClassify->installEventFilter(this);
 	ui.btnLogout->installEventFilter(this);
@@ -111,7 +111,6 @@ void admin_studentclassify::DataBind() {
 void admin_studentclassify::OnClicked(QString id)
 {
 	if (studentClassifyConfig::isCheck) {
-		studentClassifyConfig::isCheck = 1;
 		QByteArray ba = id.toLocal8Bit();
 		char *name = ba.data();
 		studentClassifyConfig::classifyName = name;

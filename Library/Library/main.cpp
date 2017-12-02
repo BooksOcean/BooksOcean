@@ -8,6 +8,7 @@
 #include"userConfig.h"
 #include<student_classify.h>
 #include"admin_index.h"
+#include"selectData.h"
 using namespace std;
 int main(int argc, char *argv[])
 {
@@ -16,7 +17,7 @@ int main(int argc, char *argv[])
 	/*userConfig::id = 0;
 	userConfig::username = "1234567";
 	userConfig::password = "111";*/
-	Library w;
+	selectData w;
 	w.show();
 
 	return a.exec();

@@ -37,6 +37,7 @@ public:
         frame = new QFrame(admin_addclassify);
         frame->setObjectName(QStringLiteral("frame"));
         frame->setGeometry(QRect(0, 0, 511, 401));
+        frame->setMaximumSize(QSize(511, 401));
         frame->setStyleSheet(QStringLiteral("background-color: rgb(255, 255, 255);"));
         frame->setFrameShape(QFrame::StyledPanel);
         frame->setFrameShadow(QFrame::Raised);
@@ -58,7 +59,7 @@ public:
 "text-align:left;"));
         btnAdd = new QPushButton(frame);
         btnAdd->setObjectName(QStringLiteral("btnAdd"));
-        btnAdd->setGeometry(QRect(50, 190, 361, 40));
+        btnAdd->setGeometry(QRect(50, 200, 361, 40));
         QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -82,7 +83,7 @@ public:
         admin_addclassify->setWindowTitle(QApplication::translate("admin_addclassify", "admin_addclassify", Q_NULLPTR));
         lineEdit->setText(QApplication::translate("admin_addclassify", "\345\210\206\347\261\273\345\220\215\347\247\260\357\274\232", Q_NULLPTR));
         etName->setText(QString());
-        btnAdd->setText(QApplication::translate("admin_addclassify", "\347\241\256\350\256\244\346\267\273\345\212\240", Q_NULLPTR));
+        btnAdd->setText(QApplication::translate("admin_addclassify", "\347\241\256\350\256\244\346\217\220\344\272\244", Q_NULLPTR));
     } // retranslateUi
 
 };

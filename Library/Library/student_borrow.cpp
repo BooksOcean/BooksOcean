@@ -283,7 +283,7 @@ void student_borrow::DataBind() {
 		addItemContent(currentPageEnd - 1 - i, 1, strtoqs(resBook[0].name));
 		addItemContent(currentPageEnd - 1 - i, 2, strtoqs(resBook[0].author));
 		addItemContent(currentPageEnd - 1 - i, 3, strtoqs(resBook[0].publish));
-		if (resRecord[i].type == 0)
+		if (resRecord[i].type == 0 || resRecord[i].type == 3)
 			addItemContent(currentPageEnd - 1 - i, 4, chartoqs("Õý³£"));
 		else if (resRecord[i].type == 1)
 			addItemContent(currentPageEnd - 1 - i, 4, chartoqs("³¬ÆÚ"));

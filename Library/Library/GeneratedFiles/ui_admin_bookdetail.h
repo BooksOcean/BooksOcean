@@ -31,6 +31,7 @@ public:
         if (admin_bookdetail->objectName().isEmpty())
             admin_bookdetail->setObjectName(QStringLiteral("admin_bookdetail"));
         admin_bookdetail->resize(488, 365);
+        admin_bookdetail->setMaximumSize(QSize(488, 365));
         frame = new QFrame(admin_bookdetail);
         frame->setObjectName(QStringLiteral("frame"));
         frame->setGeometry(QRect(-10, 0, 501, 371));

@@ -19,9 +19,10 @@ protected:
 
 public slots:
 	void OnBtnClickedDelete(int id);
+	void OnBtnClicked(QString id);
 
-
-
+signals:
+	void emitChangeClassify(QString);
 private:
 	Ui::admin_classify ui;
 	vector<Classify>DataTable;

@@ -181,6 +181,7 @@ void admin_searchuser::SearchData() {
 		VALUES.push_back("dept");
 		student.setDept(studentClassifyConfig::classifyName);
 		FileDB::select("student", student, VALUES, DataTable);
+		studentClassifyConfig::isCheck = 0;
 	}
 	else {
 
