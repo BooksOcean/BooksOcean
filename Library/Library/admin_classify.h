@@ -2,7 +2,7 @@
 #define ADMIN_CLASSIFY_H
 
 #include <QWidget>
-#include "ui_admin_classify.h"
+#include "ui_admin_classify.h" 
 #include<vector>
 #include"classify.h"
 

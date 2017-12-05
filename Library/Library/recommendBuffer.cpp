@@ -6,6 +6,7 @@
 bool recommendBuffer::isPostBack = false;
 QVector<QPixmap>recommendBuffer::picBuffer;
 QVector<QUrl>recommendBuffer::urlBuffer;
+QVector<QString>recommendBuffer::urlBufferLocal;
 QVector<int>recommendBuffer::idBuffer;
 QVector<QPixmap>recommendBuffer::headBuffer;
 QUrl recommendBuffer::headUrl;
@@ -17,4 +18,12 @@ recommendBuffer::recommendBuffer()
 
 recommendBuffer::~recommendBuffer()
 {
+}
+void recommendBuffer::Resert() {
+	isPostBack = false;
+	picBuffer.clear();
+	urlBuffer.clear();
+	urlBufferLocal.clear();
+	idBuffer.clear();
+	headBuffer.clear();
 }

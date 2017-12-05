@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QWidget>
-#include "ui_admin_addclassify.h"
+#include "ui_admin_addclassify.h" 
 
 class admin_addclassify : public QWidget
 {

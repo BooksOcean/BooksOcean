@@ -3,7 +3,7 @@
 #include"admin_searchbook.h"
 #include"admin_searchuser.h"
 #include"admin_classify.h"
-#include"admin_studentclassify.h"
+#include"admin_studentclassify.h" 
 #include"studentClassifyConfig.h"
 #include"admin_adduser.h"
 #include"classifyConfig.h"
@@ -337,7 +337,13 @@ void admin_searchuser::OnBtnClickedDelete(int id)
 	VALUES.push_back("one");
 	VALUES.push_back("studentId");
 	FileDB::select("record", record, VALUES, resRecord);
-	if (resRecord.size() > 0) {
+	int sum = 0;
+	for (int i = 0; i < resRecord.size(); i++) {
+		if (resRecord[i].type != 4) {
+			sum++;
+		}
+	}
+	if (sum > 0) {
 		QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("此学生尚有书在借，不可删除"), QMessageBox::Ok);
 		return;
 	}
@@ -389,7 +395,7 @@ void admin_searchuser::OnBtnClickedClear(int id)
 void admin_searchuser::OnBtnClickedChange(int id)
 {
 	admin_adduser *rec = new admin_adduser;
-	connect(this, SIGNAL(emitChange(int)), rec, SLOT(InitBook(int)));
+	connect(this, SIGNAL(emitChange(int)), rec, SLOT(InitStudent(int)));
 	emit emitChange(id);
 	rec->show();
 	this->close();

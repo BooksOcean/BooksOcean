@@ -351,7 +351,7 @@ public:
         radioMan->setText(QApplication::translate("admin_adduser", "\347\224\267", Q_NULLPTR));
         radioWoman->setText(QApplication::translate("admin_adduser", "\345\245\263", Q_NULLPTR));
         lineEdit_4->setText(QApplication::translate("admin_adduser", "\346\200\247\345\210\253\357\274\232", Q_NULLPTR));
-        btnDept->setText(QApplication::translate("admin_adduser", "\350\256\241\347\256\227\346\234\272\347\247\221\345\255\246\344\270\216\346\212\200\346\234\257", Q_NULLPTR));
+        btnDept->setText(QApplication::translate("admin_adduser", "\350\257\267\351\200\211\346\213\251\344\270\223\344\270\232", Q_NULLPTR));
         btnHeadIcon->setText(QApplication::translate("admin_adduser", "PushButton", Q_NULLPTR));
         btnAdd->setText(QApplication::translate("admin_adduser", "\347\241\256\350\256\244\346\217\220\344\272\244", Q_NULLPTR));
     } // retranslateUi

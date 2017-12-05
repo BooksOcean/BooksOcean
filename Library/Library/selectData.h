@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QWidget>
-#include "ui_selectData.h"
+#include "ui_selectData.h" 
 
 class selectData : public QWidget
 {

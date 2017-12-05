@@ -12,7 +12,7 @@
 #include<vector>
 #include"userConfig.h"
 #include"student_repay.h"
-
+#include"recommendBuffer.h"
 student_updatePassword::student_updatePassword(QWidget *parent)
 	: QWidget(parent)
 {
@@ -60,6 +60,7 @@ bool student_updatePassword::eventFilter(QObject *obj, QEvent *event) {
 			event->ignore();  //忽略退出信号，程序继续运行
 		}
 		else if (button == QMessageBox::Yes) {
+			recommendBuffer::Resert();
 			Library *rec = new Library;
 			this->close();
 			rec->show();

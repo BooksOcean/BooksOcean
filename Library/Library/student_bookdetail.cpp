@@ -21,6 +21,7 @@
 #include <qtnetwork/QNetworkRequest>
 #include <qtnetwork/QNetworkRequest>
 #include <qtnetwork/QNetworkReply>
+#include"recommendBuffer.h"
 using namespace std;
 
 student_bookDetail::student_bookDetail(QWidget *parent)
@@ -79,18 +80,24 @@ void student_bookDetail::InitThisPage() {
 		ui.etNowCount->setText(QString::number(resBook[0].nowCount));
 
 		//加载图片
-		QUrl url(resBook[0].cover);
-		QNetworkAccessManager manager;
-		QEventLoop loop;
-		// qDebug() << "Reading picture form " << url;
-		QNetworkReply *reply = manager.get(QNetworkRequest(url));
-		//请求结束并下载完成后，退出子事件循环
-		QObject::connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
-		//开启子事件循环
-		loop.exec();
-		QByteArray jpegData = reply->readAll();
 		QPixmap pixmap;
-		pixmap.loadFromData(jpegData);
+		if (strstr(resBook[0].cover, "images")) {
+			pixmap.load(resBook[0].cover);
+		}
+		else {
+			QUrl url(resBook[0].cover);
+			QNetworkAccessManager manager;
+			QEventLoop loop;
+			// qDebug() << "Reading picture form " << url;
+			QNetworkReply *reply = manager.get(QNetworkRequest(url));
+			//请求结束并下载完成后，退出子事件循环
+			QObject::connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+			//开启子事件循环
+			loop.exec();
+			QByteArray jpegData = reply->readAll();
+
+			pixmap.loadFromData(jpegData);
+		}
 		//改变图片大小
 		pixmap = pixmap.scaled(280, 380, Qt::KeepAspectRatio);
 		ui.lbCover->setPixmap(pixmap);
@@ -210,6 +217,7 @@ bool student_bookDetail::eventFilter(QObject *obj, QEvent *event) {
 			event->ignore();  //忽略退出信号，程序继续运行
 		}
 		else if (button == QMessageBox::Yes) {
+			recommendBuffer::Resert();
 			Library *rec = new Library;
 			this->close();
 			rec->show();

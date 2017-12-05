@@ -260,19 +260,25 @@ void student_borrow::DataBind() {
 		ui.tableBorrow->insertRow(currentPageEnd - 1 - i);
 		ui.tableBorrow->setRowHeight(currentPageEnd - 1 - i, 200);//第一行
 		//加载图片
-		QUrl url(resBook[0].cover);
-		QNetworkAccessManager manager;
-		QEventLoop loop;
-		// qDebug() << "Reading picture form " << url;
-		QNetworkReply *reply = manager.get(QNetworkRequest(url));
-		//请求结束并下载完成后，退出子事件循环
-		QObject::connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
-		//开启子事件循环
-		loop.exec();
-
-		QByteArray jpegData = reply->readAll();
 		QPixmap pixmap;
-		pixmap.loadFromData(jpegData);
+		if (strstr(resBook[0].cover, "images")) {
+			pixmap.load(resBook[0].cover);
+		}
+		else {
+			QUrl url(resBook[0].cover);
+			QNetworkAccessManager manager;
+			QEventLoop loop;
+			// qDebug() << "Reading picture form " << url;
+			QNetworkReply *reply = manager.get(QNetworkRequest(url));
+			//请求结束并下载完成后，退出子事件循环
+			QObject::connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+			//开启子事件循环
+			loop.exec();
+
+			QByteArray jpegData = reply->readAll();
+
+			pixmap.loadFromData(jpegData);
+		}
 		//改变图片大小
 		pixmap = pixmap.scaled(110, 130, Qt::KeepAspectRatio);
 		QLabel *label = new QLabel;

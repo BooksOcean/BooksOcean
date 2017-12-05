@@ -3,7 +3,7 @@
  <class>admin_bookdetail</class>
  <widget class="QWidget" name="admin_bookdetail">
   <property name="geometry">
-   <rect>
+   <rect> 
     <x>0</x>
     <y>0</y>
     <width>488</width>

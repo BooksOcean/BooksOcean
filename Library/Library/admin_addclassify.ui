@@ -2,7 +2,7 @@
 <ui version="4.0">
  <class>admin_addclassify</class>
  <widget class="QWidget" name="admin_addclassify">
-  <property name="geometry">
+  <property name="geometry"> 
    <rect>
     <x>0</x>
     <y>0</y>

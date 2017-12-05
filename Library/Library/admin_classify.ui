@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>admin_classify</class>
- <widget class="QWidget" name="admin_classify">
+ <widget class="QWidget" name="admin_classify"> 
   <property name="geometry">
    <rect>
     <x>0</x>

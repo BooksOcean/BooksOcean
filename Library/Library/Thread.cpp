@@ -41,7 +41,7 @@ void Thread::run()
 		recommendBuffer::headBuffer.push_back(pixmap);
 	}
 
-	for (int i = 0; i < 6; i++) {
+	for (int i = 0; i < recommendBuffer::urlBuffer.size(); i++) {
 		if (!recommendBuffer::isPostBack) {
 			QPixmap pixmap;
 			//¼ÓÔØÍ¼Æ¬
@@ -57,6 +57,14 @@ void Thread::run()
 
 			QByteArray jpegData = reply->readAll();
 			pixmap.loadFromData(jpegData);
+			pixmap = pixmap.scaled(110, 130, Qt::KeepAspectRatio);
+			recommendBuffer::picBuffer.push_back(pixmap);
+		}
+	}
+	for (int i = 0; i < recommendBuffer::urlBufferLocal.size(); i++) {
+		if (!recommendBuffer::isPostBack) {
+			QPixmap pixmap;
+			pixmap.load(recommendBuffer::urlBufferLocal[i]);
 			pixmap = pixmap.scaled(110, 130, Qt::KeepAspectRatio);
 			recommendBuffer::picBuffer.push_back(pixmap);
 		}

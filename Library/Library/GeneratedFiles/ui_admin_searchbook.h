@@ -363,7 +363,7 @@ public:
         etCountPage->setObjectName(QStringLiteral("etCountPage"));
         sizePolicy5.setHeightForWidth(etCountPage->sizePolicy().hasHeightForWidth());
         etCountPage->setSizePolicy(sizePolicy5);
-        etCountPage->setMaximumSize(QSize(20, 16777215));
+        etCountPage->setMaximumSize(QSize(40, 16777215));
         etCountPage->setStyleSheet(QLatin1String("border:none;\n"
 "font-size:18px;\n"
 ""));

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>LibraryClass</class>
- <widget class="QMainWindow" name="LibraryClass">
+ <widget class="QMainWindow" name="LibraryClass"> 
   <property name="enabled">
    <bool>true</bool>
   </property>

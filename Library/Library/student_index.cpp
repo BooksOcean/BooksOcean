@@ -3,7 +3,7 @@
 #include<iostream>
 #include<QDateTime>
 #include<QMessageBox>
-#include <QTextCodec>
+#include <QTextCodec> 
 #include "qlabel.h"
 #include"filedb.h"
 #include"library.h"
@@ -32,6 +32,7 @@
 #include <qtnetwork/QNetworkRequest>
 #include <qtnetwork/QNetworkRequest>
 #include <qtnetwork/QNetworkReply>
+#include"recommendBuffer.h"
 using namespace std;	
 
 student_index::student_index(QWidget *parent)
@@ -105,6 +106,7 @@ bool student_index::eventFilter(QObject *obj, QEvent *event) {
 			event->ignore();  //忽略退出信号，程序继续运行
 		}
 		else if (button == QMessageBox::Yes) {
+			recommendBuffer::Resert();
 			Library *rec = new Library;
 			this->close();
 			rec->show();
@@ -378,8 +380,14 @@ void student_index::InitThisPage() {
 		resBook.clear();
 		FileDB::select("book", book, VALUES, resBook);
 
-		for (int i = 0; i < 6; i++) {
-			recommendBuffer::urlBuffer.push_back(QString::fromUtf8(resBook[i].cover));
+		for (int i = 0; i < 6 && i < resBook.size(); i++) {
+			if (!strstr(resBook[i].cover, "images")) {
+				recommendBuffer::urlBuffer.push_back(QString::fromUtf8(resBook[i].cover));
+			}
+			else {
+				recommendBuffer::urlBufferLocal.push_back(QString::fromLocal8Bit(resBook[i].cover));
+			}
+			
 			recommendBuffer::idBuffer.push_back(resBook[i].id);
 		}
 	}
@@ -391,7 +399,7 @@ void student_index::UpdateSlot() {
 
 void student_index::InitRecommendPic() {
 	ui.lbHead->setPixmap(recommendBuffer::headBuffer[0]);
-	for (int i = 0; i < 6; i++) {
+	for (int i = 0; i < recommendBuffer::picBuffer.size(); i++) {
 		QPixmap pixmap = recommendBuffer::picBuffer[i];
 		QPushButton *pBtn = new QPushButton;
 		pBtn->setStyleSheet(

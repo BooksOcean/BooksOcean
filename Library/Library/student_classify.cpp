@@ -7,6 +7,7 @@
 #include"student_searchbook.h"
 #include"classifyConfig.h"
 #include"student_index.h"
+#include"recommendBuffer.h"
 #include"student_update.h"
 student_classify::student_classify(QWidget *parent)
 	: QWidget(parent)
@@ -42,6 +43,7 @@ bool student_classify::eventFilter(QObject *obj, QEvent *event)
 			event->ignore();  //忽略退出信号，程序继续运行
 		}
 		else if (button == QMessageBox::Yes) {
+			recommendBuffer::Resert();
 			Library *rec = new Library;
 			this->close();
 			rec->show();

@@ -97,6 +97,10 @@ bool admin_adduser::eventFilter(QObject *obj, QEvent *event)
 			QMessageBox::information(NULL,QString::fromLocal8Bit(""), QString::fromLocal8Bit("请填写完整"), QMessageBox::Ok);
 			return true;
 		}
+		if (userDept == QString::fromLocal8Bit("请选择专业")) {
+			QMessageBox::information(NULL, QString::fromLocal8Bit(""), QString::fromLocal8Bit("必须选择专业"), QMessageBox::Ok);
+			return true;
+		}
 		QByteArray ba1 = userName.toLocal8Bit();
 		char *name = ba1.data();
 		QByteArray ba2 = userCode.toLocal8Bit();

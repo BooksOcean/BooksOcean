@@ -21,6 +21,7 @@
 #include <qtnetwork/QNetworkRequest>
 #include <qtnetwork/QNetworkRequest>
 #include <qtnetwork/QNetworkReply>
+#include"recommendBuffer.h"
 using namespace std;
 
 student_borrowdetail::student_borrowdetail(QWidget *parent)
@@ -93,18 +94,23 @@ void student_borrowdetail::InitThisPage() {
 	ui.etNowCount->setText(QString::number(resBook[0].nowCount));
 
 	//加载图片
-	QUrl url(resBook[0].cover);
-	QNetworkAccessManager manager;
-	QEventLoop loop;
-	// qDebug() << "Reading picture form " << url;
-	QNetworkReply *reply = manager.get(QNetworkRequest(url));
-	//请求结束并下载完成后，退出子事件循环
-	QObject::connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
-	//开启子事件循环
-	loop.exec();
-	QByteArray jpegData = reply->readAll();
 	QPixmap pixmap;
-	pixmap.loadFromData(jpegData);
+	if (strstr(resBook[0].cover, "images")) {
+		pixmap.load(resBook[0].cover);
+	}
+	else {
+		QUrl url(resBook[0].cover);
+		QNetworkAccessManager manager;
+		QEventLoop loop;
+		// qDebug() << "Reading picture form " << url;
+		QNetworkReply *reply = manager.get(QNetworkRequest(url));
+		//请求结束并下载完成后，退出子事件循环
+		QObject::connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+		//开启子事件循环
+		loop.exec();
+		QByteArray jpegData = reply->readAll();
+		pixmap.loadFromData(jpegData);
+	}
 	ui.lbCover->setPixmap(pixmap);
 }
 
@@ -114,10 +120,16 @@ bool student_borrowdetail::eventFilter(QObject *obj, QEvent *event) {
 		Record record;
 		vector<string>VALUES;
 		vector<Record>res;
+		vector<Record>resTemp;
 		VALUES.push_back("one");
 		VALUES.push_back("bookId");
 		record.setBookId(bookConfig::bookNo);
-		FileDB::select("record", record, VALUES, res);
+		FileDB::select("record", record, VALUES, resTemp);
+
+		for (int i = 0; i < resTemp.size(); i++) {
+			if(resTemp[i].type==0)
+				res.push_back(resTemp[i]);
+		}
 
 		VALUES.pop_back();
 		VALUES.push_back("id");
@@ -125,6 +137,7 @@ bool student_borrowdetail::eventFilter(QObject *obj, QEvent *event) {
 		BookMap bookmap;
 		bookmap.setId(bookConfig::bookNo);
 		FileDB::select("bookMap", bookmap, VALUES, allBooks);
+
 
 		//首先查询是否有人预约这类书
 		Record iforder;
@@ -194,6 +207,7 @@ bool student_borrowdetail::eventFilter(QObject *obj, QEvent *event) {
 			event->ignore();  //忽略退出信号，程序继续运行
 		}
 		else if (button == QMessageBox::Yes) {
+			recommendBuffer::Resert();
 			Library *rec = new Library;
 			this->close();
 			rec->show();

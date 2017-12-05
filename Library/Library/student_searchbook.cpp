@@ -17,6 +17,7 @@
 #include <qtnetwork/QNetworkRequest>
 #include <qtnetwork/QNetworkRequest>
 #include <qtnetwork/QNetworkReply>
+#include"recommendBuffer.h"
 student_searchBook::student_searchBook(QWidget *parent)
 	: QWidget(parent)
 {
@@ -150,6 +151,7 @@ bool student_searchBook::eventFilter(QObject *obj, QEvent *event)
 			event->ignore();  //忽略退出信号，程序继续运行
 		}
 		else if (button == QMessageBox::Yes) {
+			recommendBuffer::Resert();
 			Library *rec = new Library;
 			this->close();
 			rec->show();
@@ -257,21 +259,26 @@ void student_searchBook::DataBind() {
 		ui.tableWidget->insertRow(i - currentPageBegin);
 		ui.tableWidget->setRowHeight(i - currentPageBegin, 200);//第一行
 		//加载图片
-
-		QUrl url(DataTable[i].cover);
-		QNetworkAccessManager manager;
-		QEventLoop loop;
-
-		// qDebug() << "Reading picture form " << url;
-		QNetworkReply *reply = manager.get(QNetworkRequest(url));
-		//请求结束并下载完成后，退出子事件循环
-		QObject::connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
-		//开启子事件循环
-		loop.exec();
-
-		QByteArray jpegData = reply->readAll();
 		QPixmap pixmap;
-		pixmap.loadFromData(jpegData);
+		if (strstr(DataTable[i].cover, "images")) {
+			pixmap.load(QString::fromLocal8Bit(DataTable[i].cover));
+		}
+		else {
+			QUrl url(DataTable[i].cover);
+			QNetworkAccessManager manager;
+			QEventLoop loop;
+
+			// qDebug() << "Reading picture form " << url;
+			QNetworkReply *reply = manager.get(QNetworkRequest(url));
+			//请求结束并下载完成后，退出子事件循环
+			QObject::connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+			//开启子事件循环
+			loop.exec();
+
+			QByteArray jpegData = reply->readAll();
+
+			pixmap.loadFromData(jpegData);
+		}
 		//改变图片大小
 		pixmap = pixmap.scaled(110, 130, Qt::KeepAspectRatio);
 		QLabel *label = new QLabel;

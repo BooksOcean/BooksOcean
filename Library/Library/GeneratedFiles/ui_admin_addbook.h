@@ -382,7 +382,7 @@ public:
         lineEdit_6->setText(QApplication::translate("admin_addbook", "\345\260\201\351\235\242\357\274\232", Q_NULLPTR));
         etName->setText(QString());
         lineEdit_4->setText(QApplication::translate("admin_addbook", "\345\207\272\347\211\210\347\244\276\357\274\232", Q_NULLPTR));
-        btnClassifyShow->setText(QApplication::translate("admin_addbook", "\345\260\217\350\257\264", Q_NULLPTR));
+        btnClassifyShow->setText(QApplication::translate("admin_addbook", "\350\257\267\351\200\211\346\213\251\345\210\206\347\261\273", Q_NULLPTR));
         btnCover->setText(QApplication::translate("admin_addbook", "PushButton", Q_NULLPTR));
         lineEdit_10->setText(QApplication::translate("admin_addbook", "\345\272\223\345\255\230\351\207\217\357\274\232", Q_NULLPTR));
         lineEdit_13->setText(QApplication::translate("admin_addbook", "\350\257\204\345\210\206\357\274\232", Q_NULLPTR));

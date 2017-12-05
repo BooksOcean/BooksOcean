@@ -12,7 +12,7 @@
 #include<QMessageBox>
 #include<vector>
 #include"userConfig.h"
-
+#include"recommendBuffer.h"
 student_repay::student_repay(QWidget *parent)
 	: QWidget(parent)
 {
@@ -63,6 +63,7 @@ bool student_repay::eventFilter(QObject *obj, QEvent *event) {
 			event->ignore();  //忽略退出信号，程序继续运行
 		}
 		else if (button == QMessageBox::Yes) {
+			recommendBuffer::Resert();
 			Library *rec = new Library;
 			this->close();
 			rec->show();

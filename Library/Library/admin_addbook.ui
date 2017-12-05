@@ -474,7 +474,7 @@ background:white;
 text-size:80px;</string>
          </property>
          <property name="text">
-          <string>小说</string>
+          <string>请选择分类</string>
          </property>
         </widget>
         <widget class="QPushButton" name="btnCover">

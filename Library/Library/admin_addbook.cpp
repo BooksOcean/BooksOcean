@@ -106,6 +106,10 @@ bool admin_addbook::eventFilter(QObject *obj, QEvent *event)
 			QMessageBox::information(NULL, QString::fromLocal8Bit(""), QString::fromLocal8Bit("请填写完整"), QMessageBox::Ok);
 			return true;
 		}
+		if (bookClass == QString::fromLocal8Bit("请选择分类")) {
+			QMessageBox::information(NULL, QString::fromLocal8Bit(""), QString::fromLocal8Bit("必须选择分类"), QMessageBox::Ok);
+			return true;
+		}
 		QByteArray ba1 = bookName.toLocal8Bit();
 		char *name = ba1.data();
 		QByteArray ba2 = bookClass.toLocal8Bit();

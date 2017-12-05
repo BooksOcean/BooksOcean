@@ -490,7 +490,7 @@ background:white;
 text-size:80px;</string>
          </property>
          <property name="text">
-          <string>计算机科学与技术</string>
+          <string>请选择专业</string>
          </property>
         </widget>
         <widget class="QPushButton" name="btnHeadIcon">
