@@ -17,6 +17,7 @@ student_update::student_update(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+	showFullScreen();
 	ui.lineEdit->setEnabled(false);
 	ui.lineEdit_2->setEnabled(false);
 	ui.lineEdit_3->setEnabled(false);

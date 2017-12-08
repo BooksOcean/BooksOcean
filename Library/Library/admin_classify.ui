@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>admin_classify</class>
- <widget class="QWidget" name="admin_classify"> 
+ <widget class="QWidget" name="admin_classify">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1060</width>
+    <width>993</width>
     <height>730</height>
    </rect>
   </property>
@@ -301,15 +301,24 @@ font-size:18px;</string>
          <property name="text">
           <string>分类</string>
          </property>
+         <property name="textAlignment">
+          <set>AlignCenter</set>
+         </property>
         </column>
         <column>
          <property name="text">
           <string>删除分类</string>
          </property>
+         <property name="textAlignment">
+          <set>AlignCenter</set>
+         </property>
         </column>
         <column>
          <property name="text">
           <string>修改分类</string>
+         </property>
+         <property name="textAlignment">
+          <set>AlignCenter</set>
          </property>
         </column>
        </widget>
@@ -400,7 +409,7 @@ font-size:18px;</string>
              </property>
              <property name="maximumSize">
               <size>
-               <width>20</width>
+               <width>40</width>
                <height>16777215</height>
               </size>
              </property>
@@ -446,7 +455,7 @@ font-size:18px;</string>
              </property>
              <property name="maximumSize">
               <size>
-               <width>20</width>
+               <width>40</width>
                <height>16777215</height>
               </size>
              </property>

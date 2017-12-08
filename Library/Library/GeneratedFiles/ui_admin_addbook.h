@@ -192,7 +192,7 @@ public:
         frame_4->setFrameShadow(QFrame::Raised);
         pushButton_2 = new QPushButton(frame_4);
         pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-        pushButton_2->setGeometry(QRect(20, 10, 181, 51));
+        pushButton_2->setGeometry(QRect(20, 10, 191, 51));
         pushButton_2->setStyleSheet(QLatin1String("border:none;\n"
 ""));
 

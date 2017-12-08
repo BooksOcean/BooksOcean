@@ -28,6 +28,7 @@ student_borrow::student_borrow(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+	showFullScreen();
 	ui.etBorrowNumber->setEnabled(false);
 	ui.lineEdit->setEnabled(false);
 	ui.lineEdit_3->setEnabled(false);

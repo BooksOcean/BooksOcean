@@ -39,6 +39,7 @@ student_index::student_index(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+	showFullScreen();
 	ui.tableOrder->setColumnCount(5);
 	ui.lineEdit->setEnabled(false);
 	ui.lineEdit_2->setEnabled(false);

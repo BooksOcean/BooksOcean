@@ -8,6 +8,7 @@ admin_addclassify::admin_addclassify(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+	showFullScreen();
 	ui.btnAdd->installEventFilter(this);
 	isChange = false;
 }

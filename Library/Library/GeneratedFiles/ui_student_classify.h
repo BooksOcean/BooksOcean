@@ -230,7 +230,7 @@ public:
 };
 
 namespace Ui {
-    class student_classify : public Ui_student_classify {};
+    class student_classify: public Ui_student_classify {};
 } // namespace Ui
 
 QT_END_NAMESPACE

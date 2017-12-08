@@ -28,6 +28,7 @@ student_borrowdetail::student_borrowdetail(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+	showFullScreen();
 	ui.etBookNameHead->setEnabled(false);
 	ui.etBookName->setEnabled(false);
 	ui.etAuthor->setEnabled(false);

@@ -314,7 +314,7 @@ public:
         etIndexPage->setObjectName(QStringLiteral("etIndexPage"));
         sizePolicy5.setHeightForWidth(etIndexPage->sizePolicy().hasHeightForWidth());
         etIndexPage->setSizePolicy(sizePolicy5);
-        etIndexPage->setMaximumSize(QSize(20, 16777215));
+        etIndexPage->setMaximumSize(QSize(40, 16777215));
         etIndexPage->setStyleSheet(QLatin1String("border:none;\n"
 "font-size:18px;"));
 
@@ -334,7 +334,7 @@ public:
         etCountPage->setObjectName(QStringLiteral("etCountPage"));
         sizePolicy5.setHeightForWidth(etCountPage->sizePolicy().hasHeightForWidth());
         etCountPage->setSizePolicy(sizePolicy5);
-        etCountPage->setMaximumSize(QSize(34, 16777215));
+        etCountPage->setMaximumSize(QSize(40, 16777215));
         etCountPage->setStyleSheet(QLatin1String("border:none;\n"
 "font-size:18px;\n"
 ""));

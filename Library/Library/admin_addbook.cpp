@@ -27,6 +27,15 @@ admin_addbook::admin_addbook(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+	showFullScreen();
+	ui.lineEdit->setEnabled(false);
+	ui.lineEdit_2->setEnabled(false);
+	ui.lineEdit_3->setEnabled(false);
+	ui.lineEdit_4->setEnabled(false);
+	ui.lineEdit_5->setEnabled(false);
+	ui.lineEdit_6->setEnabled(false);
+	ui.lineEdit_10->setEnabled(false);
+	ui.lineEdit_13->setEnabled(false);
 	ui.btnSearchuser->installEventFilter(this);
 	ui.btnClassify->installEventFilter(this);
 	ui.btnPersonal->installEventFilter(this);
@@ -123,6 +132,10 @@ bool admin_addbook::eventFilter(QObject *obj, QEvent *event)
 
 		int countt = bookCount.toInt();
 		float score = bookScore.toFloat();
+		if (countt >= 100) {
+			QMessageBox::information(NULL, QString::fromLocal8Bit(""), QString::fromLocal8Bit("单类书籍库存不能超过100！"), QMessageBox::Ok);
+			return true;
+		}
 
 		QByteArray ba6 = filename.toLocal8Bit();
 		char *cover = ba6.data();

@@ -14,6 +14,7 @@ admin_index::admin_index(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+	showFullScreen();
 	ui.etSname->setEnabled(false);
 	ui.lineEdit_13->setEnabled(false);
 	ui.pushButton_7->installEventFilter(this);

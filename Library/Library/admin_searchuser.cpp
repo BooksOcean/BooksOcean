@@ -21,6 +21,10 @@ admin_searchuser::admin_searchuser(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+	showFullScreen();
+	ui.lineEdit->setEnabled(false);
+	ui.lineEdit_2->setEnabled(false);
+	ui.lineEdit_4->setEnabled(false);
 	ui.btnSearchbook->installEventFilter(this);
 	ui.btnClassify->installEventFilter(this);
 	ui.btnAdd->installEventFilter(this);
@@ -227,12 +231,19 @@ void admin_searchuser::DataBind() {
 	int currentPageEnd = (currentPageBegin + PageLength) < DataTable.size() ? (currentPageBegin + PageLength) : DataTable.size();
 	for (int i = currentPageBegin; i < currentPageEnd; i++) {
 		ui.tableWidget->insertRow(i - currentPageBegin);
-		ui.tableWidget->setRowHeight(i - currentPageBegin, 50);//第
-
-															   //加载书名作者出版社
-		ui.tableWidget->setItem(i - currentPageBegin, 0, new QTableWidgetItem(QString::fromLocal8Bit(DataTable[i].username)));
-		ui.tableWidget->setItem(i - currentPageBegin, 1, new QTableWidgetItem(QString::fromLocal8Bit(DataTable[i].usercode)));
-		ui.tableWidget->setItem(i - currentPageBegin, 2, new QTableWidgetItem(QString::fromLocal8Bit(DataTable[i].dept)));
+		ui.tableWidget->setRowHeight(i - currentPageBegin, 50);
+		//插入用户姓名并使其居中
+		QTableWidgetItem *temp = new QTableWidgetItem(QString::fromLocal8Bit(DataTable[i].username));
+		temp->setTextAlignment(Qt::AlignCenter);
+		ui.tableWidget->setItem(i - currentPageBegin, 0, temp);
+		//插入用户学号并使其居中
+		temp = new QTableWidgetItem(QString::fromLocal8Bit(DataTable[i].usercode));
+		temp->setTextAlignment(Qt::AlignCenter);
+		ui.tableWidget->setItem(i - currentPageBegin, 1, temp);
+		//插入用户专业并使其居中
+		temp = new QTableWidgetItem(QString::fromLocal8Bit(DataTable[i].dept));
+		temp->setTextAlignment(Qt::AlignCenter);
+		ui.tableWidget->setItem(i - currentPageBegin, 2, temp);
 		//添加“详情”按钮，并绑定事件
 		QPushButton *btn = new QPushButton;
 		ui.tableWidget->setCellWidget(i - currentPageBegin, 3, btn);

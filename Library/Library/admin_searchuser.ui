@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1064</width>
+    <width>1118</width>
     <height>722</height>
    </rect>
   </property>
@@ -339,37 +339,76 @@ font-size:18px;</string>
          <property name="text">
           <string>姓名</string>
          </property>
+         <property name="textAlignment">
+          <set>AlignCenter</set>
+         </property>
         </column>
         <column>
          <property name="text">
           <string>学号</string>
+         </property>
+         <property name="textAlignment">
+          <set>AlignCenter</set>
          </property>
         </column>
         <column>
          <property name="text">
           <string>专业</string>
          </property>
+         <property name="textAlignment">
+          <set>AlignCenter</set>
+         </property>
         </column>
         <column>
          <property name="text">
           <string>修改</string>
+         </property>
+         <property name="textAlignment">
+          <set>AlignCenter</set>
          </property>
         </column>
         <column>
          <property name="text">
           <string>重置密码</string>
          </property>
+         <property name="textAlignment">
+          <set>AlignCenter</set>
+         </property>
         </column>
         <column>
          <property name="text">
           <string>清除欠款</string>
+         </property>
+         <property name="textAlignment">
+          <set>AlignCenter</set>
          </property>
         </column>
         <column>
          <property name="text">
           <string>删除</string>
          </property>
+         <property name="textAlignment">
+          <set>AlignCenter</set>
+         </property>
         </column>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnLastPage">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color:#4695d2;
+border:none;
+font-size:18px;</string>
+        </property>
+        <property name="text">
+         <string>上一页</string>
+        </property>
        </widget>
       </item>
       <item>
@@ -402,24 +441,6 @@ font-size:18px;</string>
            </property>
            <property name="text">
             <string>首页</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btnLastPage">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">color:#4695d2;
-border:none;
-font-size:18px;</string>
-           </property>
-           <property name="text">
-            <string>上一页</string>
            </property>
           </widget>
          </item>

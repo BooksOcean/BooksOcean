@@ -13,6 +13,7 @@ student_classify::student_classify(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+	showFullScreen();
 	ui.tableWidget->setColumnCount(5);
 	classifyConfig::isCheck = 0;
 	ui.btnInformationchange->installEventFilter(this);

@@ -17,6 +17,7 @@ student_repay::student_repay(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+	showFullScreen();
 	ui.lineEdit->setEnabled(false);
 	ui.etRepay->setEnabled(false);
 	ui.btnLogout->installEventFilter(this);

@@ -15,6 +15,7 @@ admin_classify::admin_classify(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+	showFullScreen();
 	ui.btnSearchuser->installEventFilter(this);
 	ui.btnSearchbook->installEventFilter(this);
 	ui.btnPersonal->installEventFilter(this);
@@ -202,10 +203,10 @@ void admin_classify::DataBind() {
 	int currentPageEnd = (currentPageBegin + PageLength) < DataTable.size() ? (currentPageBegin + PageLength) : DataTable.size();
 	for (int i = currentPageBegin; i < currentPageEnd; i++) {
 		ui.tableWidget->insertRow(i - currentPageBegin);
-		ui.tableWidget->setRowHeight(i - currentPageBegin, 50);//第
-
-															   //加载书名作者出版社
-		ui.tableWidget->setItem(i - currentPageBegin, 0, new QTableWidgetItem(QString::fromLocal8Bit(DataTable[i].name)));
+		ui.tableWidget->setRowHeight(i - currentPageBegin, 50);
+		QTableWidgetItem *temp = new QTableWidgetItem(QString::fromLocal8Bit(DataTable[i].name));
+		temp->setTextAlignment(Qt::AlignCenter);
+		ui.tableWidget->setItem(i - currentPageBegin, 0, temp);
 		//添加“详情”按钮，并绑定事件
 		QPushButton *btn = new QPushButton;
 		ui.tableWidget->setCellWidget(i - currentPageBegin, 1, btn);

@@ -266,20 +266,28 @@ public:
         if (tableWidget->columnCount() < 8)
             tableWidget->setColumnCount(8);
         QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
+        __qtablewidgetitem->setTextAlignment(Qt::AlignCenter);
         tableWidget->setHorizontalHeaderItem(0, __qtablewidgetitem);
         QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
+        __qtablewidgetitem1->setTextAlignment(Qt::AlignCenter);
         tableWidget->setHorizontalHeaderItem(1, __qtablewidgetitem1);
         QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
+        __qtablewidgetitem2->setTextAlignment(Qt::AlignCenter);
         tableWidget->setHorizontalHeaderItem(2, __qtablewidgetitem2);
         QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
+        __qtablewidgetitem3->setTextAlignment(Qt::AlignCenter);
         tableWidget->setHorizontalHeaderItem(3, __qtablewidgetitem3);
         QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
+        __qtablewidgetitem4->setTextAlignment(Qt::AlignCenter);
         tableWidget->setHorizontalHeaderItem(4, __qtablewidgetitem4);
         QTableWidgetItem *__qtablewidgetitem5 = new QTableWidgetItem();
+        __qtablewidgetitem5->setTextAlignment(Qt::AlignCenter);
         tableWidget->setHorizontalHeaderItem(5, __qtablewidgetitem5);
         QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
+        __qtablewidgetitem6->setTextAlignment(Qt::AlignCenter);
         tableWidget->setHorizontalHeaderItem(6, __qtablewidgetitem6);
         QTableWidgetItem *__qtablewidgetitem7 = new QTableWidgetItem();
+        __qtablewidgetitem7->setTextAlignment(Qt::AlignCenter);
         tableWidget->setHorizontalHeaderItem(7, __qtablewidgetitem7);
         tableWidget->setObjectName(QStringLiteral("tableWidget"));
         QSizePolicy sizePolicy3(QSizePolicy::Preferred, QSizePolicy::Preferred);
@@ -287,6 +295,7 @@ public:
         sizePolicy3.setVerticalStretch(0);
         sizePolicy3.setHeightForWidth(tableWidget->sizePolicy().hasHeightForWidth());
         tableWidget->setSizePolicy(sizePolicy3);
+        tableWidget->setStyleSheet(QStringLiteral("text-align:center;"));
 
         verticalLayout_2->addWidget(tableWidget);
 
@@ -343,7 +352,7 @@ public:
         etIndexPage->setObjectName(QStringLiteral("etIndexPage"));
         sizePolicy5.setHeightForWidth(etIndexPage->sizePolicy().hasHeightForWidth());
         etIndexPage->setSizePolicy(sizePolicy5);
-        etIndexPage->setMaximumSize(QSize(20, 16777215));
+        etIndexPage->setMaximumSize(QSize(40, 16777215));
         etIndexPage->setStyleSheet(QLatin1String("border:none;\n"
 "font-size:18px;"));
 

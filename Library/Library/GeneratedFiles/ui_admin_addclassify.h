@@ -14,6 +14,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QFrame>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
@@ -24,6 +25,7 @@ QT_BEGIN_NAMESPACE
 class Ui_admin_addclassify
 {
 public:
+    QGridLayout *gridLayout;
     QFrame *frame;
     QLineEdit *lineEdit;
     QLineEdit *etName;
@@ -33,17 +35,20 @@ public:
     {
         if (admin_addclassify->objectName().isEmpty())
             admin_addclassify->setObjectName(QStringLiteral("admin_addclassify"));
-        admin_addclassify->resize(474, 340);
+        admin_addclassify->resize(1033, 728);
+        gridLayout = new QGridLayout(admin_addclassify);
+        gridLayout->setSpacing(6);
+        gridLayout->setContentsMargins(11, 11, 11, 11);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
         frame = new QFrame(admin_addclassify);
         frame->setObjectName(QStringLiteral("frame"));
-        frame->setGeometry(QRect(0, 0, 511, 401));
         frame->setMaximumSize(QSize(511, 401));
         frame->setStyleSheet(QStringLiteral("background-color: rgb(255, 255, 255);"));
         frame->setFrameShape(QFrame::StyledPanel);
         frame->setFrameShadow(QFrame::Raised);
         lineEdit = new QLineEdit(frame);
         lineEdit->setObjectName(QStringLiteral("lineEdit"));
-        lineEdit->setGeometry(QRect(70, 70, 141, 31));
+        lineEdit->setGeometry(QRect(70, 70, 101, 31));
         lineEdit->setStyleSheet(QString::fromUtf8("color:#808080;\n"
 "border:none;\n"
 "font-size:18px;\n"
@@ -52,7 +57,7 @@ public:
         lineEdit->setReadOnly(true);
         etName = new QLineEdit(frame);
         etName->setObjectName(QStringLiteral("etName"));
-        etName->setGeometry(QRect(190, 70, 201, 31));
+        etName->setGeometry(QRect(180, 70, 201, 31));
         etName->setStyleSheet(QString::fromUtf8("border:1px solid #cccccc;\n"
 "font-size:18px;\n"
 "font-family:\"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
@@ -72,6 +77,9 @@ public:
 "background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:1, y2:0, stop:0 rgba(51, 153, 255,1), stop:1 rgba(52, 246, 177,1));\n"
 "padding-top:5;\n"
 "padding-bottom:5;"));
+
+        gridLayout->addWidget(frame, 0, 0, 1, 1);
+
 
         retranslateUi(admin_addclassify);
 

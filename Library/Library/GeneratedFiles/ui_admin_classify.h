@@ -65,7 +65,7 @@ public:
     {
         if (admin_classify->objectName().isEmpty())
             admin_classify->setObjectName(QStringLiteral("admin_classify"));
-        admin_classify->resize(1060, 730);
+        admin_classify->resize(993, 730);
         horizontalLayout = new QHBoxLayout(admin_classify);
         horizontalLayout->setSpacing(6);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
@@ -229,10 +229,13 @@ public:
         if (tableWidget->columnCount() < 3)
             tableWidget->setColumnCount(3);
         QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
+        __qtablewidgetitem->setTextAlignment(Qt::AlignCenter);
         tableWidget->setHorizontalHeaderItem(0, __qtablewidgetitem);
         QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
+        __qtablewidgetitem1->setTextAlignment(Qt::AlignCenter);
         tableWidget->setHorizontalHeaderItem(1, __qtablewidgetitem1);
         QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
+        __qtablewidgetitem2->setTextAlignment(Qt::AlignCenter);
         tableWidget->setHorizontalHeaderItem(2, __qtablewidgetitem2);
         tableWidget->setObjectName(QStringLiteral("tableWidget"));
         QSizePolicy sizePolicy3(QSizePolicy::Preferred, QSizePolicy::Preferred);
@@ -296,7 +299,7 @@ public:
         etIndexPage->setObjectName(QStringLiteral("etIndexPage"));
         sizePolicy5.setHeightForWidth(etIndexPage->sizePolicy().hasHeightForWidth());
         etIndexPage->setSizePolicy(sizePolicy5);
-        etIndexPage->setMaximumSize(QSize(20, 16777215));
+        etIndexPage->setMaximumSize(QSize(40, 16777215));
         etIndexPage->setStyleSheet(QLatin1String("border:none;\n"
 "font-size:18px;"));
 
@@ -316,7 +319,7 @@ public:
         etCountPage->setObjectName(QStringLiteral("etCountPage"));
         sizePolicy5.setHeightForWidth(etCountPage->sizePolicy().hasHeightForWidth());
         etCountPage->setSizePolicy(sizePolicy5);
-        etCountPage->setMaximumSize(QSize(20, 16777215));
+        etCountPage->setMaximumSize(QSize(40, 16777215));
         etCountPage->setStyleSheet(QLatin1String("border:none;\n"
 "font-size:18px;\n"
 ""));

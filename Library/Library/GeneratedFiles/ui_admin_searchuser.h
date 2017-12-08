@@ -54,10 +54,10 @@ public:
     QRadioButton *radioCode;
     QRadioButton *radioMajor;
     QTableWidget *tableWidget;
+    QPushButton *btnLastPage;
     QFrame *frame_5;
     QHBoxLayout *horizontalLayout_2;
     QPushButton *btnFirstPage;
-    QPushButton *btnLastPage;
     QHBoxLayout *horizontalLayout_3;
     QLineEdit *lineEdit_4;
     QLineEdit *etIndexPage;
@@ -71,7 +71,7 @@ public:
     {
         if (admin_searchuser->objectName().isEmpty())
             admin_searchuser->setObjectName(QStringLiteral("admin_searchuser"));
-        admin_searchuser->resize(1064, 722);
+        admin_searchuser->resize(1118, 722);
         horizontalLayout = new QHBoxLayout(admin_searchuser);
         horizontalLayout->setSpacing(6);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
@@ -261,18 +261,25 @@ public:
         if (tableWidget->columnCount() < 7)
             tableWidget->setColumnCount(7);
         QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
+        __qtablewidgetitem->setTextAlignment(Qt::AlignCenter);
         tableWidget->setHorizontalHeaderItem(0, __qtablewidgetitem);
         QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
+        __qtablewidgetitem1->setTextAlignment(Qt::AlignCenter);
         tableWidget->setHorizontalHeaderItem(1, __qtablewidgetitem1);
         QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
+        __qtablewidgetitem2->setTextAlignment(Qt::AlignCenter);
         tableWidget->setHorizontalHeaderItem(2, __qtablewidgetitem2);
         QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
+        __qtablewidgetitem3->setTextAlignment(Qt::AlignCenter);
         tableWidget->setHorizontalHeaderItem(3, __qtablewidgetitem3);
         QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
+        __qtablewidgetitem4->setTextAlignment(Qt::AlignCenter);
         tableWidget->setHorizontalHeaderItem(4, __qtablewidgetitem4);
         QTableWidgetItem *__qtablewidgetitem5 = new QTableWidgetItem();
+        __qtablewidgetitem5->setTextAlignment(Qt::AlignCenter);
         tableWidget->setHorizontalHeaderItem(5, __qtablewidgetitem5);
         QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
+        __qtablewidgetitem6->setTextAlignment(Qt::AlignCenter);
         tableWidget->setHorizontalHeaderItem(6, __qtablewidgetitem6);
         tableWidget->setObjectName(QStringLiteral("tableWidget"));
         QSizePolicy sizePolicy3(QSizePolicy::Preferred, QSizePolicy::Preferred);
@@ -283,11 +290,21 @@ public:
 
         verticalLayout_2->addWidget(tableWidget);
 
-        frame_5 = new QFrame(frame_3);
-        frame_5->setObjectName(QStringLiteral("frame_5"));
+        btnLastPage = new QPushButton(frame_3);
+        btnLastPage->setObjectName(QStringLiteral("btnLastPage"));
         QSizePolicy sizePolicy4(QSizePolicy::Preferred, QSizePolicy::Fixed);
         sizePolicy4.setHorizontalStretch(0);
         sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(btnLastPage->sizePolicy().hasHeightForWidth());
+        btnLastPage->setSizePolicy(sizePolicy4);
+        btnLastPage->setStyleSheet(QLatin1String("color:#4695d2;\n"
+"border:none;\n"
+"font-size:18px;"));
+
+        verticalLayout_2->addWidget(btnLastPage);
+
+        frame_5 = new QFrame(frame_3);
+        frame_5->setObjectName(QStringLiteral("frame_5"));
         sizePolicy4.setHeightForWidth(frame_5->sizePolicy().hasHeightForWidth());
         frame_5->setSizePolicy(sizePolicy4);
         frame_5->setFrameShape(QFrame::StyledPanel);
@@ -305,16 +322,6 @@ public:
 "font-size:18px;"));
 
         horizontalLayout_2->addWidget(btnFirstPage);
-
-        btnLastPage = new QPushButton(frame_5);
-        btnLastPage->setObjectName(QStringLiteral("btnLastPage"));
-        sizePolicy4.setHeightForWidth(btnLastPage->sizePolicy().hasHeightForWidth());
-        btnLastPage->setSizePolicy(sizePolicy4);
-        btnLastPage->setStyleSheet(QLatin1String("color:#4695d2;\n"
-"border:none;\n"
-"font-size:18px;"));
-
-        horizontalLayout_2->addWidget(btnLastPage);
 
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setSpacing(6);
@@ -435,8 +442,8 @@ public:
         ___qtablewidgetitem5->setText(QApplication::translate("admin_searchuser", "\346\270\205\351\231\244\346\254\240\346\254\276", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem6 = tableWidget->horizontalHeaderItem(6);
         ___qtablewidgetitem6->setText(QApplication::translate("admin_searchuser", "\345\210\240\351\231\244", Q_NULLPTR));
-        btnFirstPage->setText(QApplication::translate("admin_searchuser", "\351\246\226\351\241\265", Q_NULLPTR));
         btnLastPage->setText(QApplication::translate("admin_searchuser", "\344\270\212\344\270\200\351\241\265", Q_NULLPTR));
+        btnFirstPage->setText(QApplication::translate("admin_searchuser", "\351\246\226\351\241\265", Q_NULLPTR));
         lineEdit_4->setText(QApplication::translate("admin_searchuser", "\345\275\223\345\211\215\347\254\254", Q_NULLPTR));
         etIndexPage->setText(QApplication::translate("admin_searchuser", "0", Q_NULLPTR));
         lineEdit_2->setText(QApplication::translate("admin_searchuser", "\351\241\265\357\274\214\345\205\261", Q_NULLPTR));

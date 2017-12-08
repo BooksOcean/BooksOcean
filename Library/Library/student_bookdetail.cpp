@@ -29,6 +29,7 @@ student_bookDetail::student_bookDetail(QWidget *parent)
 {
 	QTextCodec * BianMa = QTextCodec::codecForName("GBK");
 	ui.setupUi(this);
+	showFullScreen();
 	ui.etBookNameHead->setEnabled(false);
 	ui.etBookName->setEnabled(false);
 	ui.etAuthor->setEnabled(false);

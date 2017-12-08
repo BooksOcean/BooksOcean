@@ -20,6 +20,10 @@ admin_searchbook::admin_searchbook(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+	showFullScreen();
+	ui.lineEdit->setEnabled(false);
+	ui.lineEdit_2->setEnabled(false);
+	ui.lineEdit_4->setEnabled(false);
 	ui.btnSearchuser->installEventFilter(this);
 	ui.btnClassify->installEventFilter(this);
 	ui.btnLogout->installEventFilter(this);
@@ -245,12 +249,26 @@ void admin_searchbook::DataBind() {
 		ui.tableWidget->setRowHeight(i - currentPageBegin, 50);//第
 
 		//加载书名作者出版社
-		ui.tableWidget->setItem(i - currentPageBegin, 0, new QTableWidgetItem(QString::fromLocal8Bit(DataTable[i].name)));
-		ui.tableWidget->setItem(i - currentPageBegin, 1, new QTableWidgetItem(QString::fromLocal8Bit(DataTable[i].author)));
-		ui.tableWidget->setItem(i - currentPageBegin, 2, new QTableWidgetItem(QString::fromLocal8Bit(DataTable[i].publish)));
-		ui.tableWidget->setItem(i - currentPageBegin, 3, new QTableWidgetItem(QString::number(DataTable[i].count, 10)));
-		ui.tableWidget->setItem(i - currentPageBegin, 4, new QTableWidgetItem(QString::number(DataTable[i].nowCount, 10)));
-		//添加“详情”按钮，并绑定事件
+		//插入书名并使其居中
+		QTableWidgetItem *temp = new QTableWidgetItem(QString::fromLocal8Bit(DataTable[i].name));
+		temp->setTextAlignment(Qt::AlignCenter);
+		ui.tableWidget->setItem(i - currentPageBegin, 0, temp);
+		//插入作者并使其居中
+		temp = new QTableWidgetItem(QString::fromLocal8Bit(DataTable[i].author));
+		temp->setTextAlignment(Qt::AlignCenter);
+		ui.tableWidget->setItem(i - currentPageBegin, 1, temp);
+		//插入出版社并使其居中
+		temp = new QTableWidgetItem(QString::fromLocal8Bit(DataTable[i].publish));
+		temp->setTextAlignment(Qt::AlignCenter);
+		ui.tableWidget->setItem(i - currentPageBegin, 2, temp);
+		//插入总库存并使其居中
+		temp = new QTableWidgetItem(QString::number(DataTable[i].count, 10));
+		temp->setTextAlignment(Qt::AlignCenter);
+		ui.tableWidget->setItem(i - currentPageBegin, 3, temp);
+		//插入可借本数并使其居中
+		temp = new QTableWidgetItem(QString::number(DataTable[i].nowCount, 10));
+		temp->setTextAlignment(Qt::AlignCenter);
+		ui.tableWidget->setItem(i - currentPageBegin, 4, temp);
 		//添加“详情”按钮，并绑定事件
 		QPushButton *btn0 = new QPushButton;
 		ui.tableWidget->setCellWidget(i - currentPageBegin, 5, btn0);

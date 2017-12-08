@@ -24,6 +24,13 @@ admin_adduser::admin_adduser(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+	showFullScreen();
+	ui.lineEdit->setEnabled(false);
+	ui.lineEdit_2->setEnabled(false);
+	ui.lineEdit_3->setEnabled(false);
+	ui.lineEdit_4->setEnabled(false);
+	ui.lineEdit_5->setEnabled(false);
+	ui.lineEdit_6->setEnabled(false);
 	ui.btnSearchbook->installEventFilter(this);
 	ui.btnClassify->installEventFilter(this);
 	ui.btnPersonal->installEventFilter(this);

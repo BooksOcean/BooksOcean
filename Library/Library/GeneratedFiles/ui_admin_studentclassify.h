@@ -27,16 +27,7 @@ QT_BEGIN_NAMESPACE
 class Ui_admin_studentclassify
 {
 public:
-    QFrame *frame_3;
-    QVBoxLayout *verticalLayout_2;
-    QFrame *frame_4;
-    QHBoxLayout *horizontalLayout_3;
-    QLineEdit *etClassify;
-    QFrame *frame_6;
-    QHBoxLayout *horizontalLayout_4;
-    QTableWidget *tableWidget;
-    QFrame *frame_5;
-    QHBoxLayout *horizontalLayout_2;
+    QHBoxLayout *horizontalLayout;
     QFrame *frame;
     QFrame *frame_8;
     QVBoxLayout *verticalLayout_6;
@@ -47,94 +38,33 @@ public:
     QPushButton *btnClassify;
     QPushButton *btnLogout;
     QFrame *frame_2;
+    QFrame *frame_3;
+    QVBoxLayout *verticalLayout_2;
+    QFrame *frame_4;
+    QHBoxLayout *horizontalLayout_3;
+    QLineEdit *etClassify;
+    QFrame *frame_6;
+    QHBoxLayout *horizontalLayout_4;
+    QTableWidget *tableWidget;
+    QFrame *frame_5;
+    QHBoxLayout *horizontalLayout_2;
 
     void setupUi(QWidget *admin_studentclassify)
     {
         if (admin_studentclassify->objectName().isEmpty())
             admin_studentclassify->setObjectName(QStringLiteral("admin_studentclassify"));
-        admin_studentclassify->resize(1021, 722);
-        frame_3 = new QFrame(admin_studentclassify);
-        frame_3->setObjectName(QStringLiteral("frame_3"));
-        frame_3->setGeometry(QRect(316, 10, 697, 704));
-        frame_3->setStyleSheet(QStringLiteral("background:white;"));
-        frame_3->setFrameShape(QFrame::StyledPanel);
-        frame_3->setFrameShadow(QFrame::Raised);
-        verticalLayout_2 = new QVBoxLayout(frame_3);
-        verticalLayout_2->setSpacing(6);
-        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
-        frame_4 = new QFrame(frame_3);
-        frame_4->setObjectName(QStringLiteral("frame_4"));
-        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(200);
-        sizePolicy.setHeightForWidth(frame_4->sizePolicy().hasHeightForWidth());
-        frame_4->setSizePolicy(sizePolicy);
-        frame_4->setStyleSheet(QLatin1String("border:2px solid #cccccc;\n"
-"border-top:0px;\n"
-"border-left:0px;\n"
-"border-right:0px;"));
-        frame_4->setFrameShape(QFrame::StyledPanel);
-        frame_4->setFrameShadow(QFrame::Raised);
-        horizontalLayout_3 = new QHBoxLayout(frame_4);
-        horizontalLayout_3->setSpacing(6);
-        horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
-        etClassify = new QLineEdit(frame_4);
-        etClassify->setObjectName(QStringLiteral("etClassify"));
-        etClassify->setStyleSheet(QString::fromUtf8("color:#4D4D4D;\n"
-"border:none;\n"
-"font-size:24px;\n"
-"font-weight:500;\n"
-"font-family:\"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
-"text-align:left;"));
-        etClassify->setReadOnly(true);
-
-        horizontalLayout_3->addWidget(etClassify);
-
-
-        verticalLayout_2->addWidget(frame_4);
-
-        frame_6 = new QFrame(frame_3);
-        frame_6->setObjectName(QStringLiteral("frame_6"));
-        frame_6->setFrameShape(QFrame::StyledPanel);
-        frame_6->setFrameShadow(QFrame::Raised);
-        horizontalLayout_4 = new QHBoxLayout(frame_6);
-        horizontalLayout_4->setSpacing(6);
-        horizontalLayout_4->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
-        tableWidget = new QTableWidget(frame_6);
-        tableWidget->setObjectName(QStringLiteral("tableWidget"));
-
-        horizontalLayout_4->addWidget(tableWidget);
-
-
-        verticalLayout_2->addWidget(frame_6);
-
-        frame_5 = new QFrame(frame_3);
-        frame_5->setObjectName(QStringLiteral("frame_5"));
-        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Fixed);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(frame_5->sizePolicy().hasHeightForWidth());
-        frame_5->setSizePolicy(sizePolicy1);
-        frame_5->setFrameShape(QFrame::StyledPanel);
-        frame_5->setFrameShadow(QFrame::Raised);
-        horizontalLayout_2 = new QHBoxLayout(frame_5);
-        horizontalLayout_2->setSpacing(6);
-        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-
-        verticalLayout_2->addWidget(frame_5);
-
+        admin_studentclassify->resize(1082, 722);
+        horizontalLayout = new QHBoxLayout(admin_studentclassify);
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         frame = new QFrame(admin_studentclassify);
         frame->setObjectName(QStringLiteral("frame"));
-        frame->setGeometry(QRect(10, 10, 300, 700));
-        QSizePolicy sizePolicy2(QSizePolicy::Fixed, QSizePolicy::Expanding);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(frame->sizePolicy().hasHeightForWidth());
-        frame->setSizePolicy(sizePolicy2);
+        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(frame->sizePolicy().hasHeightForWidth());
+        frame->setSizePolicy(sizePolicy);
         frame->setMinimumSize(QSize(300, 700));
         frame->setStyleSheet(QLatin1String("\n"
 "background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:1, y2:0, stop:0 rgba(51, 153, 255,1), stop:1 rgba(52, 246, 177,1));"));
@@ -221,6 +151,85 @@ public:
         frame_2->setFrameShape(QFrame::StyledPanel);
         frame_2->setFrameShadow(QFrame::Raised);
 
+        horizontalLayout->addWidget(frame);
+
+        frame_3 = new QFrame(admin_studentclassify);
+        frame_3->setObjectName(QStringLiteral("frame_3"));
+        frame_3->setStyleSheet(QStringLiteral("background:white;"));
+        frame_3->setFrameShape(QFrame::StyledPanel);
+        frame_3->setFrameShadow(QFrame::Raised);
+        verticalLayout_2 = new QVBoxLayout(frame_3);
+        verticalLayout_2->setSpacing(6);
+        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        frame_4 = new QFrame(frame_3);
+        frame_4->setObjectName(QStringLiteral("frame_4"));
+        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(200);
+        sizePolicy1.setHeightForWidth(frame_4->sizePolicy().hasHeightForWidth());
+        frame_4->setSizePolicy(sizePolicy1);
+        frame_4->setStyleSheet(QLatin1String("border:2px solid #cccccc;\n"
+"border-top:0px;\n"
+"border-left:0px;\n"
+"border-right:0px;"));
+        frame_4->setFrameShape(QFrame::StyledPanel);
+        frame_4->setFrameShadow(QFrame::Raised);
+        horizontalLayout_3 = new QHBoxLayout(frame_4);
+        horizontalLayout_3->setSpacing(6);
+        horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
+        etClassify = new QLineEdit(frame_4);
+        etClassify->setObjectName(QStringLiteral("etClassify"));
+        etClassify->setStyleSheet(QString::fromUtf8("color:#4D4D4D;\n"
+"border:none;\n"
+"font-size:24px;\n"
+"font-weight:500;\n"
+"font-family:\"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"text-align:left;"));
+        etClassify->setReadOnly(true);
+
+        horizontalLayout_3->addWidget(etClassify);
+
+
+        verticalLayout_2->addWidget(frame_4);
+
+        frame_6 = new QFrame(frame_3);
+        frame_6->setObjectName(QStringLiteral("frame_6"));
+        frame_6->setFrameShape(QFrame::StyledPanel);
+        frame_6->setFrameShadow(QFrame::Raised);
+        horizontalLayout_4 = new QHBoxLayout(frame_6);
+        horizontalLayout_4->setSpacing(6);
+        horizontalLayout_4->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
+        tableWidget = new QTableWidget(frame_6);
+        tableWidget->setObjectName(QStringLiteral("tableWidget"));
+
+        horizontalLayout_4->addWidget(tableWidget);
+
+
+        verticalLayout_2->addWidget(frame_6);
+
+        frame_5 = new QFrame(frame_3);
+        frame_5->setObjectName(QStringLiteral("frame_5"));
+        QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(frame_5->sizePolicy().hasHeightForWidth());
+        frame_5->setSizePolicy(sizePolicy2);
+        frame_5->setFrameShape(QFrame::StyledPanel);
+        frame_5->setFrameShadow(QFrame::Raised);
+        horizontalLayout_2 = new QHBoxLayout(frame_5);
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+
+        verticalLayout_2->addWidget(frame_5);
+
+
+        horizontalLayout->addWidget(frame_3);
+
+
         retranslateUi(admin_studentclassify);
 
         QMetaObject::connectSlotsByName(admin_studentclassify);
@@ -229,12 +238,12 @@ public:
     void retranslateUi(QWidget *admin_studentclassify)
     {
         admin_studentclassify->setWindowTitle(QApplication::translate("admin_studentclassify", "admin_studentclassify", Q_NULLPTR));
-        etClassify->setText(QApplication::translate("admin_studentclassify", "\351\200\211\346\213\251\344\270\223\344\270\232", Q_NULLPTR));
         btnPersonal->setText(QApplication::translate("admin_studentclassify", "\344\270\252\344\272\272\344\270\255\345\277\203", Q_NULLPTR));
         btnSearchuser->setText(QApplication::translate("admin_studentclassify", "\350\264\246\345\217\267\347\256\241\347\220\206", Q_NULLPTR));
         btnSearchbook->setText(QApplication::translate("admin_studentclassify", "\345\233\276\344\271\246\347\256\241\347\220\206", Q_NULLPTR));
         btnClassify->setText(QApplication::translate("admin_studentclassify", "\345\210\206\347\261\273\347\256\241\347\220\206", Q_NULLPTR));
         btnLogout->setText(QApplication::translate("admin_studentclassify", "\351\200\200\345\207\272\347\231\273\345\275\225", Q_NULLPTR));
+        etClassify->setText(QApplication::translate("admin_studentclassify", "\351\200\211\346\213\251\344\270\223\344\270\232", Q_NULLPTR));
     } // retranslateUi
 
 };

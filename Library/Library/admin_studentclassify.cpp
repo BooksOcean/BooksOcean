@@ -13,6 +13,7 @@ admin_studentclassify::admin_studentclassify(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+	showFullScreen();
 	ui.tableWidget->setColumnCount(4);
 	//studentClassifyConfig::isCheck = 0;
 	ui.btnSearchbook->installEventFilter(this);
@@ -36,34 +37,16 @@ admin_studentclassify::~admin_studentclassify()
 bool admin_studentclassify::eventFilter(QObject *obj, QEvent *event)
 {
 	if (obj == ui.btnLogout && event->type() == QEvent::MouseButtonPress) {
-		QMessageBox::StandardButton button;
-		button = QMessageBox::question(this, QString::fromLocal8Bit("退出程序"),
-			QString(QString::fromLocal8Bit("确认退出程序?")),
-			QMessageBox::Yes | QMessageBox::No);
-		if (button == QMessageBox::No) {
-			event->ignore();  //忽略退出信号，程序继续运行
-		}
-		else if (button == QMessageBox::Yes) {
-			Library *rec = new Library;
-			this->close();
-			rec->show();
-			event->accept();  //接受退出信号，程序退出
-		}
+		QMessageBox::information(NULL, QString::fromLocal8Bit(""), QString::fromLocal8Bit("请先选择专业"), QMessageBox::Ok);
 	}
 	if (obj == ui.btnSearchbook && event->type() == QEvent::MouseButtonPress) {
-		admin_searchbook *rec = new admin_searchbook;
-		this->close();
-		rec->show();
+		QMessageBox::information(NULL, QString::fromLocal8Bit(""), QString::fromLocal8Bit("请先选择专业"), QMessageBox::Ok);
 	}
 	if (obj == ui.btnPersonal && event->type() == QEvent::MouseButtonPress) {
-		admin_index *rec = new admin_index;
-		this->close();
-		rec->show();
+		QMessageBox::information(NULL, QString::fromLocal8Bit(""), QString::fromLocal8Bit("请先选择专业"), QMessageBox::Ok);
 	}
 	if (obj == ui.btnClassify && event->type() == QEvent::MouseButtonPress) {
-		admin_classify *rec = new admin_classify;
-		this->close();
-		rec->show();
+		QMessageBox::information(NULL, QString::fromLocal8Bit(""), QString::fromLocal8Bit("请先选择专业"), QMessageBox::Ok);
 	}
 	else {
 		return QWidget::eventFilter(obj, event);

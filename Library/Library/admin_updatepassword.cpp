@@ -13,6 +13,11 @@ admin_updatepassword::admin_updatepassword(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+	showFullScreen();
+	ui.lineEdit->setEnabled(false);
+	ui.lineEdit_13->setEnabled(false);
+	ui.lineEdit_14->setEnabled(false);
+	ui.etSname->setEnabled(false);
 	ui.btnPersonal->installEventFilter(this);
 	ui.btnSearchbook->installEventFilter(this);
 	ui.btnSearchuser->installEventFilter(this);
