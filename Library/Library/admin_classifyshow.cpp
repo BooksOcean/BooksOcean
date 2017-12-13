@@ -14,7 +14,6 @@ admin_classifyshow::admin_classifyshow(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
-	showFullScreen();
 	ui.tableWidget->setColumnCount(5);
 	//classifyConfig::isCheck = 0;
 	ui.btnSearchuser->installEventFilter(this);

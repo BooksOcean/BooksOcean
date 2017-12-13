@@ -107,12 +107,41 @@ bool admin_addbook::eventFilter(QObject *obj, QEvent *event)
 		QString bookPublish = ui.etPublish->text();
 		QString bookCount = ui.etCount->text();
 		QString bookScore = ui.etScore->text();
+		QRegExp rx("[1-9][0-9]+");
+		QRegExpValidator v(rx, 0);
+		int pos = 0;
+		int res = v.validate(bookISBN, pos);
+		if (!res) {
+			QMessageBox::information(NULL, QString::fromLocal8Bit(""), QString::fromLocal8Bit("ISBN不符合要求"), QMessageBox::Ok);
+			return true;
+		}
+		pos = 0;
+		int res3 = v.validate(bookCount, pos);
+		if (!res3) {
+			QMessageBox::information(NULL, QString::fromLocal8Bit(""), QString::fromLocal8Bit("库存量不符合要求"), QMessageBox::Ok);
+			return true;
+		}
+		QRegExp rx2("^\\d+(\\.\\d+)?$");
+		QRegExpValidator v2(rx2, 0);
+		int pos2 = 0;
+		int res2 = v2.validate(bookScore, pos2);
+		if (!res2) {
+			QMessageBox::information(NULL, QString::fromLocal8Bit(""), QString::fromLocal8Bit("评分不符合要求"), QMessageBox::Ok);
+			return true;
+		}
 		if (!bookName.length() || !bookClass.length()
 			|| !bookISBN.length() || !bookAuthor.length()
 			|| !bookISBN.length() || !bookISBN.length()
 			|| !bookPublish.length() || !bookCount.length()
 			|| !bookScore.length()) {
 			QMessageBox::information(NULL, QString::fromLocal8Bit(""), QString::fromLocal8Bit("请填写完整"), QMessageBox::Ok);
+			return true;
+		}
+		if (bookName.length()>50 || bookClass.length()>50
+			|| bookISBN.length()>15 || bookAuthor.length()>50
+			|| bookPublish.length()>50 || bookCount.length()>10
+			|| bookScore.length()>10) {
+			QMessageBox::information(NULL, QString::fromLocal8Bit(""), QString::fromLocal8Bit("填写内容太长"), QMessageBox::Ok);
 			return true;
 		}
 		if (bookClass == QString::fromLocal8Bit("请选择分类")) {

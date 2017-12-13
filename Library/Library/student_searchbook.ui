@@ -411,6 +411,9 @@ font-size:18px;</string>
              <property name="text">
               <string>当前第</string>
              </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
             </widget>
            </item>
            <item>
@@ -434,6 +437,9 @@ font-size:18px;</string>
              <property name="text">
               <string>0</string>
              </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
             </widget>
            </item>
            <item>
@@ -456,6 +462,9 @@ font-size:18px;</string>
              </property>
              <property name="text">
               <string>页，共</string>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
              </property>
             </widget>
            </item>
@@ -481,6 +490,9 @@ font-size:18px;
              <property name="text">
               <string>667</string>
              </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
             </widget>
            </item>
            <item>
@@ -503,6 +515,9 @@ font-size:18px;</string>
              </property>
              <property name="text">
               <string>页</string>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
              </property>
             </widget>
            </item>

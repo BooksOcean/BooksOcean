@@ -88,6 +88,10 @@ bool admin_index::eventFilter(QObject *obj, QEvent *event) {
 			QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("请输入正确的邮箱"), QMessageBox::Ok);
 			return true;
 		}
+		if (newmail.length() >50) {
+			QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("填写内容太长"), QMessageBox::Ok);
+			return true;
+		}
 		char* ch2;
 		QByteArray ba2 = ui.etNewemail->text().toLatin1();
 		ch2 = ba2.data();

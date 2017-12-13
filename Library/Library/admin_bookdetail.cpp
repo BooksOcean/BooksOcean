@@ -13,7 +13,7 @@ admin_bookdetail::admin_bookdetail(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
-	showFullScreen();
+	show();
 	ui.tableWidget->setColumnCount(5);
 	ui.tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);//设置不可编辑	
 	ui.tableWidget->verticalHeader()->setVisible(false); //设置行号不可见

@@ -92,6 +92,14 @@ bool student_update::eventFilter(QObject *obj, QEvent *event) {
 	}
 	if (obj == ui.pushButton_4 && event->type() == QEvent::MouseButtonPress) {
 		string newmail = qstostr(ui.lineEdit_10->text());
+		if (newmail.length() >50) {
+			QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("填写内容太长"), QMessageBox::Ok);
+			return true;
+		}
+		if (newmail.length()==0) {
+			QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("不可为空"), QMessageBox::Ok);
+			return true;
+		}
 		if (newmail!="") {
 			string::size_type idx;
 			idx = newmail.find("@");

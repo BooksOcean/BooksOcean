@@ -51,6 +51,7 @@ public:
     QFrame *frame_5;
     QVBoxLayout *verticalLayout_4;
     QFrame *frame_7;
+    QHBoxLayout *horizontalLayout_2;
     QLineEdit *lineEdit;
     QLineEdit *etBorrownumber;
     QPushButton *btnBorrowmore;
@@ -60,6 +61,7 @@ public:
     QFrame *frame_6;
     QVBoxLayout *verticalLayout_5;
     QFrame *frame_9;
+    QHBoxLayout *horizontalLayout_3;
     QLineEdit *lineEdit_2;
     QTableWidget *tableOrder;
 
@@ -67,7 +69,7 @@ public:
     {
         if (student_index->objectName().isEmpty())
             student_index->setObjectName(QStringLiteral("student_index"));
-        student_index->resize(1055, 806);
+        student_index->resize(1213, 806);
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -243,38 +245,57 @@ public:
         verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
         frame_7 = new QFrame(frame_5);
         frame_7->setObjectName(QStringLiteral("frame_7"));
-        QSizePolicy sizePolicy5(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        QSizePolicy sizePolicy5(QSizePolicy::Expanding, QSizePolicy::Fixed);
         sizePolicy5.setHorizontalStretch(0);
         sizePolicy5.setVerticalStretch(62);
         sizePolicy5.setHeightForWidth(frame_7->sizePolicy().hasHeightForWidth());
         frame_7->setSizePolicy(sizePolicy5);
         frame_7->setMinimumSize(QSize(0, 62));
         frame_7->setMaximumSize(QSize(16777215, 70));
-        frame_7->setFrameShape(QFrame::StyledPanel);
-        frame_7->setFrameShadow(QFrame::Raised);
-        lineEdit = new QLineEdit(frame_7);
-        lineEdit->setObjectName(QStringLiteral("lineEdit"));
-        lineEdit->setGeometry(QRect(10, 20, 701, 41));
-        lineEdit->setStyleSheet(QString::fromUtf8("border:2px solid #cccccc;\n"
+        frame_7->setStyleSheet(QString::fromUtf8("border:2px solid #cccccc;\n"
 "font: 14pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "border-top:0;\n"
 "border-left:0;\n"
 "border-right:0;"));
+        frame_7->setFrameShape(QFrame::StyledPanel);
+        frame_7->setFrameShadow(QFrame::Raised);
+        horizontalLayout_2 = new QHBoxLayout(frame_7);
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        lineEdit = new QLineEdit(frame_7);
+        lineEdit->setObjectName(QStringLiteral("lineEdit"));
+        QSizePolicy sizePolicy6(QSizePolicy::Maximum, QSizePolicy::Fixed);
+        sizePolicy6.setHorizontalStretch(0);
+        sizePolicy6.setVerticalStretch(0);
+        sizePolicy6.setHeightForWidth(lineEdit->sizePolicy().hasHeightForWidth());
+        lineEdit->setSizePolicy(sizePolicy6);
+        lineEdit->setMaximumSize(QSize(80, 16777215));
+        lineEdit->setStyleSheet(QString::fromUtf8("font: 14pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"border:none;\n"
+""));
+
+        horizontalLayout_2->addWidget(lineEdit);
+
         etBorrownumber = new QLineEdit(frame_7);
         etBorrownumber->setObjectName(QStringLiteral("etBorrownumber"));
-        etBorrownumber->setGeometry(QRect(110, 30, 61, 21));
         etBorrownumber->setStyleSheet(QString::fromUtf8("border-width:0;\n"
 "font: 10pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "border-style:outset;\n"
 "color:#409FEC;"));
+
+        horizontalLayout_2->addWidget(etBorrownumber);
+
         btnBorrowmore = new QPushButton(frame_7);
         btnBorrowmore->setObjectName(QStringLiteral("btnBorrowmore"));
-        btnBorrowmore->setGeometry(QRect(570, 30, 111, 28));
         btnBorrowmore->setStyleSheet(QString::fromUtf8("color:#808080;\n"
 "font: 11pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "border:none;\n"
 "text-size:20px;\n"
 "cursor:pointer;"));
+
+        horizontalLayout_2->addWidget(btnBorrowmore);
+
 
         verticalLayout_4->addWidget(frame_7);
 
@@ -300,11 +321,11 @@ public:
         QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
         tableBorrow->setHorizontalHeaderItem(4, __qtablewidgetitem4);
         tableBorrow->setObjectName(QStringLiteral("tableBorrow"));
-        QSizePolicy sizePolicy6(QSizePolicy::Expanding, QSizePolicy::Maximum);
-        sizePolicy6.setHorizontalStretch(0);
-        sizePolicy6.setVerticalStretch(0);
-        sizePolicy6.setHeightForWidth(tableBorrow->sizePolicy().hasHeightForWidth());
-        tableBorrow->setSizePolicy(sizePolicy6);
+        QSizePolicy sizePolicy7(QSizePolicy::Expanding, QSizePolicy::Maximum);
+        sizePolicy7.setHorizontalStretch(0);
+        sizePolicy7.setVerticalStretch(0);
+        sizePolicy7.setHeightForWidth(tableBorrow->sizePolicy().hasHeightForWidth());
+        tableBorrow->setSizePolicy(sizePolicy7);
         tableBorrow->setMaximumSize(QSize(16777215, 200));
 
         verticalLayout_7->addWidget(tableBorrow);
@@ -327,30 +348,42 @@ public:
         verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
         frame_9 = new QFrame(frame_6);
         frame_9->setObjectName(QStringLiteral("frame_9"));
-        sizePolicy5.setHeightForWidth(frame_9->sizePolicy().hasHeightForWidth());
-        frame_9->setSizePolicy(sizePolicy5);
+        QSizePolicy sizePolicy8(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy8.setHorizontalStretch(0);
+        sizePolicy8.setVerticalStretch(62);
+        sizePolicy8.setHeightForWidth(frame_9->sizePolicy().hasHeightForWidth());
+        frame_9->setSizePolicy(sizePolicy8);
         frame_9->setMinimumSize(QSize(0, 62));
         frame_9->setMaximumSize(QSize(16777215, 70));
-        frame_9->setFrameShape(QFrame::StyledPanel);
-        frame_9->setFrameShadow(QFrame::Raised);
-        lineEdit_2 = new QLineEdit(frame_9);
-        lineEdit_2->setObjectName(QStringLiteral("lineEdit_2"));
-        lineEdit_2->setGeometry(QRect(0, 10, 701, 41));
-        lineEdit_2->setStyleSheet(QString::fromUtf8("border:2px solid #cccccc;\n"
+        frame_9->setStyleSheet(QString::fromUtf8("border:2px solid #cccccc;\n"
 "font: 14pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "border-top:0;\n"
 "border-left:0;\n"
 "border-right:0;"));
+        frame_9->setFrameShape(QFrame::StyledPanel);
+        frame_9->setFrameShadow(QFrame::Raised);
+        horizontalLayout_3 = new QHBoxLayout(frame_9);
+        horizontalLayout_3->setSpacing(6);
+        horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
+        lineEdit_2 = new QLineEdit(frame_9);
+        lineEdit_2->setObjectName(QStringLiteral("lineEdit_2"));
+        lineEdit_2->setStyleSheet(QString::fromUtf8("border:none;\n"
+"font: 14pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+""));
+
+        horizontalLayout_3->addWidget(lineEdit_2);
+
 
         verticalLayout_5->addWidget(frame_9);
 
         tableOrder = new QTableWidget(frame_6);
         tableOrder->setObjectName(QStringLiteral("tableOrder"));
-        QSizePolicy sizePolicy7(QSizePolicy::Preferred, QSizePolicy::Preferred);
-        sizePolicy7.setHorizontalStretch(0);
-        sizePolicy7.setVerticalStretch(0);
-        sizePolicy7.setHeightForWidth(tableOrder->sizePolicy().hasHeightForWidth());
-        tableOrder->setSizePolicy(sizePolicy7);
+        QSizePolicy sizePolicy9(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy9.setHorizontalStretch(0);
+        sizePolicy9.setVerticalStretch(0);
+        sizePolicy9.setHeightForWidth(tableOrder->sizePolicy().hasHeightForWidth());
+        tableOrder->setSizePolicy(sizePolicy9);
 
         verticalLayout_5->addWidget(tableOrder);
 

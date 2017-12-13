@@ -128,7 +128,7 @@ bool student_borrowdetail::eventFilter(QObject *obj, QEvent *event) {
 		FileDB::select("record", record, VALUES, resTemp);
 
 		for (int i = 0; i < resTemp.size(); i++) {
-			if(resTemp[i].type==0)
+			if (resTemp[i].type != 2 && resTemp[i].type != 4)
 				res.push_back(resTemp[i]);
 		}
 
@@ -180,7 +180,7 @@ bool student_borrowdetail::eventFilter(QObject *obj, QEvent *event) {
 			record_delete.setId(res[0].id);
 			res[0].setType(4);
 			//更新借阅记录type=4,表示已归还
-			int res_2=FileDB::update("record", record_delete, res[0], VALUES_2);
+			int res_2 = FileDB::update("record", record_delete, res[0], VALUES_2);
 			if (res_2 > 0) {
 				QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("还书成功"), QMessageBox::Ok);
 				student_index *rec = new student_index;
@@ -194,8 +194,8 @@ bool student_borrowdetail::eventFilter(QObject *obj, QEvent *event) {
 			}
 		}
 		else {//有人预约：
-			//预约后如果有人还书，自动按照时间顺序借书。并抹除预约函数（修改还书函数）
-			//预约期限为5天，到期后自动抹除预约记录（修改还书函数和统计欠款的函数）
+			  //预约后如果有人还书，自动按照时间顺序借书。并抹除预约函数（修改还书函数）
+			  //预约期限为5天，到期后自动抹除预约记录（修改还书函数和统计欠款的函数）
 			ReturnOrder();//如果还书时检测到有预约则调用此函数
 		}
 	}
@@ -216,7 +216,7 @@ bool student_borrowdetail::eventFilter(QObject *obj, QEvent *event) {
 		}
 	}
 	if (obj == ui.btnBorrowagain && event->type() == QEvent::MouseButtonPress) {
-		
+
 		Record record;
 		vector<Record>resRecord;
 		vector<string>VALUES_2;
@@ -225,7 +225,7 @@ bool student_borrowdetail::eventFilter(QObject *obj, QEvent *event) {
 		record.setBookId(bookConfig::bookNo);
 		FileDB::select("record", record, VALUES_2, resRecord);
 		//检查是否超期
-		if (resRecord[0].type ==1 ) {
+		if (resRecord[0].type == 1) {
 			QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("超期，不得续借"), QMessageBox::Ok);
 			return true;
 		}
@@ -246,7 +246,7 @@ bool student_borrowdetail::eventFilter(QObject *obj, QEvent *event) {
 		FileDB::update("record", record, resRecord[0], VALUES_2);
 		QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("续借成功"), QMessageBox::Ok);
 	}
-	
+
 	if (obj == ui.btnInformationchange && event->type() == QEvent::MouseButtonPress) {
 		student_update *rec = new student_update;
 		rec->show();
@@ -266,8 +266,8 @@ bool student_borrowdetail::eventFilter(QObject *obj, QEvent *event) {
 }
 
 void student_borrowdetail::ReturnOrder() {
-	int theFirstOrderId= 0;//记录下合法预约记录的最先预约记录的id
-	int min_time=0;
+	int theFirstOrderId = 0;//记录下合法预约记录的最先预约记录的id
+	int min_time = 0;
 	//先取消超过5天的预约记录
 	//从映射表bookMap中查询书的总id(暂时使用最原始的查找方式)
 	BookMap bookmap;
@@ -315,8 +315,8 @@ void student_borrowdetail::ReturnOrder() {
 	//插入借书记录
 	vector<Record>entity;
 	Record record_2;
-	record_2.setStudentId(resRecord[theFirstOrderId].id);
-	record_2.setBookId(resBookMap[0].bookId);
+	record_2.setStudentId(resRecord[theFirstOrderId].studentId);
+	record_2.setBookId(resBookMap[0].id);
 
 	QDateTime dt = QDateTime::currentDateTime();
 	QDateTime afterOneMonthDateTime = dt.addMonths(1);
@@ -329,7 +329,7 @@ void student_borrowdetail::ReturnOrder() {
 
 	record_2.setType(0);
 	record_2.setMoney(0);
-	entity.push_back(record);
+	entity.push_back(record_2);
 	FileDB::insert("record", entity);
 	//删除预约记录
 	Record deletethis;
@@ -346,12 +346,18 @@ void student_borrowdetail::ReturnOrder() {
 	VALUES.push_back("one");
 	VALUES.push_back("bookId");
 	record_3.setBookId(bookConfig::bookNo);
-	FileDB::select("record", record, VALUES, res);
+	FileDB::select("record", record_3, VALUES, res);
 	Record record_delete;
 	vector<string>VALUES_2;
 	VALUES_2.push_back("one");
 	VALUES_2.push_back("id");
-	record_delete.setId(res[0].id);
+	int i;
+	for (i = 0; i < res.size(); i++) {
+		if (res[i].type != 4 || res[i].type != 2) {
+			break;
+		}
+	}
+	record_delete.setId(res[i].id);
 	int res_2 = FileDB::Delete("record", record_delete, VALUES_2);
 	QTextCodec * BianMa = QTextCodec::codecForName("GBK");
 	if (res_2 > 0) {

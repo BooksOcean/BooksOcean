@@ -8,7 +8,7 @@ admin_addclassify::admin_addclassify(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
-	showFullScreen();
+	show();
 	ui.btnAdd->installEventFilter(this);
 	isChange = false;
 }
@@ -23,6 +23,10 @@ bool admin_addclassify::eventFilter(QObject *obj, QEvent *event)
 		QString str = ui.etName->text();
 		if (str.length() == 0) {
 			QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("分类名不能为空"), QMessageBox::Ok);
+			return true;
+		}
+		if (str.length() >20) {
+			QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("填写内容太长"), QMessageBox::Ok);
 			return true;
 		}
 		QByteArray ba = str.toLocal8Bit();

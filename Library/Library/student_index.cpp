@@ -445,14 +445,14 @@ void student_index::OnBtnClickedCancel(int id){
 void student_index::OnBtnRecommendClicked(int id){
 	bookConfig::bookId = id;
 	student_bookDetail *rec = new student_bookDetail;
-	rec->show();
+	rec->showFullScreen();
 	this->close();
 }
 void student_index::OnBtnClicked(int id)
 {
 	bookConfig::bookNo = id;
 	student_borrowdetail *rec = new student_borrowdetail;
-	rec->show();
+	rec->showFullScreen();
 	this->close();
 }
 

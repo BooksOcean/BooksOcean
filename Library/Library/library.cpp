@@ -18,6 +18,7 @@ Library::Library(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+	showFullScreen();
 	ui.btnLogin->installEventFilter(this);
 }
 

@@ -14,21 +14,21 @@ bool selectData::eventFilter(QObject *obj, QEvent *event) {
 	if (obj == ui.btnInitial && event->type() == QEvent::MouseButtonPress) {
 		FileDB::rootPath = "initial/";
 		Library *rec = new Library;
-		rec->show();
+		rec->showFullScreen();
 		this->close();
 		return true;
 	}
 	if (obj == ui.btnRandom && event->type() == QEvent::MouseButtonPress) {
 		FileDB::rootPath = "random/";
 		Library *rec = new Library;
-		rec->show();
+		rec->showFullScreen();
 		this->close();
 		return true;
 	}
 	if (obj == ui.btnNormal && event->type() == QEvent::MouseButtonPress) {
 		FileDB::rootPath = "beautiful/";
 		Library *rec = new Library;
-		rec->show();
+		rec->showFullScreen();
 		this->close();
 		return true;
 	}

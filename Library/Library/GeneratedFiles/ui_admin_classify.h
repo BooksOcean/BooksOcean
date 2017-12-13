@@ -292,6 +292,7 @@ public:
         lineEdit_4->setMaximumSize(QSize(60, 16777215));
         lineEdit_4->setStyleSheet(QLatin1String("border:none;\n"
 "font-size:18px;"));
+        lineEdit_4->setReadOnly(true);
 
         horizontalLayout_3->addWidget(lineEdit_4);
 
@@ -302,6 +303,7 @@ public:
         etIndexPage->setMaximumSize(QSize(40, 16777215));
         etIndexPage->setStyleSheet(QLatin1String("border:none;\n"
 "font-size:18px;"));
+        etIndexPage->setReadOnly(true);
 
         horizontalLayout_3->addWidget(etIndexPage);
 
@@ -312,6 +314,7 @@ public:
         lineEdit_2->setMaximumSize(QSize(60, 16777215));
         lineEdit_2->setStyleSheet(QLatin1String("border:none;\n"
 "font-size:18px;"));
+        lineEdit_2->setReadOnly(true);
 
         horizontalLayout_3->addWidget(lineEdit_2);
 
@@ -323,6 +326,7 @@ public:
         etCountPage->setStyleSheet(QLatin1String("border:none;\n"
 "font-size:18px;\n"
 ""));
+        etCountPage->setReadOnly(true);
 
         horizontalLayout_3->addWidget(etCountPage);
 
@@ -333,6 +337,7 @@ public:
         lineEdit->setMaximumSize(QSize(20, 16777215));
         lineEdit->setStyleSheet(QLatin1String("border:none;\n"
 "font-size:18px;"));
+        lineEdit->setReadOnly(true);
 
         horizontalLayout_3->addWidget(lineEdit);
 

@@ -394,24 +394,6 @@ font-size:18px;</string>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="btnLastPage">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">color:#4695d2;
-border:none;
-font-size:18px;</string>
-        </property>
-        <property name="text">
-         <string>上一页</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QFrame" name="frame_5">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -445,6 +427,24 @@ font-size:18px;</string>
           </widget>
          </item>
          <item>
+          <widget class="QPushButton" name="btnLastPage">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color:#4695d2;
+border:none;
+font-size:18px;</string>
+           </property>
+           <property name="text">
+            <string>上一页</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <layout class="QHBoxLayout" name="horizontalLayout_3">
            <item>
             <widget class="QLineEdit" name="lineEdit_4">
@@ -466,6 +466,9 @@ font-size:18px;</string>
              </property>
              <property name="text">
               <string>当前第</string>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
              </property>
             </widget>
            </item>
@@ -490,6 +493,9 @@ font-size:18px;</string>
              <property name="text">
               <string>0</string>
              </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
             </widget>
            </item>
            <item>
@@ -512,6 +518,9 @@ font-size:18px;</string>
              </property>
              <property name="text">
               <string>页，共</string>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
              </property>
             </widget>
            </item>
@@ -537,6 +546,9 @@ font-size:18px;
              <property name="text">
               <string>0</string>
              </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
             </widget>
            </item>
            <item>
@@ -559,6 +571,9 @@ font-size:18px;</string>
              </property>
              <property name="text">
               <string>页</string>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
              </property>
             </widget>
            </item>

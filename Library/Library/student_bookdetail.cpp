@@ -148,6 +148,7 @@ bool student_bookDetail::eventFilter(QObject *obj, QEvent *event) {
 		bookmap.setIsOut(0);
 		VALUES.push_back("one");
 		VALUES.push_back("bookId");
+		VALUES.push_back("isOut");
 		FileDB::select("bookMap", bookmap, VALUES, allBooks);
 		if (allBooks.size() > 0) {
 
@@ -264,7 +265,7 @@ bool student_bookDetail::eventFilter(QObject *obj, QEvent *event) {
 			//	nbookMap.setIsOut(2);
 			//	FileDB::update("bookMap", lbookMap, nbookMap, VALUES_3);
 
-				//插入借阅记录
+			//插入借阅记录
 			vector<Record>entity;
 			Record record;
 			record.setStudentId(userConfig::id);
@@ -304,7 +305,7 @@ bool student_bookDetail::eventFilter(QObject *obj, QEvent *event) {
 		}
 		return true;
 	}
-	
+
 	if (obj == ui.btnInformationchange && event->type() == QEvent::MouseButtonPress) {
 		student_update *rec = new student_update;
 		rec->show();

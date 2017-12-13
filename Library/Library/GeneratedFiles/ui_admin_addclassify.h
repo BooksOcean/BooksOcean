@@ -35,7 +35,8 @@ public:
     {
         if (admin_addclassify->objectName().isEmpty())
             admin_addclassify->setObjectName(QStringLiteral("admin_addclassify"));
-        admin_addclassify->resize(1033, 728);
+        admin_addclassify->resize(500, 400);
+        admin_addclassify->setMaximumSize(QSize(500, 400));
         gridLayout = new QGridLayout(admin_addclassify);
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);

@@ -20,6 +20,7 @@
 #include <qtnetwork/QNetworkRequest>
 #include <qtnetwork/QNetworkReply>
 #include<QEventLoop>
+#include<regex>
 admin_adduser::admin_adduser(QWidget *parent)
 	: QWidget(parent)
 {
@@ -38,6 +39,9 @@ admin_adduser::admin_adduser(QWidget *parent)
 	ui.btnDept->installEventFilter(this);
 	ui.btnAdd->installEventFilter(this);
 	ui.btnHeadIcon->installEventFilter(this);
+	//QRegExp regx("[0-9]+$");//只能输入数字
+	//QValidator *validator = new QRegExpValidator(regx, ui.etCode);
+	//ui.etCode->setValidator(validator);
 	filename = "images/default.png";
 	img = new QPixmap;
 	img->load(filename);
@@ -45,7 +49,7 @@ admin_adduser::admin_adduser(QWidget *parent)
 	ui.btnHeadIcon->setIconSize(QSize((*img).width(), (*img).height()));
 	//不是修改
 	isChange = false;
-	
+
 }
 
 admin_adduser::~admin_adduser()
@@ -99,9 +103,23 @@ bool admin_adduser::eventFilter(QObject *obj, QEvent *event)
 		QString userName = ui.etName->text();
 		QString userDept = ui.btnDept->text();
 		QString userCode = ui.etCode->text();
+		QRegExp rx("[1-9][0-9]+");
+		QRegExpValidator v(rx, 0);
+		QString s;
+		int pos = 0;
+		int res = v.validate(userCode, pos);
+		if (!res) {
+			QMessageBox::information(NULL, QString::fromLocal8Bit(""), QString::fromLocal8Bit("学号不符合要求"), QMessageBox::Ok);
+			return true;
+		}
+
 		QString userMail = ui.etMail->text();
 		if (!userCode.length() || !userName.length() || !userMail.length()) {
-			QMessageBox::information(NULL,QString::fromLocal8Bit(""), QString::fromLocal8Bit("请填写完整"), QMessageBox::Ok);
+			QMessageBox::information(NULL, QString::fromLocal8Bit(""), QString::fromLocal8Bit("请填写完整"), QMessageBox::Ok);
+			return true;
+		}
+		if (userCode.length()>15 || userName.length()>20 || userMail.length()>50) {
+			QMessageBox::information(NULL, QString::fromLocal8Bit(""), QString::fromLocal8Bit("填写长度太大"), QMessageBox::Ok);
 			return true;
 		}
 		if (userDept == QString::fromLocal8Bit("请选择专业")) {
@@ -112,6 +130,18 @@ bool admin_adduser::eventFilter(QObject *obj, QEvent *event)
 		char *name = ba1.data();
 		QByteArray ba2 = userCode.toLocal8Bit();
 		char *code = ba2.data();
+		vector<string>VALUE0;
+		VALUE0.push_back("one");
+		VALUE0.push_back("usercode");
+		Student stu;
+		stu.setUsercode(code);
+		vector<Student>resSS;
+		FileDB::select("student", stu, VALUE0, resSS);
+		if (resSS.size() > 0) {
+			QMessageBox::information(NULL, QString::fromLocal8Bit(""), QString::fromLocal8Bit("学号重复"), QMessageBox::Ok);
+			return true;
+		}
+
 		QByteArray ba3 = userMail.toLocal8Bit();
 		char *mail = ba3.data();
 		QByteArray ba4 = userDept.toLocal8Bit();
@@ -206,7 +236,7 @@ void admin_adduser::InitStudent(int id) {
 	}
 	ui.btnDept->setText(QString::fromLocal8Bit(resStudent[0].dept));
 	filename = QString::fromLocal8Bit(resStudent[0].icon);
-	if (!strstr(resStudent[0].icon,"images")) {
+	if (!strstr(resStudent[0].icon, "images")) {
 		QNetworkAccessManager manager;
 		QEventLoop loop;
 		QNetworkReply *reply = manager.get(QNetworkRequest(QUrl(filename)));

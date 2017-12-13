@@ -78,6 +78,14 @@ bool student_updatePassword::eventFilter(QObject *obj, QEvent *event) {
 		//修改密码
 		if (ui.etPassword->text() == userConfig::password) {
 			string newpassword = qstostr(ui.etNewpassword->text());
+			if (newpassword.length() >50) {
+				QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("填写内容太长"), QMessageBox::Ok);
+				return true;
+			}
+			if (newpassword.length() ==0) {
+				QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("不可为空"), QMessageBox::Ok);
+				return true;
+			}
 			string newpassword_2 = qstostr(ui.etNewpassword_2->text());
 			if (newpassword!="") {
 				if (newpassword == newpassword_2) {
