@@ -168,9 +168,9 @@ bool admin_addbook::eventFilter(QObject *obj, QEvent *event)
 
 		QByteArray ba6 = filename.toLocal8Bit();
 		char *cover = ba6.data();
+		
 
 		if (!isChange) {
-
 			//≈–∂œISBN «∑Ò÷ÿ∏¥
 			Book book;
 			vector<string>VALUES;
@@ -315,6 +315,7 @@ void admin_addbook::InitBook(int id) {
 	//–ﬁ∏ƒ
 	BookId = id;
 	isChange = true;
+	ui.etISBN->setReadOnly(true);
 	Book book;
 	book.setId(id);
 	vector<string>VALUES;

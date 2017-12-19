@@ -219,6 +219,7 @@ void admin_adduser::openFileDiag() {
 void admin_adduser::InitStudent(int id) {
 	//ÐÞ¸Ä
 	isChange = true;
+	ui.etCode->setReadOnly(true);
 	Student cla;
 	cla.setId(id);
 	vector<string>VALUES;

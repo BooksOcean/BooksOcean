@@ -1,78 +1,12 @@
-﻿  moc_student_classify.cpp
-c:\users\zqx\desktop\uml\library\library\generatedfiles\release\../../student_classify.h(23): error C2039: “student_classify”: 不是“Ui”的成员
-  .\GeneratedFiles\ui_student_classify.h(236): note: 参见“Ui”的声明
-c:\users\zqx\desktop\uml\library\library\generatedfiles\release\../../student_classify.h(23): error C2460: “student_classify::ui”: 使用正在定义的“student_classify”
-  c:\users\zqx\desktop\uml\library\library\generatedfiles\release\../../student_classify.h(7): note: 参见“student_classify”的声明
-  main.cpp
-.\student_classify.h(23): error C2039: “student_classify”: 不是“Ui”的成员
-  .\GeneratedFiles\ui_student_classify.h(236): note: 参见“Ui”的声明
-.\student_classify.h(23): error C2460: “student_classify::ui”: 使用正在定义的“student_classify”
-  .\student_classify.h(7): note: 参见“student_classify”的声明
-  student_classify.cpp
-c:\users\zqx\desktop\uml\library\library\student_classify.h(23): error C2039: “student_classify”: 不是“Ui”的成员
-  .\GeneratedFiles\ui_student_classify.h(236): note: 参见“Ui”的声明
-c:\users\zqx\desktop\uml\library\library\student_classify.h(23): error C2460: “student_classify::ui”: 使用正在定义的“student_classify”
-  c:\users\zqx\desktop\uml\library\library\student_classify.h(7): note: 参见“student_classify”的声明
-student_classify.cpp(12): error C2228: “.setupUi”的左边必须有类/结构/联合
-  student_classify.cpp(12): note: 类型是“int”
-student_classify.cpp(13): error C2228: “.tableWidget”的左边必须有类/结构/联合
-  student_classify.cpp(13): note: 类型是“int”
-student_classify.cpp(13): error C2227: “->setColumnCount”的左边必须指向类/结构/联合/泛型类型
-student_classify.cpp(15): error C2228: “.btnInformationchange”的左边必须有类/结构/联合
-  student_classify.cpp(15): note: 类型是“int”
-student_classify.cpp(15): error C2227: “->installEventFilter”的左边必须指向类/结构/联合/泛型类型
-student_classify.cpp(16): error C2228: “.btnPersonal”的左边必须有类/结构/联合
-  student_classify.cpp(16): note: 类型是“int”
-student_classify.cpp(16): error C2227: “->installEventFilter”的左边必须指向类/结构/联合/泛型类型
-student_classify.cpp(17): error C2228: “.btnReturn”的左边必须有类/结构/联合
-  student_classify.cpp(17): note: 类型是“int”
-student_classify.cpp(17): error C2227: “->installEventFilter”的左边必须指向类/结构/联合/泛型类型
-student_classify.cpp(18): error C2228: “.tableWidget”的左边必须有类/结构/联合
-  student_classify.cpp(18): note: 类型是“int”
-student_classify.cpp(18): error C2227: “->setEditTriggers”的左边必须指向类/结构/联合/泛型类型
-student_classify.cpp(19): error C2228: “.tableWidget”的左边必须有类/结构/联合
-  student_classify.cpp(19): note: 类型是“int”
-student_classify.cpp(19): error C2227: “->verticalHeader”的左边必须指向类/结构/联合/泛型类型
-student_classify.cpp(19): error C2227: “->setVisible”的左边必须指向类/结构/联合/泛型类型
-student_classify.cpp(20): error C2228: “.tableWidget”的左边必须有类/结构/联合
-  student_classify.cpp(20): note: 类型是“int”
-student_classify.cpp(20): error C2227: “->horizontalHeader”的左边必须指向类/结构/联合/泛型类型
-student_classify.cpp(20): error C2227: “->setSectionResizeMode”的左边必须指向类/结构/联合/泛型类型
-student_classify.cpp(21): error C2228: “.tableWidget”的左边必须有类/结构/联合
-  student_classify.cpp(21): note: 类型是“int”
-student_classify.cpp(21): error C2227: “->setShowGrid”的左边必须指向类/结构/联合/泛型类型
-student_classify.cpp(23): error C2228: “.tableWidget”的左边必须有类/结构/联合
-  student_classify.cpp(23): note: 类型是“int”
-student_classify.cpp(23): error C2227: “->horizontalHeader”的左边必须指向类/结构/联合/泛型类型
-student_classify.cpp(23): error C2227: “->setVisible”的左边必须指向类/结构/联合/泛型类型
-student_classify.cpp(24): error C2228: “.tableWidget”的左边必须有类/结构/联合
-  student_classify.cpp(24): note: 类型是“int”
-student_classify.cpp(24): error C2227: “->verticalHeader”的左边必须指向类/结构/联合/泛型类型
-student_classify.cpp(24): error C2227: “->setVisible”的左边必须指向类/结构/联合/泛型类型
-student_classify.cpp(34): error C2228: “.btnPersonal”的左边必须有类/结构/联合
-  student_classify.cpp(34): note: 类型是“int”
-student_classify.cpp(40): error C2228: “.btnInformationchange”的左边必须有类/结构/联合
-  student_classify.cpp(40): note: 类型是“int”
-student_classify.cpp(46): error C2228: “.btnReturn”的左边必须有类/结构/联合
-  student_classify.cpp(46): note: 类型是“int”
-student_classify.cpp(66): error C2228: “.tableWidget”的左边必须有类/结构/联合
-  student_classify.cpp(66): note: 类型是“int”
-student_classify.cpp(66): error C2227: “->rowCount”的左边必须指向类/结构/联合/泛型类型
-student_classify.cpp(67): error C2228: “.tableWidget”的左边必须有类/结构/联合
-  student_classify.cpp(67): note: 类型是“int”
-student_classify.cpp(67): error C2227: “->removeRow”的左边必须指向类/结构/联合/泛型类型
-student_classify.cpp(74): error C2228: “.tableWidget”的左边必须有类/结构/联合
-  student_classify.cpp(74): note: 类型是“int”
-student_classify.cpp(74): error C2227: “->insertRow”的左边必须指向类/结构/联合/泛型类型
-student_classify.cpp(75): error C2228: “.tableWidget”的左边必须有类/结构/联合
-  student_classify.cpp(75): note: 类型是“int”
-student_classify.cpp(75): error C2227: “->setRowHeight”的左边必须指向类/结构/联合/泛型类型
-student_classify.cpp(79): error C2228: “.tableWidget”的左边必须有类/结构/联合
-  student_classify.cpp(79): note: 类型是“int”
-student_classify.cpp(79): error C2227: “->setCellWidget”的左边必须指向类/结构/联合/泛型类型
-  student_searchbook.cpp
-c:\users\zqx\desktop\uml\library\library\student_classify.h(23): error C2039: “student_classify”: 不是“Ui”的成员
-  .\GeneratedFiles\ui_student_classify.h(236): note: 参见“Ui”的声明
-c:\users\zqx\desktop\uml\library\library\student_classify.h(23): error C2460: “student_classify::ui”: 使用正在定义的“student_classify”
-  c:\users\zqx\desktop\uml\library\library\student_classify.h(7): note: 参见“student_classify”的声明
-  正在生成代码...
+﻿  admin_addbook.cpp
+student_repay.obj : error LNK2001: 无法解析的外部符号 "public: static void __cdecl recommendBuffer::Resert(void)" (?Resert@recommendBuffer@@SAXXZ)
+student_searchbook.obj : error LNK2001: 无法解析的外部符号 "public: static void __cdecl recommendBuffer::Resert(void)" (?Resert@recommendBuffer@@SAXXZ)
+student_update.obj : error LNK2001: 无法解析的外部符号 "public: static void __cdecl recommendBuffer::Resert(void)" (?Resert@recommendBuffer@@SAXXZ)
+student_updatepassword.obj : error LNK2001: 无法解析的外部符号 "public: static void __cdecl recommendBuffer::Resert(void)" (?Resert@recommendBuffer@@SAXXZ)
+student_bookdetail.obj : error LNK2001: 无法解析的外部符号 "public: static void __cdecl recommendBuffer::Resert(void)" (?Resert@recommendBuffer@@SAXXZ)
+student_borrowdetail.obj : error LNK2001: 无法解析的外部符号 "public: static void __cdecl recommendBuffer::Resert(void)" (?Resert@recommendBuffer@@SAXXZ)
+student_classify.obj : error LNK2001: 无法解析的外部符号 "public: static void __cdecl recommendBuffer::Resert(void)" (?Resert@recommendBuffer@@SAXXZ)
+student_index.obj : error LNK2001: 无法解析的外部符号 "public: static void __cdecl recommendBuffer::Resert(void)" (?Resert@recommendBuffer@@SAXXZ)
+student_index.obj : error LNK2019: 无法解析的外部符号 "public: static class QVector<class QString> recommendBuffer::urlBufferLocal" (?urlBufferLocal@recommendBuffer@@2V?$QVector@VQString@@@@A)，该符号在函数 "public: void __cdecl student_index::InitThisPage(void)" (?InitThisPage@student_index@@QEAAXXZ) 中被引用
+student_index.obj : error LNK2019: 无法解析的外部符号 "public: static class QString recommendBuffer::headUrlLocal" (?headUrlLocal@recommendBuffer@@2VQString@@A)，该符号在函数 "public: void __cdecl student_index::InitThisPage(void)" (?InitThisPage@student_index@@QEAAXXZ) 中被引用
+C:\Users\zqx\Desktop\UML\Library\x64\Release\\Library.exe : fatal error LNK1120: 3 个无法解析的外部命令

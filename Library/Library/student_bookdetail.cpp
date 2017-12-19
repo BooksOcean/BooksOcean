@@ -132,13 +132,13 @@ bool student_bookDetail::eventFilter(QObject *obj, QEvent *event) {
 		FileDB::select("record", record, VALUES0, entity);
 		int sum = 0;
 		for (int i = 0; i < entity.size(); i++) {
-			if (entity[i].type == 0 || entity[i].type == 3) {
+			if (entity[i].type == 0 || entity[i].type == 3 || entity[i].type == 2) {
 				sum++;
 			}
 		}
 
 		if (sum >= 4) {
-			QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("当前所借书籍已达上限4本，不可继续借书"), QMessageBox::Ok);
+			QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("当前所借书籍,所预约书籍已达上限4本，不可继续借书"), QMessageBox::Ok);
 			return true;
 		}
 		vector<string>VALUES;
@@ -237,6 +237,23 @@ bool student_bookDetail::eventFilter(QObject *obj, QEvent *event) {
 		FileDB::select("book", book, VALUES_3, resBook);
 		if (resBook[0].nowCount>0) {
 			QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("此书尚有可借本，无法预约"), QMessageBox::Ok);
+			return true;
+		}
+		vector<Record>entity0;
+		vector<string>VALUES0;
+		Record record0;
+		record0.setStudentId(userConfig::id);
+		VALUES0.push_back("one");
+		VALUES0.push_back("studentId");
+		FileDB::select("record", record0, VALUES0, entity0);
+		int sum = 0;
+		for (int i = 0; i < entity0.size(); i++) {
+			if (entity0[i].type == 0 || entity0[i].type == 3 || entity0[i].type == 2) {
+				sum++;
+			}
+		}
+		if (sum >= 4) {
+			QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("当前所借书籍,所预约书籍已达上限4本，不可继续预约"), QMessageBox::Ok);
 			return true;
 		}
 		else {//可以进行预约

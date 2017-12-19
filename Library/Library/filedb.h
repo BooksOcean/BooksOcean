@@ -436,6 +436,7 @@ public:
 			}
 			T temp;
 
+
 			//¼ÇÒä»¯ËÑË÷
 			vector<string>elemType;
 			vector<int>elemIntValue;

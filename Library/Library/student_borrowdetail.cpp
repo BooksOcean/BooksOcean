@@ -77,12 +77,20 @@ void student_borrowdetail::InitThisPage() {
 	VALUES_2.push_back("bookId");
 	record.setBookId(bookConfig::bookNo);
 	FileDB::select("record", record, VALUES_2, resRecord);
-	ui.etDate->setText(chartoqs(resRecord[0].time));
+	int i;
+	for (i = 0; i < resRecord.size(); i++) {
+		if (resRecord[i].type != 2 && resRecord[i].type != 4) {
+			break;
+		}
+	}
+
+	ui.etDate->setText(chartoqs(resRecord[i].time));
 	ui.etBookNameHead->setText(chartoqs(resBook[0].name));
 	ui.etBookName->setText(chartoqs(resBook[0].name));
 	ui.etAuthor->setText(chartoqs(resBook[0].author));
 	ui.etPublish->setText(chartoqs(resBook[0].publish));
 	ui.etISBN->setText(chartoqs(resBook[0].ISBN));
+	ui.etDate->setText(chartoqs(resRecord[i].time));
 
 	Classify classify;
 	vector<Classify>resClassify;
@@ -217,6 +225,7 @@ bool student_borrowdetail::eventFilter(QObject *obj, QEvent *event) {
 	}
 	if (obj == ui.btnBorrowagain && event->type() == QEvent::MouseButtonPress) {
 
+		//问题出在这里
 		Record record;
 		vector<Record>resRecord;
 		vector<string>VALUES_2;
@@ -225,25 +234,33 @@ bool student_borrowdetail::eventFilter(QObject *obj, QEvent *event) {
 		record.setBookId(bookConfig::bookNo);
 		FileDB::select("record", record, VALUES_2, resRecord);
 		//检查是否超期
-		if (resRecord[0].type == 1) {
+		int i;
+		for (i = 0; i < resRecord.size(); i++) {
+			if (resRecord[i].type != 4) {
+				break;
+			}
+		}
+		if (resRecord[i].type == 1) {
 			QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("超期，不得续借"), QMessageBox::Ok);
 			return true;
 		}
 		//检查是否已经续借过
-		if (resRecord[0].type == 3) {
+		if (resRecord[i].type == 3) {
 			QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("已经续借过，不可再次续借"), QMessageBox::Ok);
 			return true;
 		}
-		QDateTime dt = QDateTime::fromString(resRecord[0].time, "yyyy-MM-dd");
+		QDateTime dt = QDateTime::fromString(resRecord[i].time, "yyyy-MM-dd");
 		QDateTime afterOneMonthDateTime = dt.addMonths(1);
 		QString currentDate = afterOneMonthDateTime.toString("yyyy-MM-dd");
 		char* ch1;
 		QByteArray ba = currentDate.toLatin1();
 		ch1 = ba.data();
-		resRecord[0].setTime(ch1);
-		resRecord[0].setType(3);
-		ui.etDate->setText(chartoqs(resRecord[0].time));
-		FileDB::update("record", record, resRecord[0], VALUES_2);
+		resRecord[i].setTime(ch1);
+		record.setType(resRecord[i].type);
+		resRecord[i].setType(3);
+		VALUES_2.push_back("type");
+		ui.etDate->setText(chartoqs(resRecord[i].time));
+		FileDB::update("record", record, resRecord[i], VALUES_2);
 		QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("续借成功"), QMessageBox::Ok);
 	}
 
@@ -353,12 +370,14 @@ void student_borrowdetail::ReturnOrder() {
 	VALUES_2.push_back("id");
 	int i;
 	for (i = 0; i < res.size(); i++) {
-		if (res[i].type != 4 || res[i].type != 2) {
+		//这里BUG
+		if (res[i].type != 4 && res[i].type != 2) {
 			break;
 		}
 	}
 	record_delete.setId(res[i].id);
-	int res_2 = FileDB::Delete("record", record_delete, VALUES_2);
+	res[i].setType(4);
+	int res_2 = FileDB::update("record", record_delete,res[i],VALUES_2);
 	QTextCodec * BianMa = QTextCodec::codecForName("GBK");
 	if (res_2 > 0) {
 		QMessageBox::information(NULL, BianMa->toUnicode(""), BianMa->toUnicode("还书成功"), QMessageBox::Ok);

@@ -70,6 +70,7 @@ student_index::student_index(QWidget *parent)
 	ui.tableOrder->setRowHeight(0, 150);
 	InitThisPage();
 	
+
 	if (!recommendBuffer::isPostBack) {
 		myThread = new Thread;
 		connect(myThread, SIGNAL(UpdateSignal()),
@@ -248,6 +249,9 @@ void student_index::InitThisPage() {
 
 	//第一次加载时做的动作
 	float money = 0;
+	vector<string>VALBOOK;
+	VALBOOK.push_back("one");
+	VALBOOK.push_back("id");
 	//加载借阅但未超期的数目（注意此时可能有一部分变为超期）
 	for (int i = 0; i < resRecord.size(); i++) {
 		//检查是否超期
@@ -260,7 +264,7 @@ void student_index::InitThisPage() {
 				int day = span / (60 * 60 * 24);
 				money += day;
 				resRecord[i].type = 1;
-				FileDB::update("record", rec, resRecord[i], VALUES);
+				FileDB::update("record", rec, resRecord[i], VALBOOK);
 			}
 		}
 		VALUES.clear();

@@ -43,19 +43,15 @@ void Thread::run()
 
 	for (int i = 0; i < recommendBuffer::urlBuffer.size(); i++) {
 		if (!recommendBuffer::isPostBack) {
-			QPixmap pixmap;
-			//加载图片
-			QUrl url(recommendBuffer::urlBuffer[i]);
 			QNetworkAccessManager manager;
 			QEventLoop loop;
-			// qDebug() << "Reading picture form " << url;
-			QNetworkReply *reply = manager.get(QNetworkRequest(url));
+			QNetworkReply *reply = manager.get(QNetworkRequest(recommendBuffer::urlBuffer[i]));
 			//请求结束并下载完成后，退出子事件循环
 			QObject::connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
 			//开启子事件循环
 			loop.exec();
-
 			QByteArray jpegData = reply->readAll();
+			QPixmap pixmap;
 			pixmap.loadFromData(jpegData);
 			pixmap = pixmap.scaled(110, 130, Qt::KeepAspectRatio);
 			recommendBuffer::picBuffer.push_back(pixmap);

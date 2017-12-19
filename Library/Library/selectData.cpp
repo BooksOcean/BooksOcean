@@ -8,6 +8,7 @@ selectData::selectData(QWidget *parent)
 	ui.btnInitial->installEventFilter(this);
 	ui.btnRandom->installEventFilter(this);
 	ui.btnNormal->installEventFilter(this);
+	ui.btnNormal->setVisible(false);
 }
 
 bool selectData::eventFilter(QObject *obj, QEvent *event) {

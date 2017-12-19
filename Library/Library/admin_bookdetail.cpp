@@ -31,9 +31,12 @@ admin_bookdetail::~admin_bookdetail()
 void admin_bookdetail::DataBind() {
 	BookMap bookmap;
 	vector<string>VALUES;
+	vector<string>VALUESGG;
 	vector<BookMap>resBookmap;
 	VALUES.push_back("one");
 	VALUES.push_back("bookId");
+	VALUESGG.push_back("one");
+	VALUESGG.push_back("bookId");
 	bookmap.setBookId(bookConfig::bookId);
 	FileDB::select("bookMap", bookmap, VALUES, DataTable);
 	
@@ -64,23 +67,27 @@ void admin_bookdetail::DataBind() {
 		else {
 			record.setBookId(DataTable[i].id);
 			resRecord.clear();
-			FileDB::select("record", record, VALUES, resRecord);
+			FileDB::select("record", record, VALUESGG, resRecord);
 			if (resRecord.size() > 0) {
-				if (resRecord[0].type == 0)
-					ui.tableWidget->setItem(i, 1, new QTableWidgetItem(QString::fromLocal8Bit("已借出")));
-				else if (resRecord[0].type == 1)
-					ui.tableWidget->setItem(i, 1, new QTableWidgetItem(QString::fromLocal8Bit("超期未还")));
-				else
-					ui.tableWidget->setItem(i, 1, new QTableWidgetItem(QString::fromLocal8Bit("被预约")));
+				int j;
+				for (j = 0; i < resRecord.size(); j++) {
+					if (resRecord[j].type != 4)break;
+				}
+				//if (resRecord[0].type == 0)
+				ui.tableWidget->setItem(i, 1, new QTableWidgetItem(QString::fromLocal8Bit("已借出")));
+				//else if (resRecord[0].type == 1)
+					//ui.tableWidget->setItem(i, 1, new QTableWidgetItem(QString::fromLocal8Bit("超期未还")));
+				//else
+					//ui.tableWidget->setItem(i, 1, new QTableWidgetItem(QString::fromLocal8Bit("被预约")));
 
 				Student student;
 				vector<Student>resStudent;
-				student.setId(resRecord[0].studentId);
+				student.setId(resRecord[j].studentId);
 				VALUES.pop_back();
 				VALUES.push_back("id");
 				FileDB::select("student", student, VALUES, resStudent);
 				ui.tableWidget->setItem(i, 2, new QTableWidgetItem(QString::fromLocal8Bit(resStudent[0].usercode)));
-				ui.tableWidget->setItem(i, 3, new QTableWidgetItem(QString::fromLocal8Bit(resRecord[0].time)));
+				ui.tableWidget->setItem(i, 3, new QTableWidgetItem(QString::fromLocal8Bit(resRecord[j].time)));
 			}
 		}
 	}

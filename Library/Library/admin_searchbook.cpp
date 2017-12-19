@@ -15,6 +15,7 @@
 #include"library.h"
 #include"admin_bookdetail.h"
 #include<QSignalMapper>
+#include<QDateTime>
 #include<QMessageBox>
 admin_searchbook::admin_searchbook(QWidget *parent)
 	: QWidget(parent)
@@ -407,23 +408,120 @@ void admin_searchbook::OnBtnClickedAddCount(int id)
 	book.setId(id);
 	for (int i = 0; i < DataTable.size(); i++) {
 		if (DataTable[i].id == id) {
-			DataTable[i].count++;
-			DataTable[i].nowCount++;
-			FileDB::update("book", book, DataTable[i], VALUES);
-			//维护BookMap
-			BookMap bookmap;
-			bookmap.setBookId(id);
-			VALUES.pop_back();
-			VALUES.push_back("bookId");
-			vector<BookMap>resBookmap;
-			FileDB::select("bookMap", bookmap, VALUES, resBookmap);
-			bookmap.setBookNum(resBookmap[resBookmap.size() - 1].bookNum + 1);
-			resBookmap.clear();
-			bookmap.setIsOut(0);
-			resBookmap.push_back(bookmap);
-			FileDB::insert("bookMap", resBookmap);
+			//首先查询是否有人预约这类书
+			Record iforder;
+			vector<string>VALUES_2;
+			vector<Record>resiforder;
+			VALUES_2.push_back("one");
+			VALUES_2.push_back("bookId");
+			VALUES_2.push_back("type");
+			iforder.setBookId(id);
+			iforder.setType(2);
+			FileDB::select("record", iforder, VALUES_2, resiforder);
+
+			if (resiforder.size() == 0) {
+
+				DataTable[i].count++;
+				DataTable[i].nowCount++;
+				FileDB::update("book", book, DataTable[i], VALUES);
+				//维护BookMap
+				BookMap bookmap;
+				bookmap.setBookId(id);
+				VALUES.pop_back();
+				VALUES.push_back("bookId");
+				vector<BookMap>resBookmap;
+				FileDB::select("bookMap", bookmap, VALUES, resBookmap);
+				bookmap.setBookNum(resBookmap[resBookmap.size() - 1].bookNum + 1);
+				resBookmap.clear();
+				bookmap.setIsOut(0);
+				resBookmap.push_back(bookmap);
+				FileDB::insert("bookMap", resBookmap);
+			}
+			else {
+				DataTable[i].count++;
+				FileDB::update("book", book, DataTable[i], VALUES);
+				//维护BookMap
+				BookMap bookmap;
+				bookmap.setBookId(id);
+				VALUES.pop_back();
+				VALUES.push_back("bookId");
+				vector<BookMap>resBookmap;
+				FileDB::select("bookMap", bookmap, VALUES, resBookmap);
+				bookmap.setBookNum(resBookmap[resBookmap.size() - 1].bookNum + 1);
+				resBookmap.clear();
+				bookmap.setIsOut(1);
+				resBookmap.push_back(bookmap);
+				FileDB::insert("bookMap", resBookmap);
+
+				int theFirstOrderId = 0;//记录下合法预约记录的最先预约记录的id
+				int min_time = 0;
+
+				//有人还书时，用数的总id和type == 2做查询，预约超期则删除记录，然后分配借书
+				Record record;
+				VALUES.clear();
+				vector<Record>resRecord;
+				VALUES.push_back("one");
+				VALUES.push_back("bookId");
+				VALUES.push_back("type");
+				record.setBookId(id);
+				record.setType(2);
+				FileDB::select("record", record, VALUES, resRecord);
+				//计算时间,并删除超期的预约记录
+				QDateTime now = QDateTime::currentDateTime();
+				for (int i = 0; i < resRecord.size(); i++) {
+					QDateTime then = QDateTime::fromString(resRecord[i].time, "yyyy-MM-dd");
+					int span = then.secsTo(now);
+					if (span > 0) {
+						if (resRecord[i].type == 2) {
+							Record rec;
+							VALUES.clear();
+							VALUES.push_back("one");
+							VALUES.push_back("id");
+							rec.setId(resRecord[i].id);
+							FileDB::Delete("record", rec, VALUES);
+						}
+					}
+					else {//记录下合法预约记录的最先预约记录
+						if (span < min_time) {
+							min_time = span;
+							theFirstOrderId = i;
+						}
+					}
+				}
+
+				//系统自动给最先预约的同学借书
+				//插入借书记录
+				vector<Record>entity;
+				Record record_2;
+				record_2.setStudentId(resRecord[theFirstOrderId].studentId);
+				record_2.setBookId(resBookmap[resBookmap.size() - 1].id);
+
+				QDateTime dt = QDateTime::currentDateTime();
+				QDateTime afterOneMonthDateTime = dt.addMonths(1);
+				QString currentDate = afterOneMonthDateTime.toString("yyyy-MM-dd");
+
+				char* ch1;
+				QByteArray ba = currentDate.toLatin1();
+				ch1 = ba.data();
+				record_2.setTime(ch1);
+
+				record_2.setType(0);
+				record_2.setMoney(0);
+				entity.push_back(record_2);
+				FileDB::insert("record", entity);
+				//删除预约记录
+				Record deletethis;
+				VALUES.clear();
+				VALUES.push_back("one");
+				VALUES.push_back("id");
+				deletethis.setId(resRecord[theFirstOrderId].id);
+				FileDB::Delete("record", deletethis, VALUES);
+
+			}
 			break;
 		}
+		
+
 	}
 	DataBind();
 	QMessageBox::information(NULL, QString::fromLocal8Bit(""), QString::fromLocal8Bit("添加成功"), QMessageBox::Ok);
